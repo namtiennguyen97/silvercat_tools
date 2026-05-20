@@ -196,7 +196,7 @@
         'https://cobaltapi.squair.xyz'
     ];
 
-    async function tryInstance(instanceUrl, url) {
+    async function tryInstance(instanceUrl, url, overrides = {}) {
         const endpoint = instanceUrl.replace(/\/$/, '') + '/';
         const response = await fetch(endpoint, {
             method: 'POST',
@@ -209,8 +209,9 @@
                 videoQuality: '1080',
                 audioFormat: 'mp3',
                 downloadMode: 'auto',
-                filenameStyle: 'basic',
-                youtubeVideoCodec: 'h264'  // Force h264 for max Windows compatibility
+                filenameStyle: 'classic',
+                youtubeVideoCodec: 'h264',  // Force h264 for max Windows compatibility
+                ...overrides
             }),
             signal: AbortSignal.timeout(25000) // 25 second timeout — YouTube processing takes time
         });
@@ -238,7 +239,16 @@
         for (const instance of COBALT_INSTANCES) {
             try {
                 const data = await tryInstance(instance, url);
-                displayResult(data, url, platform);
+
+                // Also fetch audio-only version in parallel (best effort)
+                let audioData = null;
+                try {
+                    audioData = await tryInstance(instance, url, { downloadMode: 'audio' });
+                } catch (audioErr) {
+                    console.warn('Audio-only fetch failed (non-critical):', audioErr.message);
+                }
+
+                displayResult(data, url, platform, audioData);
                 btnFetch.disabled = false; // Re-enable after success
                 return; // Success — stop trying other instances
             } catch (error) {
@@ -255,7 +265,7 @@
     }
 
     // Display successful result
-    function displayResult(data, url, platform) {
+    function displayResult(data, url, platform, audioData) {
         // Set platform-specific display
         const platformNames = {
             tiktok: 'TikTok',
@@ -345,7 +355,7 @@
             }
         }
 
-        // Standalone audio track
+        // Standalone audio track from video response
         if ((data.status === 'redirect' || data.status === 'tunnel') && data.audio) {
             const audioOpt = createDownloadOption(
                 getLangText('Chỉ âm thanh (MP3)', 'Audio Only (MP3)'),
@@ -354,6 +364,20 @@
                 '',
                 data.audio,
                 data.filename ? data.filename.replace(/\.[^/.]+$/, '.mp3') : 'audio.mp3'
+            );
+            downloadOptionsList.appendChild(audioOpt);
+        }
+
+        // Audio-only option from separate audio API call
+        // Only add if we didn't already add an audio option above
+        if (audioData && audioData.url && !data.audio) {
+            const audioOpt = createDownloadOption(
+                getLangText('Chỉ âm thanh (MP3)', 'Audio Only (MP3)'),
+                'MP3',
+                'badge-audio',
+                '',
+                audioData.url,
+                audioData.filename || 'audio.mp3'
             );
             downloadOptionsList.appendChild(audioOpt);
         }
