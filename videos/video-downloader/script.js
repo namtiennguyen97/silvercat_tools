@@ -19,7 +19,6 @@
     const videoThumbnail = document.getElementById('video-thumbnail');
     const videoTitle = document.getElementById('video-title');
     const videoDuration = document.getElementById('video-duration');
-    const videoAuthor = document.getElementById('video-author');
     const videoPlatformBadge = document.getElementById('video-platform-badge');
     const downloadOptionsList = document.getElementById('download-options-list');
     const errorMessage = document.getElementById('error-message');
@@ -87,11 +86,14 @@
     }
 
     // Create download option HTML
-    function createDownloadOption(label, quality, badgeClass, size, downloadUrl) {
+    // filename: optional, used to force browser download with correct name
+    function createDownloadOption(label, quality, badgeClass, size, downloadUrl, filename) {
         const option = document.createElement('div');
         option.className = 'download-option';
 
         const dlIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+        const spinIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="spin-icon"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
+        const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
         option.innerHTML = `
             <div class="option-info">
@@ -99,11 +101,83 @@
                 <span class="option-badge ${badgeClass}">${quality}</span>
                 ${size ? `<span class="option-size">${size}</span>` : ''}
             </div>
-            <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-dl-option">
+            <button class="btn-dl-option" data-url="${downloadUrl}" data-filename="${filename || ''}">
                 ${dlIcon}
                 <span>${getLangText('Tải xuống', 'Download')}</span>
-            </a>
+            </button>
         `;
+
+        // Attach download handler
+        const btn = option.querySelector('.btn-dl-option');
+        btn.addEventListener('click', async () => {
+            const url = btn.dataset.url;
+            const originalFname = btn.dataset.filename || 'video.mp4';
+            const fname = originalFname.replace(/[<>:"\/\\|?*\x00-\x1F]/g, '_');
+
+            if (url.includes('/tunnel')) {
+                // Show loading state briefly to acknowledge click
+                btn.disabled = true;
+                btn.innerHTML = `${spinIcon} <span>${getLangText('Đang bắt đầu tải...', 'Starting download...')}</span>`;
+                
+                setTimeout(() => {
+                    btn.innerHTML = `${checkIcon} <span>${getLangText('Thành công!', 'Done!')}</span>`;
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.innerHTML = `${dlIcon} <span>${getLangText('Tải xuống', 'Download')}</span>`;
+                    }, 2000);
+                }, 800);
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fname;
+                a.rel = 'noopener noreferrer';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                // For direct CDN links (like Facebook), force download via fetch->blob
+                btn.disabled = true;
+                btn.innerHTML = `${spinIcon} <span>${getLangText('Đang tải về máy...', 'Downloading...')}</span>`;
+                
+                try {
+                    const res = await fetch(url, { mode: 'cors' });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const blob = await res.blob();
+                    if (blob.size === 0) throw new Error('empty');
+
+                    const objectUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = objectUrl;
+                    a.download = fname;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
+
+                    // Show success
+                    btn.innerHTML = `${checkIcon} <span>${getLangText('Thành công!', 'Done!')}</span>`;
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.innerHTML = `${dlIcon} <span>${getLangText('Tải xuống', 'Download')}</span>`;
+                    }, 2500);
+                } catch (err) {
+                    console.warn('fetch-blob failed:', err.message);
+                    // Fallback to navigating if fetch fails
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fname;
+                    a.rel = 'noopener noreferrer';
+                    a.target = '_blank';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                    btn.disabled = false;
+                    btn.innerHTML = `${dlIcon} <span>${getLangText('Tải xuống', 'Download')}</span>`;
+                }
+            }
+        });
+
         return option;
     }
 
@@ -116,11 +190,10 @@
 
     // Community instances (v10 compatible). Will try each in order until one works.
     const COBALT_INSTANCES = [
-        'https://cobalt.api.timik.ru',
-        'https://cobalt.drgns.space',
-        'https://cobalt-api.damon.sh',
-        'https://capi.oak.bio',
-        'https://cobalt.pleb.city'
+        'https://dog.kittycat.boo',
+        'https://api.cobalt.blackcat.sweeux.org',
+        'https://cobaltapi.kittycat.boo',
+        'https://cobaltapi.squair.xyz'
     ];
 
     async function tryInstance(instanceUrl, url) {
@@ -135,12 +208,11 @@
                 url: url,
                 videoQuality: '1080',
                 audioFormat: 'mp3',
-                videoCodec: 'h264',
-                filenamePattern: 'basic',
-                tiktokFullAudio: true,
-                tiktokH265: false
+                downloadMode: 'auto',
+                filenameStyle: 'basic',
+                youtubeVideoCodec: 'h264'  // Force h264 for max Windows compatibility
             }),
-            signal: AbortSignal.timeout(10000) // 10 second timeout per instance
+            signal: AbortSignal.timeout(25000) // 25 second timeout — YouTube processing takes time
         });
 
         if (!response.ok) {
@@ -196,17 +268,21 @@
 
         const platformName = platformNames[platform] || 'Video';
 
-        // Set thumbnail - use a generic gradient if no thumbnail
+        // Set thumbnail - use logo as fallback if no thumbnail
         if (data.thumb) {
             videoThumbnail.src = data.thumb;
         } else {
-            videoThumbnail.src = `https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop`;
+            videoThumbnail.src = `../../logo.jpg`;
         }
 
         // Set video info
-        videoTitle.textContent = data.title || `${platformName} Video`;
+        let titleText = data.title;
+        if (!titleText && data.filename) {
+            // Remove file extension
+            titleText = data.filename.replace(/\.[^/.]+$/, "");
+        }
+        videoTitle.textContent = titleText || `${platformName} Video`;
         videoDuration.textContent = formatDuration(data.duration);
-        videoAuthor.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> ${data.author || getLangText('Không rõ tác giả', 'Unknown author')}`;
         videoPlatformBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg> ${platformName}`;
 
         // Build download options (Cobalt v10 statuses: redirect, tunnel, picker, local-processing)
@@ -219,7 +295,8 @@
                 'HD',
                 'badge-hd',
                 '',
-                data.url
+                data.url,
+                data.filename
             );
             downloadOptionsList.appendChild(opt);
         }
@@ -231,7 +308,8 @@
                 'HD',
                 'badge-hd',
                 '',
-                data.output.url || data.url
+                data.output.url || data.url,
+                data.filename
             );
             downloadOptionsList.appendChild(opt);
         }
@@ -248,7 +326,8 @@
                     isAudio ? 'MP3' : 'HD',
                     isAudio ? 'badge-audio' : 'badge-hd',
                     '',
-                    item.url
+                    item.url,
+                    item.filename || data.filename
                 );
                 downloadOptionsList.appendChild(opt);
             });
@@ -259,7 +338,8 @@
                     'MP3',
                     'badge-audio',
                     '',
-                    data.audio
+                    data.audio,
+                    data.filename ? data.filename.replace(/\.[^/.]+$/, '.mp3') : 'audio.mp3'
                 );
                 downloadOptionsList.appendChild(audioOpt);
             }
@@ -272,7 +352,8 @@
                 'MP3',
                 'badge-audio',
                 '',
-                data.audio
+                data.audio,
+                data.filename ? data.filename.replace(/\.[^/.]+$/, '.mp3') : 'audio.mp3'
             );
             downloadOptionsList.appendChild(audioOpt);
         }
@@ -284,7 +365,8 @@
                 'MP4',
                 'badge-hd',
                 '',
-                data.url
+                data.url,
+                data.filename
             );
             downloadOptionsList.appendChild(opt);
         }
@@ -416,11 +498,6 @@
     window.addEventListener('languageChanged', () => {
         // Translate elements inside resultSection if visible
         if (resultSection.style.display === 'block') {
-            // Update the author element translation if it is "Unknown author"
-            const authorText = videoAuthor.textContent.trim();
-            if (authorText.includes('Không rõ tác giả') || authorText.includes('Unknown author')) {
-                videoAuthor.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> ${getLangText('Không rõ tác giả', 'Unknown author')}`;
-            }
             // Update download button texts
             document.querySelectorAll('.btn-dl-option span').forEach(span => {
                 span.textContent = getLangText('Tải xuống', 'Download');

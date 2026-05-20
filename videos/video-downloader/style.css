@@ -523,9 +523,26 @@
     box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
 }
 
+.btn-dl-option:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+    transform: none;
+    filter: none;
+    box-shadow: none;
+}
+
 .btn-dl-option svg {
     width: 14px;
     height: 14px;
+    flex-shrink: 0;
+}
+
+.btn-dl-option .spin-icon {
+    animation: spin-btn 0.9s linear infinite;
+}
+
+@keyframes spin-btn {
+    to { transform: rotate(360deg); }
 }
 
 /* ==========================================================================
