@@ -569,10 +569,54 @@ const i18nDictionary = {
         }
     }
 
-    // 3. Inject Language Switcher in Header
+    // 3. Inject Language Switcher and Donate Button in Header
     function injectLanguageSwitcher() {
         const navbar = document.getElementById('main-navbar');
         if (!navbar) return;
+
+        const rightActions = document.createElement('div');
+        rightActions.className = 'nav-right-actions';
+        rightActions.style.display = 'flex';
+        rightActions.style.alignItems = 'center';
+        rightActions.style.gap = '12px';
+
+        // Create Ko-fi Button Header
+        const kofiBtnHeader = document.createElement('a');
+        kofiBtnHeader.href = 'https://ko-fi.com/T3F21ZTTDF';
+        kofiBtnHeader.target = '_blank';
+        kofiBtnHeader.title = 'Support me on Ko-fi';
+        kofiBtnHeader.className = 'kofi-btn-header';
+        kofiBtnHeader.style.display = 'flex';
+        kofiBtnHeader.style.alignItems = 'center';
+        kofiBtnHeader.style.transition = 'transform 0.2s ease';
+        kofiBtnHeader.onmouseover = () => kofiBtnHeader.style.transform = 'scale(1.05)';
+        kofiBtnHeader.onmouseout = () => kofiBtnHeader.style.transform = 'scale(1)';
+        kofiBtnHeader.innerHTML = `<img height="36" style="border:0px;height:32px;" src="https://storage.ko-fi.com/cdn/kofi6.png?v=6" border="0" alt="Buy Me a Coffee at ko-fi.com" />`;
+
+        // Create Ko-fi Button Footer
+        const kofiBtnFooter = document.createElement('a');
+        kofiBtnFooter.href = 'https://ko-fi.com/T3F21ZTTDF';
+        kofiBtnFooter.target = '_blank';
+        kofiBtnFooter.title = 'Support me on Ko-fi';
+        kofiBtnFooter.className = 'kofi-btn-footer';
+        kofiBtnFooter.style.display = 'none'; // Default hidden, shown via CSS media query
+        kofiBtnFooter.style.alignItems = 'center';
+        kofiBtnFooter.style.transition = 'transform 0.2s ease';
+        kofiBtnFooter.onmouseover = () => kofiBtnFooter.style.transform = 'scale(1.05)';
+        kofiBtnFooter.onmouseout = () => kofiBtnFooter.style.transform = 'scale(1)';
+        kofiBtnFooter.innerHTML = `<img height="36" style="border:0px;height:36px;" src="https://storage.ko-fi.com/cdn/kofi6.png?v=6" border="0" alt="Buy Me a Coffee at ko-fi.com" />`;
+
+        // Inject footer button
+        const footerContainer = document.querySelector('.footer-container');
+        if (footerContainer) {
+            // insert before copyright
+            const copyright = footerContainer.querySelector('.footer-copyright');
+            if (copyright) {
+                footerContainer.insertBefore(kofiBtnFooter, copyright);
+            } else {
+                footerContainer.appendChild(kofiBtnFooter);
+            }
+        }
 
         // Create Selector Element
         const switcher = document.createElement('div');
@@ -603,12 +647,15 @@ const i18nDictionary = {
             </div>
         `;
 
+        rightActions.appendChild(kofiBtnHeader);
+        rightActions.appendChild(switcher);
+
         // Append to navbar before nav-cta if desktop, or at the end
         const navCta = navbar.querySelector('.nav-cta');
         if (navCta) {
-            navbar.insertBefore(switcher, navCta);
+            navbar.insertBefore(rightActions, navCta);
         } else {
-            navbar.appendChild(switcher);
+            navbar.appendChild(rightActions);
         }
 
         // Setup Dropdown Toggle Events
