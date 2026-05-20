@@ -132,6 +132,30 @@ const i18nDictionary = {
         "btn-clear-queue": "Xóa danh sách",
         "badge-category-image": "Xử Lý Hình Ảnh",
 
+        // --- VIDEO DOWNLOADER PAGE ---
+        "badge-category-video": "Tải Video",
+        "vdl-title-tag": "Tải Video TikTok/Facebook Không Watermark - Silver Cat Tools",
+        "vdl-meta-desc": "Tải video TikTok, Facebook, Instagram, YouTube không dính logo watermark. Tốc độ cao, miễn phí, không cần cài đặt phần mềm. Xử lý trực tiếp trên trình duyệt.",
+        "vdl-meta-keywords": "tải video tiktok, tải video facebook, download video tiktok no watermark, tải video instagram, video downloader online, tải video không logo",
+        "vdl-h1": "Tải Video <span class=\"text-gradient-pink\">Không Watermark</span>",
+        "vdl-subtitle": "Dán link video từ TikTok, Facebook, Instagram hoặc YouTube. Hệ thống sẽ trích xuất video gốc chất lượng cao nhất, hỗ trợ loại bỏ watermark tự động.",
+        "vdl-input-placeholder": "Dán link video TikTok, Facebook, Instagram hoặc YouTube vào đây...",
+        "vdl-btn-fetch": "Tải Video Ngay",
+        "vdl-btn-paste": "Dán link",
+        "vdl-platforms-title": "Nền tảng được hỗ trợ",
+        "vdl-loading": "Đang trích xuất video... Vui lòng chờ trong giây lát.",
+        "vdl-options-title": "Tùy chọn tải xuống",
+        "vdl-error-title": "Không thể tải video",
+        "vdl-error-desc": "Vui lòng kiểm tra lại đường link hoặc thử với video khác. Một số video riêng tư hoặc bị giới hạn khu vực có thể không hỗ trợ tải.",
+        "vdl-btn-retry": "Thử lại",
+        "vdl-howto-title": "Cách sử dụng",
+        "vdl-step1-title": "Sao chép đường link",
+        "vdl-step1-desc": "Mở ứng dụng TikTok, Facebook, Instagram... chọn video muốn tải và sao chép đường link chia sẻ.",
+        "vdl-step2-title": "Dán link vào ô nhập",
+        "vdl-step2-desc": "Dán đường link vừa sao chép vào ô nhập phía trên, hoặc nhấn nút Dán để tự động dán từ clipboard.",
+        "vdl-step3-title": "Tải video về máy",
+        "vdl-step3-desc": "Nhấn \"Tải Video Ngay\" và chọn chất lượng mong muốn. Video sẽ được tải xuống thiết bị của bạn ngay lập tức.",
+
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - Cổng Công Cụ & Tiện Ích Trực Tuyến Miễn Phí Cao Cấp",
         "home-meta-desc": "Khám phá bộ sưu tập công cụ tiện ích trực tuyến (Micro-SaaS) miễn phí, nhanh chóng và không quảng cáo. Nén ảnh chất lượng cao, chuyển đổi PDF sang Word, tạo QR nghệ thuật và tải video TikTok/FB không dính logo.",
@@ -340,6 +364,30 @@ const i18nDictionary = {
         "btn-clear-queue": "Clear list",
         "badge-category-image": "Image Processing",
 
+        // --- VIDEO DOWNLOADER PAGE ---
+        "badge-category-video": "Video Download",
+        "vdl-title-tag": "Download TikTok/Facebook Videos Without Watermark - Silver Cat Tools",
+        "vdl-meta-desc": "Download TikTok, Facebook, Instagram, YouTube videos without watermarks. High speed, free, no software installation required. Processed directly in your browser.",
+        "vdl-meta-keywords": "download tiktok video no watermark, download facebook video, instagram video downloader, youtube video downloader, video downloader online, save video",
+        "vdl-h1": "Download Videos <span class=\"text-gradient-pink\">Without Watermark</span>",
+        "vdl-subtitle": "Paste a video link from TikTok, Facebook, Instagram or YouTube. The system will extract the highest quality original video, with automatic watermark removal.",
+        "vdl-input-placeholder": "Paste a TikTok, Facebook, Instagram or YouTube video link here...",
+        "vdl-btn-fetch": "Download Now",
+        "vdl-btn-paste": "Paste link",
+        "vdl-platforms-title": "Supported platforms",
+        "vdl-loading": "Extracting video... Please wait a moment.",
+        "vdl-options-title": "Download options",
+        "vdl-error-title": "Cannot download video",
+        "vdl-error-desc": "Please check the link or try a different video. Private videos or region-locked content may not be supported.",
+        "vdl-btn-retry": "Try again",
+        "vdl-howto-title": "How to use",
+        "vdl-step1-title": "Copy the link",
+        "vdl-step1-desc": "Open TikTok, Facebook, Instagram... find the video you want and copy its share link.",
+        "vdl-step2-title": "Paste the link",
+        "vdl-step2-desc": "Paste the copied link into the input box above, or click the Paste button to automatically paste from clipboard.",
+        "vdl-step3-title": "Download to device",
+        "vdl-step3-desc": "Click \"Download Now\" and choose your preferred quality. The video will be saved to your device instantly.",
+
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - High-Performance Free Online Utility Tools",
         "home-meta-desc": "Explore a collection of free, high-performance, ad-free online utility tools (Micro-SaaS) running in your browser. Compress images, convert PDF to Word, create artistic QR codes, and download videos.",
@@ -475,6 +523,7 @@ const i18nDictionary = {
         const isTextEncoderPage = path.includes('text-encoder');
         const isCompressorPage = path.includes('image-compressor');
         const isConverterPage = path.includes('image-converter');
+        const isVideoDownloaderPage = path.includes('video-downloader');
         
         let titleVal = "";
         let descVal = "";
@@ -504,6 +553,10 @@ const i18nDictionary = {
             titleVal = i18nDictionary[lang]['converter-title-tag'];
             descVal = i18nDictionary[lang]['converter-meta-desc'];
             keywordsVal = i18nDictionary[lang]['converter-meta-keywords'];
+        } else if (isVideoDownloaderPage) {
+            titleVal = i18nDictionary[lang]['vdl-title-tag'];
+            descVal = i18nDictionary[lang]['vdl-meta-desc'];
+            keywordsVal = i18nDictionary[lang]['vdl-meta-keywords'];
         } else {
             titleVal = i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['home-meta-desc'];
