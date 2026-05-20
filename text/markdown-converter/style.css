@@ -1,0 +1,371 @@
+.text-gradient-indigo {
+    background: var(--grad-indigo);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.tool-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: calc(var(--nav-height) + 2rem) 2rem 4rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    transition: var(--transition-smooth);
+}
+
+.back-link:hover {
+    color: var(--accent-indigo);
+    transform: translateX(-4px);
+}
+
+.back-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    transform: rotate(180deg);
+}
+
+.tool-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    .tool-grid-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .tool-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .tool-panel {
+        padding: 1.25rem;
+    }
+}
+
+.tool-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--grad-indigo);
+    opacity: 0.7;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 1rem;
+}
+
+.panel-title {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.panel-title svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-indigo);
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn-sm {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.action-btn-sm:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent-indigo);
+    color: white;
+}
+
+.editor-container {
+    position: relative;
+}
+
+.editor-textarea {
+    width: 100%;
+    height: 450px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    padding: 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: none;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.editor-textarea:focus {
+    border-color: var(--accent-indigo);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* Preview Display */
+.preview-pane-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 0.15rem;
+}
+
+.preview-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-smooth);
+    text-align: center;
+}
+
+.preview-tab.active {
+    background: rgba(99, 102, 241, 0.1);
+    color: white;
+}
+
+.preview-window {
+    width: 100%;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem;
+    overflow-y: auto;
+    color: var(--text-primary);
+    transition: var(--transition-smooth);
+}
+
+/* Rendered HTML Styling inside preview window */
+.rendered-html {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+.rendered-html h1, .rendered-html h2, .rendered-html h3 {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: white;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+.rendered-html h1 { font-size: 1.6rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.25rem; }
+.rendered-html h2 { font-size: 1.3rem; }
+.rendered-html h3 { font-size: 1.1rem; }
+
+.rendered-html p { margin-bottom: 1rem; }
+
+.rendered-html code {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f472b6;
+    padding: 0.15rem 0.35rem;
+    border-radius: var(--border-radius-sm);
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.rendered-html pre {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+}
+
+.rendered-html pre code {
+    background: transparent;
+    color: #a5b4fc;
+    padding: 0;
+    font-size: 0.85rem;
+}
+
+.rendered-html blockquote {
+    border-left: 4px solid var(--accent-indigo);
+    padding-left: 1rem;
+    margin-left: 0;
+    color: var(--text-secondary);
+    font-style: italic;
+    background: rgba(99, 102, 241, 0.03);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 1rem;
+}
+
+.rendered-html ul, .rendered-html ol {
+    margin-bottom: 1rem;
+    padding-left: 1.25rem;
+}
+
+.rendered-html li {
+    margin-bottom: 0.25rem;
+}
+
+.rendered-html a {
+    color: var(--accent-indigo);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent-indigo);
+}
+
+.rendered-html a:hover {
+    color: white;
+    border-bottom-style: solid;
+}
+
+/* Plain HTML code window styling */
+.html-code-window {
+    display: none;
+    width: 100%;
+    height: 450px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #a5b4fc;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.panel-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.btn-action-main {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius-md);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-smooth);
+}
+
+.btn-action-main:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent-indigo);
+    transform: translateY(-2px);
+}
+
+.btn-action-main.success {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: #10b981 !important;
+    color: #34d399 !important;
+}
+
+/* Mobile Tab Styles */
+.mobile-tabs-container {
+    display: none;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.mobile-tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-tab-btn.active {
+    background: rgba(99, 102, 241, 0.1);
+    color: white;
+    box-shadow: inset 0 0 10px rgba(99, 102, 241, 0.1);
+}
+
+@media (max-width: 992px) {
+    .mobile-tabs-container {
+        display: flex;
+    }
+    .tool-panel {
+        display: none;
+    }
+    .active-panel {
+        display: flex !important;
+    }
+}

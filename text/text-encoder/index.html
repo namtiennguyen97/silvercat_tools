@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã Hóa & Giải Mã Văn Bản - Silver Cat Tools</title>
+    <link rel="icon" type="image/jpeg" href="../../logo.jpg">
+    
+    <!-- Meta SEO -->
+    <meta name="description" content="Mã hóa và giải mã chuỗi văn bản trực tuyến miễn phí với các thuật toán phổ biến như Base64, URL Encoding, HTML Entities, Hex, Binary và ROT13.">
+    <meta name="keywords" content="mã hoá văn bản, giải mã văn bản, base64 encode, base64 decode, url encode, url decode, rot13, hex code, binary codec">
+    <meta name="author" content="Silver Cat Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://silvercattools.com/text-encoder.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silvercattools.com/text-encoder.html">
+    <meta property="og:site_name" content="Silver Cat Tools">
+    <meta property="og:title" content="Mã Hóa & Giải Mã Văn Bản - Silver Cat Tools">
+    <meta property="og:description" content="Mã hóa và giải mã chuỗi văn bản trực tuyến miễn phí với các thuật toán phổ biến như Base64, URL Encoding, HTML Entities, Hex, Binary và ROT13.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:locale:alternate" content="en_US">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mã Hóa & Giải Mã Văn Bản - Silver Cat Tools">
+    <meta name="twitter:description" content="Mã hóa và giải mã chuỗi văn bản trực tuyến miễn phí với các thuật toán phổ biến như Base64, URL Encoding, HTML Entities, Hex, Binary và ROT13.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Stylings -->
+    <link rel="stylesheet" href="../../style.css?v=1.0.3">
+    <link rel="stylesheet" href="style.css?v=1.0.0">
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <nav class="navbar glass scrolled" id="main-navbar">
+        <a href="../../index.html" class="nav-brand" id="brand-link">
+            <div class="brand-icon">
+                <img src="../../logo.jpg" alt="Silver Cat Tools Logo" class="brand-logo-img">
+            </div>
+            <span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span>
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="../../index.html" class="nav-link" id="nav-home" data-i18n="nav-home">Trang Chủ</a></li>
+            <li><a href="../../index.html#tools-section" class="nav-link" id="nav-tools" data-i18n="nav-tools">Công Cụ</a></li>
+        </ul>
+
+        <a href="../../index.html" class="nav-cta" id="nav-cta-btn" data-i18n="nav-cta-btn-back">Về Trang Chủ</a>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="tool-container">
+        
+        <!-- Responsive Header Section -->
+        <header class="tool-page-header">
+            <!-- Back Link Navigation -->
+            <a href="../../index.html#tools-section" class="back-link">
+                <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                <span data-i18n="back-link">Quay lại danh mục công cụ</span>
+            </a>
+
+            <!-- Title Section -->
+            <div class="hero-badge" style="background: rgba(236, 72, 153, 0.1); border-color: rgba(236, 72, 153, 0.2); color: #f472b6;">
+                <span data-i18n="badge-category">Tài Liệu & Văn Bản</span>
+            </div>
+            <h1 id="local-title">
+                Mã Hóa & <span class="text-gradient-pink">Giải Mã Văn Bản</span>
+            </h1>
+            <p id="local-subtitle">
+                Mã hóa và giải mã chuỗi văn bản trực tuyến miễn phí. Hỗ trợ các định dạng tiêu chuẩn như Base64, URL percent-encoding, HTML Entities, Hexadecimal, Binary và ROT13.
+            </p>
+        </header>
+
+        <!-- Mobile Tabs Switch (Visible only on Mobile) -->
+        <div class="mobile-tabs-container">
+            <button class="mobile-tab-btn active" data-target="input-panel" id="tab-btn-input">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right: 6px; vertical-align: middle;">
+                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                </svg>
+                <span data-i18n="mobile-tab-input">Nhập Liệu & Codec</span>
+            </button>
+            <button class="mobile-tab-btn" data-target="output-panel" id="tab-btn-output">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right: 6px; vertical-align: middle;">
+                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                </svg>
+                <span data-i18n="mobile-tab-output">Xem Kết Quả</span>
+            </button>
+        </div>
+
+        <!-- Tool Body Grid -->
+        <div class="tool-grid-layout">
+            
+            <!-- LEFT PANEL: Input & Codec controls -->
+            <section class="tool-panel active-panel" id="input-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title" id="panel-input-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                        Văn Bản Gốc (Input)
+                    </h2>
+                    <div class="header-actions">
+                        <button class="action-btn-sm" id="btn-load-sample">Văn Bản Mẫu</button>
+                        <button class="action-btn-sm" id="btn-clear-all" data-i18n="btn-clear">Xóa Hết</button>
+                    </div>
+                </div>
+
+                <div class="editor-container">
+                    <textarea class="editor-textarea" id="input-text" placeholder="Nhập chuỗi văn bản cần mã hóa hoặc giải mã tại đây..."></textarea>
+                </div>
+
+                <!-- Codec Action Controls Grid -->
+                <div class="controls-card">
+                    <div class="controls-card-title" id="lbl-controls-title">Lựa Chọn Bộ Giải Mã / Mã Hóa (Codecs)</div>
+                    <div class="codec-btn-grid">
+                        <button class="codec-btn" id="btn-b64-enc">Base64 Encode</button>
+                        <button class="codec-btn" id="btn-b64-dec">Base64 Decode</button>
+                        
+                        <button class="codec-btn" id="btn-url-enc">URL Encode</button>
+                        <button class="codec-btn" id="btn-url-dec">URL Decode</button>
+                        
+                        <button class="codec-btn" id="btn-html-enc">HTML Encode</button>
+                        <button class="codec-btn" id="btn-html-dec">HTML Decode</button>
+                        
+                        <button class="codec-btn" id="btn-hex-enc">Hex Encode</button>
+                        <button class="codec-btn" id="btn-hex-dec">Hex Decode</button>
+
+                        <button class="codec-btn" id="btn-bin-enc">Binary Encode</button>
+                        <button class="codec-btn" id="btn-bin-dec">Binary Decode</button>
+                        
+                        <button class="codec-btn" id="btn-rot13">ROT13 Cipher</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT PANEL: Output view panel -->
+            <section class="tool-panel" id="output-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title" id="panel-output-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                        Kết Quả Xử Lý (Output)
+                    </h2>
+                </div>
+
+                <div class="editor-container">
+                    <textarea class="editor-textarea" id="output-text" readonly placeholder="Kết quả sau khi mã hóa/giải mã sẽ hiển thị tại đây..."></textarea>
+                </div>
+
+                <div class="panel-footer-actions">
+                    <button class="btn-action-main" id="btn-copy-output">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                        <span data-i18n="btn-copy">Sao Chép</span>
+                    </button>
+                    <button class="btn-action-main" id="btn-download-output">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+                        </svg>
+                        <span data-i18n="btn-download">Tải Về (.txt)</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts Module -->
+    <script src="../../i18n.js?v=1.0.0"></script>
+    <script src="script.js?v=1.0.0"></script>
+</body>
+</html>

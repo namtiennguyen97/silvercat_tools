@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pixel-title-page">Tạo Ảnh Pixel Art & Mosaics | Pixel Art Generator - Silver Cat Tools</title>
+    <link rel="icon" type="image/jpeg" href="../../logo.jpg">
+    <meta name="description" content="Công cụ chuyển đổi hình ảnh thành phong cách Pixel Art 8-bit trực tuyến miễn phí. Transform your images into cool retro 8-bit pixel art directly in your browser.">
+    <meta name="keywords" content="ảnh pixel, pixel art generator, 8-bit image, mosaic photo, tạo ảnh pixel online, retro photo effect">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=1.0.3">
+    <link rel="stylesheet" href="style.css?v=1.0.0">
+</head>
+<body>
+    <nav class="navbar glass scrolled" id="main-navbar">
+        <a href="../../index.html" class="nav-brand" id="brand-link">
+            <div class="brand-icon"><img src="../../logo.jpg" alt="Silver Cat Tools Logo" class="brand-logo-img"></div>
+            <span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span>
+        </a>
+    </nav>
+    <main class="tool-container">
+        <a href="../../index.html" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            <span data-i18n="back-home">Quay lại Trang Chủ</span>
+        </a>
+        <div class="tool-header">
+            <h1 class="tool-main-title"><span data-i18n="pixel-head">Hiệu Ứng</span> <span class="text-gradient-teal" data-i18n="pixel-head-sub">Pixel Hóa</span></h1>
+            <p class="tool-subtitle" data-i18n="pixel-desc">Biến ảnh của bạn thành phong cách nghệ thuật retro 8-bit dễ dàng.</p>
+        </div>
+        
+        <div class="tool-grid-layout">
+            <section class="tool-panel active-panel" id="panel-editor">
+                <div class="dropzone" id="dropzone">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <span class="dropzone-title" data-i18n="drop-title">Kéo thả ảnh hoặc click để tải</span>
+                    <input type="file" id="file-upload" accept="image/*" style="display:none;">
+                </div>
+                <div class="preview-container" id="editor-container" style="display:none; text-align: center; max-height:600px; overflow:auto;">
+                    <canvas id="pixel-canvas" style="max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 12px;"></canvas>
+                </div>
+            </section>
+            <section class="tool-panel" id="panel-controls">
+                <div class="panel-header"><h2 class="panel-title" data-i18n="controls-title">Cài Đặt Pixel</h2></div>
+                <div class="settings-group">
+                    <label class="form-label">
+                        <span data-i18n="lbl-pixel-size">Kích Thước Pixel</span>
+                        <span id="pixel-size-val" style="float:right; color:var(--text-secondary);">10</span>
+                    </label>
+                    <input type="range" class="form-range" id="pixel-size" min="1" max="100" value="10">
+                </div>
+                <button class="btn btn-primary" id="btn-download" style="width:100%; margin-top:20px;" data-i18n="btn-download-img">Tải Ảnh Về</button>
+            </section>
+        </div>
+    </main>
+    <footer class="footer" id="about"><div class="footer-container"><a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a><p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và bảo mật tối đa.</p></div></footer>
+    <script src="../../i18n.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
