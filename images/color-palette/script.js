@@ -19,6 +19,7 @@
             'btn-extract': 'Tải Bảng Màu (.txt)',
             'result-title': 'Màu Đã Trích Xuất',
             'no-result': 'Chưa có kết quả. Tải ảnh và nhấn "Trích Xuất Màu".',
+            'click-guide': '💡 Bạn có thể chạm hoặc click trực tiếp vào bất kỳ vị trí nào trên hình ảnh để trích xuất mã màu tại điểm đó!',
             'footer-copyright': '© 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu.'
         },
         en: {
@@ -37,6 +38,7 @@
             'btn-extract': 'Download Palette (.txt)',
             'result-title': 'Extracted Colors',
             'no-result': 'No results yet. Upload an image and click "Extract Colors".',
+            'click-guide': '💡 You can tap or click directly anywhere on the image to extract the color code at that point!',
             'footer-copyright': '© 2026 Silver Cat Tools. Built for optimal performance.'
         }
     };
@@ -66,6 +68,7 @@
     const colorCount = document.getElementById('color-count');
     const colorCountVal = document.getElementById('color-count-val');
     const btnExtract = document.getElementById('btn-extract');
+    const clickGuide = document.getElementById('click-guide');
 
     // Hover tooltip
     const tooltip = document.createElement('div');
@@ -103,6 +106,7 @@
             canvas.height = img.naturalHeight;
             canvas.getContext('2d').drawImage(img, 0, 0);
             canvas.style.display = 'block';
+            if (clickGuide) clickGuide.style.display = 'flex';
             URL.revokeObjectURL(url);
             // Auto extract
             extractColors();

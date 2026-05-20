@@ -99,7 +99,7 @@
                 <span class="option-badge ${badgeClass}">${quality}</span>
                 ${size ? `<span class="option-size">${size}</span>` : ''}
             </div>
-            <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-dl-option" download>
+            <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn-dl-option">
                 ${dlIcon}
                 <span>${getLangText('Tải xuống', 'Download')}</span>
             </a>
@@ -108,54 +108,78 @@
     }
 
     // ======================================================================
-    // COBALT API INTEGRATION
-    // Uses cobalt.tools API - a free, open-source video downloading service
+    // COBALT API INTEGRATION - v10
+    // Cobalt v7 (/api/json) was shut down Nov 11, 2024.
+    // v10 uses POST / with updated request/response format.
+    // Tries multiple public instances with fallback.
     // ======================================================================
+
+    // Community instances (v10 compatible). Will try each in order until one works.
+    const COBALT_INSTANCES = [
+        'https://cobalt.api.timik.ru',
+        'https://cobalt.drgns.space',
+        'https://cobalt-api.damon.sh',
+        'https://capi.oak.bio',
+        'https://cobalt.pleb.city'
+    ];
+
+    async function tryInstance(instanceUrl, url) {
+        const endpoint = instanceUrl.replace(/\/$/, '') + '/';
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                url: url,
+                videoQuality: '1080',
+                audioFormat: 'mp3',
+                videoCodec: 'h264',
+                filenamePattern: 'basic',
+                tiktokFullAudio: true,
+                tiktokH265: false
+            }),
+            signal: AbortSignal.timeout(10000) // 10 second timeout per instance
+        });
+
+        if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            const code = errData?.error?.code || errData?.text || `HTTP ${response.status}`;
+            throw new Error(code);
+        }
+
+        const data = await response.json();
+        if (data.status === 'error') {
+            throw new Error(data.error?.code || data.text || 'Unknown error');
+        }
+        return data;
+    }
 
     async function fetchVideoInfo(url) {
         const platform = detectPlatform(url);
         showSection(loadingSection);
         btnFetch.disabled = true;
 
-        try {
-            // Use Cobalt API
-            const response = await fetch('https://api.cobalt.tools/api/json', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    url: url,
-                    vCodec: 'h264',
-                    vQuality: '1080',
-                    aFormat: 'mp3',
-                    filenamePattern: 'basic',
-                    isAudioOnly: false,
-                    isNoTTWatermark: true,
-                    isTTFullAudio: true
-                })
-            });
+        let lastError = null;
 
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
+        for (const instance of COBALT_INSTANCES) {
+            try {
+                const data = await tryInstance(instance, url);
+                displayResult(data, url, platform);
+                btnFetch.disabled = false; // Re-enable after success
+                return; // Success — stop trying other instances
+            } catch (error) {
+                console.warn(`Instance ${instance} failed:`, error.message);
+                lastError = error;
+                // Continue to next instance
             }
-
-            const data = await response.json();
-
-            if (data.status === 'error') {
-                throw new Error(data.text || 'Failed to process video');
-            }
-
-            // Process response
-            displayResult(data, url, platform);
-
-        } catch (error) {
-            console.error('Video fetch error:', error);
-            handleFetchError(error, url, platform);
-        } finally {
-            btnFetch.disabled = false;
         }
+
+        // All instances failed
+        console.error('All Cobalt instances failed. Last error:', lastError);
+        handleFetchError(lastError, url, platform);
+        btnFetch.disabled = false;
     }
 
     // Display successful result
@@ -185,17 +209,29 @@
         videoAuthor.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> ${data.author || getLangText('Không rõ tác giả', 'Unknown author')}`;
         videoPlatformBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg> ${platformName}`;
 
-        // Build download options
+        // Build download options (Cobalt v10 statuses: redirect, tunnel, picker, local-processing)
         downloadOptionsList.innerHTML = '';
 
-        if (data.status === 'redirect' || data.status === 'stream') {
-            // Single download URL
+        if (data.status === 'redirect' || data.status === 'tunnel' || data.status === 'stream') {
+            // Single download link — 'tunnel' is the v10 equivalent of 'stream'
             const opt = createDownloadOption(
                 getLangText('Video gốc (Chất lượng cao nhất)', 'Original Video (Best Quality)'),
                 'HD',
                 'badge-hd',
                 '',
                 data.url
+            );
+            downloadOptionsList.appendChild(opt);
+        }
+
+        if (data.status === 'local-processing' && data.output) {
+            // Local-processing: client needs to merge audio+video (not yet supported, show info)
+            const opt = createDownloadOption(
+                getLangText('Video (cần xử lý trên thiết bị)', 'Video (device processing needed)'),
+                'HD',
+                'badge-hd',
+                '',
+                data.output.url || data.url
             );
             downloadOptionsList.appendChild(opt);
         }
@@ -216,10 +252,21 @@
                 );
                 downloadOptionsList.appendChild(opt);
             });
+            // If picker also has an audio track
+            if (data.audio) {
+                const audioOpt = createDownloadOption(
+                    getLangText('Chỉ âm thanh (MP3)', 'Audio Only (MP3)'),
+                    'MP3',
+                    'badge-audio',
+                    '',
+                    data.audio
+                );
+                downloadOptionsList.appendChild(audioOpt);
+            }
         }
 
-        // Always add audio-only option if URL is available
-        if (data.audio) {
+        // Standalone audio track
+        if ((data.status === 'redirect' || data.status === 'tunnel') && data.audio) {
             const audioOpt = createDownloadOption(
                 getLangText('Chỉ âm thanh (MP3)', 'Audio Only (MP3)'),
                 'MP3',
@@ -230,7 +277,7 @@
             downloadOptionsList.appendChild(audioOpt);
         }
 
-        // If no download options were added, create a manual fallback
+        // Absolute fallback: if somehow no options rendered but data.url exists
         if (downloadOptionsList.children.length === 0 && data.url) {
             const opt = createDownloadOption(
                 getLangText('Tải video', 'Download Video'),
