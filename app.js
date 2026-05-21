@@ -130,12 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
         en: 'Search tools...'
     };
 
-    let currentAppLang = localStorage.getItem('sct_lang') || 'vi';
+    let currentAppLang = localStorage.getItem('preferred-lang') || 'vi';
     window.addEventListener('languageChanged', (e) => {
         if (e.detail && e.detail.lang) {
             currentAppLang = e.detail.lang;
         } else {
-            currentAppLang = localStorage.getItem('sct_lang') || 'vi';
+            currentAppLang = localStorage.getItem('preferred-lang') || 'vi';
         }
         if (!searchInput) return;
         if (document.activeElement === searchInput) {

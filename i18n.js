@@ -27,6 +27,7 @@ const i18nDictionary = {
         "search-input": "Tìm kiếm công cụ...",
 
         // Tool Cards
+        "badge-new": "Mới",
         "tool-img-compressor-title": "Nén Ảnh Chất Lượng Cao",
         "tool-img-compressor-desc": "Giảm tối đa dung lượng ảnh JPG/PNG/Webp thông minh nhưng vẫn giữ nguyên độ sắc nét vượt trội.",
         "tool-img-converter-title": "Chuyển Đổi Định Dạng Ảnh",
@@ -258,6 +259,7 @@ const i18nDictionary = {
         "search-input": "Search for tools...",
 
         // Tool Cards
+        "badge-new": "New",
         "tool-img-compressor-title": "High-Quality Image Compressor",
         "tool-img-compressor-desc": "Smartly reduce JPG/PNG/WebP file size while preserving exceptional visual sharpness and quality.",
         "tool-img-converter-title": "Image Format Converter",
