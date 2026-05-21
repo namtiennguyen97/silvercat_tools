@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://silvercattools.com/</loc>
+    <loc>https://silvercat-utils.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/images/image-compressor/index.html</loc>
+    <loc>https://silvercat-utils.com/images/image-compressor/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/images/image-converter/index.html</loc>
+    <loc>https://silvercat-utils.com/images/image-converter/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/images/image-watermarker/index.html</loc>
+    <loc>https://silvercat-utils.com/images/image-watermarker/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/images/color-palette/index.html</loc>
+    <loc>https://silvercat-utils.com/images/color-palette/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/images/image-to-pdf/index.html</loc>
+    <loc>https://silvercat-utils.com/images/image-to-pdf/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/images/image-cropper/index.html</loc>
+    <loc>https://silvercat-utils.com/images/image-cropper/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/images/image-pixelator/index.html</loc>
+    <loc>https://silvercat-utils.com/images/image-pixelator/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/text/replace-text/index.html</loc>
+    <loc>https://silvercat-utils.com/text/replace-text/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/text/word-counter/index.html</loc>
+    <loc>https://silvercat-utils.com/text/word-counter/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/text/markdown-converter/index.html</loc>
+    <loc>https://silvercat-utils.com/text/markdown-converter/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/text/text-encoder/index.html</loc>
+    <loc>https://silvercat-utils.com/text/text-encoder/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://silvercattools.com/videos/video-downloader/index.html</loc>
+    <loc>https://silvercat-utils.com/videos/video-downloader/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
