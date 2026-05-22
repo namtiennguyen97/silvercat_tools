@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://silvercat-utils.com/sitemap.xml
