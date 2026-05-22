@@ -67,6 +67,14 @@ const i18nDictionary = {
         "footer-privacy": "Điều Khoản & Bảo Mật",
         "footer-copyright": "&copy; 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và trải nghiệm cao cấp.",
 
+        // About Section
+        "about-badge": "👋 Về Silver Cat Tools",
+        "about-title": "Nhanh - Gọn -<br><span class=\"text-gradient\">Miễn Phí</span>",
+        "about-desc": "Silver Cat Tools được tạo ra với một triết lý đơn giản: <strong>bạn vào để làm việc, xong việc rồi đi</strong>. Không quảng cáo phiền phức, không đăng ký tài khoản, không theo dõi bạn. Mọi thứ đều chạy trực tiếp trên trình duyệt của bạn - an toàn, riêng tư tuyệt đối. Chúng tôi hiểu thời gian của bạn quý giá, nên mỗi công cụ đều được thiết kế để hoàn thành tác vụ trong vài giây. Chỉ có điều đó thôi. 🚀",
+        "about-stat-browser": "Chạy trên trình duyệt",
+        "about-stat-ads": "Quảng cáo",
+        "about-stat-tools": "Công cụ miễn phí",
+
         // --- REPLACE TEXT PAGE ---
         "replace-title-tag": "Tìm Kiếm & Thay Thế Chữ - Silver Cat Tools",
         "replace-meta-desc": "Công cụ tìm kiếm và thay thế ký tự, từ ngữ, dọn dẹp văn bản trực tuyến miễn phí. Hỗ trợ RegEx, xóa dòng trống, xóa dấu tiếng Việt và dọn khoảng trắng nhanh chóng.",
@@ -298,6 +306,14 @@ const i18nDictionary = {
         "footer-privacy": "Terms & Privacy",
         "footer-desc": "Silver Cat Tools",
         "footer-copyright": "&copy; 2026 Silver Cat Tools. Built for optimal performance and premium experience.",
+
+        // About Section
+        "about-badge": "👋 About Silver Cat Tools",
+        "about-title": "Fast - Simple -<br><span class=\"text-gradient\">Free</span>",
+        "about-desc": "Silver Cat Tools was built with a simple philosophy: <strong>you walk in, get things done, and walk out</strong>. No annoying ads, no account sign-ups, no tracking. Everything runs directly in your browser - safe and 100% private. We know your time is valuable, so every tool is designed to complete your task in seconds. That's it. 🚀",
+        "about-stat-browser": "Runs in browser",
+        "about-stat-ads": "Zero ads",
+        "about-stat-tools": "Free tools",
 
         // --- REPLACE TEXT PAGE ---
         "replace-title-tag": "Find & Replace Text - Silver Cat Tools",
