@@ -1,0 +1,47 @@
+.split-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.split-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.5rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.split-item:hover {
+    border-color: rgba(236,72,153,0.3);
+    background: rgba(236,72,153,0.05);
+}
+
+.split-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+}
+
+.split-item .split-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+}
+
+.split-item .btn-download-single {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(236,72,153,0.1);
+    border: 1px solid rgba(236,72,153,0.2);
+    color: #f472b6;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.split-item .btn-download-single:hover {
+    background: rgba(236,72,153,0.2);
+}

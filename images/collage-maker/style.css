@@ -1,0 +1,46 @@
+.layout-presets {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.layout-btn {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.layout-btn:hover {
+    background: rgba(20,184,166,0.08);
+    border-color: rgba(20,184,166,0.25);
+    color: white;
+}
+
+.layout-btn.active {
+    background: rgba(20,184,166,0.15);
+    border-color: var(--accent-teal);
+    color: white;
+    box-shadow: 0 0 12px rgba(20,184,166,0.15);
+}
+
+.collage-canvas-wrapper {
+    width: 100%;
+    max-height: 500px;
+    overflow: auto;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+}
+
+.collage-canvas-wrapper canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}

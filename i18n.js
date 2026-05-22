@@ -58,6 +58,8 @@ const i18nDictionary = {
         "tool-video-downloader-desc": "Tải video từ các nền tảng mạng xã hội tốc độ cao, hỗ trợ loại bỏ logo watermark tự động.",
         "tool-open-btn": "Mở công cụ",
 
+        "badge-new": "Mới",
+
         // Empty state
         "no-results-title": "Không Tìm Thấy Công Cụ",
         "no-results-desc": "Rất tiếc, chúng tôi không tìm thấy công cụ nào khớp với từ khóa của bạn. Hãy thử từ khóa khác!",
@@ -297,6 +299,8 @@ const i18nDictionary = {
         "tool-video-downloader-title": "Video Downloader",
         "tool-video-downloader-desc": "Download videos from social platforms at maximum speed, with automatic watermark removal.",
         "tool-open-btn": "Open Tool",
+
+        "badge-new": "New",
 
         // Empty state
         "no-results-title": "No Tools Found",
