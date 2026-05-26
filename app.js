@@ -443,29 +443,32 @@ if ('serviceWorker' in navigator) {
         banner.style.display = 'none';
     }
 
-    // Wire the "Cài Đặt App" / "Install App" button in navbar
-    const navCtaBtn = document.getElementById('nav-cta-btn');
-    if (navCtaBtn) {
-        navCtaBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (deferredPrompt) {
-                // PWA install available - show prompt
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-            } else if (isIOS && !isStandalone) {
-                // iOS: show instructions banner
-                banner.style.display = 'flex';
-            }
-        });
-    }
-
-    // Hide banner + update button text after install
-    window.addEventListener('appinstalled', () => {
-        banner.style.display = 'none';
-        const navCtaSpan = document.querySelector('#nav-cta-btn');
-        if (navCtaSpan) {
-            const lang = localStorage.getItem('preferred-lang') || 'vi';
-            navCtaSpan.innerHTML = lang === 'en' ? '✅ Installed' : '✅ Đã cài';
+    // Desktop Chrome: Listen for beforeinstallprompt (works on all platforms)
+    // Also add a manual install button in navbar if PWA is installable
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Add an install button to the nav-cta area if it doesn't exist already
+        const navCta = document.querySelector('.nav-cta');
+        if (navCta && !document.querySelector('.pwa-install-nav-btn')) {
+            const installNavBtn = document.createElement('button');
+            installNavBtn.className = 'pwa-install-nav-btn';
+            installNavBtn.innerHTML = '📥 Install App';
+            installNavBtn.style.cssText = 'background:var(--grad-primary);color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:8px;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap;margin-left:0.5rem;';
+            installNavBtn.addEventListener('click', () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+                }
+            });
+            navCta.parentNode.insertBefore(installNavBtn, navCta.nextSibling);
         }
+    });
+
+    // Also remove the installed-button after app is installed
+    window.addEventListener('appinstalled', () => {
+        const navBtn = document.querySelector('.pwa-install-nav-btn');
+        if (navBtn) navBtn.remove();
+        banner.style.display = 'none';
     });
 })();
