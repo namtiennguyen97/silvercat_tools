@@ -4,28 +4,28 @@
  * ==========================================================================
  */
 
-// Hide loading screen when DOM is fully loaded
-window.addEventListener('DOMContentLoaded', () => {
-    const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen) {
-        // Small delay for smooth transition
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-            // Remove from DOM after transition to free memory
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        }, 400);
-    }
-});
-
-// Also hide loading screen if everything loads extremely fast (before DOMContentLoaded fires)
+// Hide loading screen as soon as possible
 (function() {
     const loadingScreen = document.getElementById('loading-screen');
-    if (loadingScreen && document.readyState === 'complete') {
+    if (!loadingScreen) return;
+
+    function hideLoading() {
         loadingScreen.classList.add('hidden');
-        setTimeout(() => { loadingScreen.style.display = 'none'; }, 500);
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
     }
+
+    // Check if already loaded
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        hideLoading();
+    } else {
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', hideLoading);
+    }
+
+    // Fallback: force hide after max 3 seconds no matter what
+    setTimeout(hideLoading, 3000);
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
