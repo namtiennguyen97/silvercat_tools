@@ -442,4 +442,30 @@ if ('serviceWorker' in navigator) {
     if (isStandalone) {
         banner.style.display = 'none';
     }
+
+    // Wire the "Cài Đặt App" / "Install App" button in navbar
+    const navCtaBtn = document.getElementById('nav-cta-btn');
+    if (navCtaBtn) {
+        navCtaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (deferredPrompt) {
+                // PWA install available - show prompt
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+            } else if (isIOS && !isStandalone) {
+                // iOS: show instructions banner
+                banner.style.display = 'flex';
+            }
+        });
+    }
+
+    // Hide banner + update button text after install
+    window.addEventListener('appinstalled', () => {
+        banner.style.display = 'none';
+        const navCtaSpan = document.querySelector('#nav-cta-btn');
+        if (navCtaSpan) {
+            const lang = localStorage.getItem('preferred-lang') || 'vi';
+            navCtaSpan.innerHTML = lang === 'en' ? '✅ Installed' : '✅ Đã cài';
+        }
+    });
 })();

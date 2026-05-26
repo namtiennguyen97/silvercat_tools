@@ -8,7 +8,7 @@ const i18nDictionary = {
         "nav-home": "Trang Chủ",
         "nav-tools": "Công Cụ",
         "nav-about": "Giới Thiệu",
-        "nav-cta-btn": "Yêu Cầu Tool",
+        "nav-cta-btn": "Cài Đặt App",
         "nav-cta-btn-back": "Về Trang Chủ",
 
         // Hero
@@ -274,7 +274,7 @@ const i18nDictionary = {
         "nav-home": "Home",
         "nav-tools": "Tools",
         "nav-about": "About",
-        "nav-cta-btn": "Request a Tool",
+        "nav-cta-btn": "Install App",
         "nav-cta-btn-back": "Go to Home",
 
         // Hero
