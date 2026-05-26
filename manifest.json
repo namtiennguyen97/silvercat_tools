@@ -10,12 +10,7 @@
   "icons": [
     {
       "src": "/favicon.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "192x192",
+      "sizes": "336x336",
       "type": "image/png"
     },
     {
@@ -25,7 +20,12 @@
     },
     {
       "src": "/apple-touch-icon.png",
-      "sizes": "192x192",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
