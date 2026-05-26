@@ -287,6 +287,52 @@ function applyLocalTranslation(lang) {
     }
 
     // ======================================================================
+    // TEXT WRAPPING UTILITY
+    // ======================================================================
+    function wrapText(context, text, maxWidth) {
+        if (!text) return [];
+        const lines = text.split(/<br\s*\/?>|\n/);
+        const result = [];
+        for (let line of lines) {
+            line = line.trim();
+            if (!line) { result.push(''); continue; }
+            if (context.measureText(line).width <= maxWidth) {
+                result.push(line);
+                continue;
+            }
+            // Need to wrap at word boundaries
+            const words = line.split(/\s+/);
+            let current = '';
+            for (const word of words) {
+                const test = current ? current + ' ' + word : word;
+                if (context.measureText(test).width <= maxWidth) {
+                    current = test;
+                } else {
+                    if (current) result.push(current);
+                    // If a single word is wider than maxWidth, need to break it character by character
+                    if (context.measureText(word).width > maxWidth) {
+                        let charLine = '';
+                        for (const ch of word) {
+                            const testChar = charLine + ch;
+                            if (context.measureText(testChar).width <= maxWidth) {
+                                charLine = testChar;
+                            } else {
+                                result.push(charLine);
+                                charLine = ch;
+                            }
+                        }
+                        current = charLine;
+                    } else {
+                        current = word;
+                    }
+                }
+            }
+            if (current) result.push(current);
+        }
+        return result;
+    }
+
+    // ======================================================================
     // CANVAS DRAW
     // ======================================================================
     function drawFrame() {
@@ -307,7 +353,9 @@ function applyLocalTranslation(lang) {
             ctx.font = `${fs} ${fw} ${sz}px Inter, sans-serif`;
             ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
 
-            const lines = active.text.split(/<br\s*\/?>|\n/);
+            // Wrap text to fit within video width (with 40px padding on each side)
+            const maxTextWidth = Math.max(80, w - 80);
+            const lines = wrapText(ctx, active.text, maxTextWidth);
             const lh = Math.round(sz * 1.3);
             const sy = h - 30;
 
