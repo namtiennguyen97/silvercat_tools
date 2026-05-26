@@ -58,6 +58,10 @@ const i18nDictionary = {
         "tool-video-downloader-desc": "Tải video từ các nền tảng mạng xã hội tốc độ cao, hỗ trợ loại bỏ logo watermark tự động.",
         "tool-video-subtitle-title": "Video Subtitle",
         "tool-video-subtitle-desc": "Tải lên video và file phụ đề SRT/VTT, chỉnh sửa trực quan, xem trước với đồng bộ thời gian thực. Tải về video đã ghép phụ đề hoặc file subtitle riêng.",
+        "tool-excel-reader-title": "Đọc File Excel/CSV",
+        "tool-excel-reader-desc": "Đọc và xem nội dung file Excel (.xlsx, .xls), CSV, TSV, ODS. Hỗ trợ nhiều sheet, lọc, tìm kiếm, xuất CSV/JSON.",
+        "tool-web-downloader-title": "Tải Mã Nguồn Web",
+        "tool-web-downloader-desc": "Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web. Xem trực tiếp và tải về dưới dạng ZIP.",
         "tool-open-btn": "Mở công cụ",
 
         "badge-new": "Mới",
@@ -176,6 +180,11 @@ const i18nDictionary = {
 
         // Loading screen
         "loading-text": "Đang tải công cụ...",
+
+        // --- EXCEL READER PAGE ---
+        "excel-title-tag": "Đọc File Excel/CSV Online - Silver Cat Tools",
+        "excel-meta-desc": "Đọc và xem nội dung file Excel (.xlsx, .xls), CSV, TSV, ODS online miễn phí. Hỗ trợ nhiều sheet, lọc, tìm kiếm, xuất CSV/JSON. Xử lý 100% tại trình duyệt.",
+        "excel-meta-keywords": "đọc file excel online, xem file xlsx, đọc csv, excel reader, csv viewer, xem file excel không cần office, công cụ excel online",
 
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - Cổng Công Cụ & Tiện Ích Trực Tuyến Miễn Phí Cao Cấp",
@@ -310,6 +319,10 @@ const i18nDictionary = {
         "tool-video-downloader-desc": "Download videos from social platforms at maximum speed, with automatic watermark removal.",
         "tool-video-subtitle-title": "Video Subtitle",
         "tool-video-subtitle-desc": "Upload video and SRT/VTT subtitle files, edit visually, preview with real-time sync. Download video with burned-in subtitles or subtitle file only.",
+        "tool-excel-reader-title": "Excel/CSV Reader",
+        "tool-excel-reader-desc": "Read and view Excel (.xlsx, .xls), CSV, TSV, ODS files. Supports multiple sheets, filter, search, export CSV/JSON.",
+        "tool-web-downloader-title": "Web Source Downloader",
+        "tool-web-downloader-desc": "Download HTML, CSS, JavaScript source code from any website. View online and download as ZIP.",
         "tool-open-btn": "Open Tool",
 
         "badge-new": "New",
@@ -429,6 +442,11 @@ const i18nDictionary = {
 
         // Loading screen
         "loading-text": "Loading tools...",
+
+        // --- EXCEL READER PAGE ---
+        "excel-title-tag": "Excel/CSV File Reader Online - Silver Cat Tools",
+        "excel-meta-desc": "Read and view Excel (.xlsx, .xls), CSV, TSV, ODS files online for free. Supports multiple sheets, filtering, search, export CSV/JSON. 100% browser-side.",
+        "excel-meta-keywords": "excel reader online, xlsx viewer, csv reader, excel file viewer, tsv viewer, ods reader, online spreadsheet viewer",
 
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - High-Performance Free Online Utility Tools",
@@ -567,6 +585,7 @@ const i18nDictionary = {
         const isConverterPage = path.includes('image-converter');
         const isVideoDownloaderPage = path.includes('video-downloader');
         const isVideoSubtitlePage = path.includes('video-subtitle');
+        const isExcelReaderPage = path.includes('excel-reader');
         
         let titleVal = "";
         let descVal = "";
@@ -604,6 +623,10 @@ const i18nDictionary = {
             titleVal = i18nDictionary[lang]['subtitle-title-tag'];
             descVal = i18nDictionary[lang]['subtitle-meta-desc'];
             keywordsVal = i18nDictionary[lang]['subtitle-meta-keywords'];
+        } else if (isExcelReaderPage) {
+            titleVal = i18nDictionary[lang]['excel-title-tag'] || i18nDictionary[lang]['home-title-tag'];
+            descVal = i18nDictionary[lang]['excel-meta-desc'] || i18nDictionary[lang]['home-meta-desc'];
+            keywordsVal = i18nDictionary[lang]['excel-meta-keywords'] || i18nDictionary[lang]['home-meta-keywords'];
         } else {
             titleVal = i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['home-meta-desc'];
