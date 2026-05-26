@@ -145,6 +145,11 @@ const i18nDictionary = {
         "btn-clear-queue": "Xóa danh sách",
         "badge-category-image": "Xử Lý Hình Ảnh",
 
+        // --- VIDEO SUBTITLE PAGE ---
+        "subtitle-title-tag": "Video Subtitle - Chỉnh Sửa Phụ Đề Trực Quan - Silver Cat Tools",
+        "subtitle-meta-desc": "Tải lên video và file phụ đề SRT/VTT, chỉnh sửa nội dung và thời gian trực quan, xem trước đồng bộ thời gian thực. Tải về video đã ghép phụ đề hoặc file subtitle riêng.",
+        "subtitle-meta-keywords": "video subtitle, phụ đề video, chỉnh sửa phụ đề, srt editor, vtt, ghép phụ đề vào video, subtitle editor online, edit subtitle",
+
         // --- VIDEO DOWNLOADER PAGE ---
         "badge-category-video": "Tải Video",
         "vdl-title-tag": "Tải Video TikTok/Facebook Không Watermark - Silver Cat Tools",
@@ -390,6 +395,11 @@ const i18nDictionary = {
         "btn-clear-queue": "Clear list",
         "badge-category-image": "Image Processing",
 
+        // --- VIDEO SUBTITLE PAGE ---
+        "subtitle-title-tag": "Video Subtitle - Interactive Subtitle Editor - Silver Cat Tools",
+        "subtitle-meta-desc": "Upload video and SRT/VTT subtitle files, edit visually, preview with real-time sync. Download video with burned-in subtitles or subtitle file only.",
+        "subtitle-meta-keywords": "video subtitle editor, subtitle maker, srt editor, vtt editor, add subtitles to video, online subtitle tool, burn subtitles",
+
         // --- VIDEO DOWNLOADER PAGE ---
         "badge-category-video": "Video Download",
         "vdl-title-tag": "Download TikTok/Facebook Videos Without Watermark - Silver Cat Tools",
@@ -550,6 +560,7 @@ const i18nDictionary = {
         const isCompressorPage = path.includes('image-compressor');
         const isConverterPage = path.includes('image-converter');
         const isVideoDownloaderPage = path.includes('video-downloader');
+        const isVideoSubtitlePage = path.includes('video-subtitle');
         
         let titleVal = "";
         let descVal = "";
@@ -583,6 +594,10 @@ const i18nDictionary = {
             titleVal = i18nDictionary[lang]['vdl-title-tag'];
             descVal = i18nDictionary[lang]['vdl-meta-desc'];
             keywordsVal = i18nDictionary[lang]['vdl-meta-keywords'];
+        } else if (isVideoSubtitlePage) {
+            titleVal = i18nDictionary[lang]['subtitle-title-tag'];
+            descVal = i18nDictionary[lang]['subtitle-meta-desc'];
+            keywordsVal = i18nDictionary[lang]['subtitle-meta-keywords'];
         } else {
             titleVal = i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['home-meta-desc'];
