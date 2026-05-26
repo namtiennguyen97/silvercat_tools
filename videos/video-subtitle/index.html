@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L5LN7FVKY5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="d-vTUmEh1z84tkAvITe569i1jamKSFmsX4MVeJkKMys" />
+    <title data-i18n="subtitle-title-page">Video Subtitle - Silver Cat Tools</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Tải lên video và file phụ đề SRT/VTT, chỉnh sửa nội dung và thời gian trực quan, xem trước đồng bộ thời gian thực. Tải về video đã ghép phụ đề hoặc file subtitle riêng.">
+    <meta name="keywords" content="video subtitle, phụ đề video, chỉnh sửa phụ đề, srt editor, vtt, ghép phụ đề vào video, subtitle editor online, edit subtitle, video phụ đề, silver cat tools">
+    <meta name="author" content="Silver Cat Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://silvercat-utils.com/videos/video-subtitle/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silvercat-utils.com/videos/video-subtitle/">
+    <meta property="og:site_name" content="Silver Cat Tools">
+    <meta property="og:title" content="Video Subtitle - Chỉnh Sửa Phụ Đề Trực Tuyến - Silver Cat Tools">
+    <meta property="og:description" content="Tải lên video và file phụ đề SRT/VTT, chỉnh sửa nội dung và thời gian trực quan, xem trước đồng bộ thời gian thực. Tải về video đã ghép phụ đề hoặc file subtitle riêng.">
+    <meta property="og:image" content="https://silvercat-utils.com/logo.jpg">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:locale:alternate" content="en_US">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Video Subtitle - Chỉnh Sửa Phụ Đề Trực Tuyến - Silver Cat Tools">
+    <meta name="twitter:description" content="Tải lên video và file phụ đề SRT/VTT, chỉnh sửa nội dung và thời gian trực quan, xem trước đồng bộ thời gian thực.">
+    <meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=1.0.3">
+    <link rel="stylesheet" href="style.css?v=1.0.0">
+</head>
+<body>
+    <nav class="navbar glass scrolled" id="main-navbar">
+        <a href="../../index.html" class="nav-brand">
+            <div class="brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></div>
+            <span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span>
+        </a>
+    </nav>
+
+    <main class="tool-container">
+        <a href="../../index.html" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            <span data-i18n="back-home">Quay lại Trang Chủ</span>
+        </a>
+
+        <div class="tool-header">
+            <h1 class="tool-main-title"><span data-i18n="subtitle-head">Video</span> <span class="text-gradient" data-i18n="subtitle-head-sub">Subtitle</span></h1>
+            <p class="tool-subtitle" data-i18n="subtitle-desc">Tải lên video và file phụ đề, chỉnh sửa nội dung và thời gian trực quan, xem trước đồng bộ theo thời gian thực.</p>
+        </div>
+
+        <div class="mobile-tabs-container" id="mobile-tabs">
+            <button class="mobile-tab-btn active" data-target="panel-upload" data-i18n="subtitle-mob-upload">Tải lên</button>
+            <button class="mobile-tab-btn" data-target="panel-preview" data-i18n="subtitle-mob-preview">🎬 Xem trước (video)</button>
+        </div>
+
+        <div class="tool-grid-layout">
+            <!-- LEFT: Upload & Controls -->
+            <section class="tool-panel active-panel" id="panel-upload">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span data-i18n="subtitle-upload-title">Tải Video & Phụ Đề</span>
+                    </h2>
+                </div>
+
+                <!-- Video upload -->
+                <div class="dropzone" id="dropzone-video">
+                    <input type="file" id="file-video" accept="video/*" style="display:none;">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    <span class="dropzone-title" data-i18n="subtitle-drop-video">Kéo thả video vào đây hoặc click để chọn</span>
+                    <span class="dropzone-desc" data-i18n="subtitle-drop-video-desc">Hỗ trợ MP4, WebM, AVI. Xử lý 100% tại trình duyệt.</span>
+                </div>
+
+                <!-- Subtitle upload -->
+                <div class="dropzone" id="dropzone-subtitle" style="margin-top:0.75rem;">
+                    <input type="file" id="file-subtitle" accept=".srt,.vtt,.ass" style="display:none;">
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="18" y2="10"/><line x1="6" y1="14" x2="14" y2="14"/><line x1="16" y1="14" x2="18" y2="14"/></svg>
+                    <span class="dropzone-title" data-i18n="subtitle-drop-srt">Tải file phụ đề có sẵn (.srt, .vtt) — không bắt buộc</span>
+                    <span class="dropzone-desc" data-i18n="subtitle-drop-srt-desc">Có thể tạo phụ đề từ đầu bên dưới. Hỗ trợ SRT, VTT.</span>
+                </div>
+
+                <!-- Status indicators -->
+                <div id="status-files" style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">
+                    <span id="status-video" data-i18n="subtitle-status-novideo">Chưa có video</span>
+                    <span id="status-subtitle" data-i18n="subtitle-status-nosub">💡 Có thể tạo phụ đề từ đầu bên dưới</span>
+                </div>
+
+                <!-- Subtitle Style Controls -->
+                <div id="style-controls" style="display:none;flex-wrap:wrap;gap:0.5rem;padding:0.75rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:var(--border-radius-sm);">
+                    <div class="style-row" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;width:100%;">
+                        <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;" data-i18n="subtitle-style-label">Kiểu chữ:</span>
+                        <button class="style-btn active" id="style-bold" title="Bold" style="font-weight:700;">B</button>
+                        <button class="style-btn" id="style-italic" title="Italic" style="font-style:italic;">I</button>
+                        <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;margin-left:0.5rem;" data-i18n="subtitle-size-label">Cỡ:</span>
+                        <input type="range" class="range-slider" id="font-size-slider" min="12" max="48" value="24" style="width:80px;">
+                        <span id="font-size-val" style="font-size:0.75rem;color:var(--text-secondary);font-weight:600;min-width:30px;">24</span>
+                        <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;margin-left:0.5rem;" data-i18n="subtitle-color-label">Màu:</span>
+                        <input type="color" id="font-color-picker" value="#ffffff" style="width:32px;height:32px;border:1px solid rgba(255,255,255,0.1);border-radius:6px;background:transparent;cursor:pointer;padding:2px;">
+                    </div>
+                </div>
+
+                <!-- Toolbar: Add / Import -->
+                <div id="subtitle-toolbar" style="display:none;flex-wrap:wrap;gap:0.5rem;">
+                    <button class="btn btn-primary" id="btn-add-sub" style="flex:1;justify-content:center;">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        <span data-i18n="subtitle-add">Thêm phụ đề</span>
+                    </button>
+                    <button class="btn btn-secondary" id="btn-add-now" style="flex:1;justify-content:center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                        <span data-i18n="subtitle-add-now">➕ Thêm tại thời điểm hiện tại</span>
+                    </button>
+                </div>
+
+                <!-- Subtitle table -->
+                <div class="settings-group" id="subtitle-table-container" style="display:none;">
+                    <div class="settings-title">
+                        <span data-i18n="subtitle-entries">Danh sách phụ đề</span>
+                        <span id="subtitle-count" style="color:var(--accent-purple);font-weight:700;">0</span>
+                    </div>
+                    <div class="subtitle-table-wrapper" id="subtitle-table-wrapper">
+                        <table class="subtitle-table" id="subtitle-table">
+                            <thead><tr><th data-i18n="subtitle-th-id">#</th><th data-i18n="subtitle-th-start">Bắt đầu</th><th data-i18n="subtitle-th-end">Kết thúc</th><th data-i18n="subtitle-th-text">Nội dung</th></tr></thead>
+                            <tbody id="subtitle-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="panel-footer-actions" id="action-buttons" style="display:none;">
+                    <button class="btn btn-primary" id="btn-export-video" style="flex:1;justify-content:center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span data-i18n="subtitle-export-video">Tải Video + Phụ Đề</span>
+                    </button>
+                    <button class="btn btn-secondary" id="btn-export-srt" style="flex:1;justify-content:center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span data-i18n="subtitle-export-srt">Tải File .srt</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- RIGHT: Preview -->
+            <section class="tool-panel" id="panel-preview">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                        <span data-i18n="subtitle-preview-title">Xem Trước</span>
+                    </h2>
+                </div>
+
+                <div class="preview-box" id="preview-box" style="display:none;">
+                    <div class="preview-video-wrapper">
+                        <canvas id="preview-canvas" style="width:100%;height:auto;display:block;border-radius:8px;"></canvas>
+                    </div>
+                    <div class="preview-controls">
+                        <button class="btn-icon" id="btn-play" title="Play/Pause">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </button>
+                        <input type="range" class="range-slider" id="seek-slider" min="0" max="1000" value="0" style="flex:1;">
+                        <span class="time-display" id="time-display">00:00 / 00:00</span>
+                    </div>
+                    <div class="preview-stats-row">
+                        <div class="stat-item"><span class="stat-lbl" data-i18n="subtitle-stat-video">Video:</span><span class="stat-val" id="preview-video-name">-</span></div>
+                        <div class="stat-item"><span class="stat-lbl" data-i18n="subtitle-stat-subs">Phụ đề:</span><span class="stat-val" id="preview-sub-count">0</span></div>
+                    </div>
+                </div>
+
+                <div class="no-image-placeholder" id="no-preview-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" style="margin:0 auto 1rem;display:block;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                    <p data-i18n="subtitle-preview-empty">Tải video và phụ đề để xem trước</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a>
+            <p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools.</p>
+        </div>
+    </footer>
+
+    <script src="../../i18n.js?v=1.0.0"></script>
+    <script src="script.js?v=1.0.0"></script>
+</body>
+</html>

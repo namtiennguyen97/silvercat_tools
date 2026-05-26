@@ -56,6 +56,8 @@ const i18nDictionary = {
         "tool-qr-generator-desc": "Tạo mã QR độc đáo, cá tính hóa với dải màu gradient, logo thương hiệu và các chấm nghệ thuật.",
         "tool-video-downloader-title": "Tải Video TikTok/FB",
         "tool-video-downloader-desc": "Tải video từ các nền tảng mạng xã hội tốc độ cao, hỗ trợ loại bỏ logo watermark tự động.",
+        "tool-video-subtitle-title": "Video Subtitle",
+        "tool-video-subtitle-desc": "Tải lên video và file phụ đề SRT/VTT, chỉnh sửa trực quan, xem trước với đồng bộ thời gian thực. Tải về video đã ghép phụ đề hoặc file subtitle riêng.",
         "tool-open-btn": "Mở công cụ",
 
         "badge-new": "Mới",
@@ -298,6 +300,8 @@ const i18nDictionary = {
         "tool-qr-generator-desc": "Generate custom QR codes styled with premium gradients, brand logos, and artistic dot patterns.",
         "tool-video-downloader-title": "Video Downloader",
         "tool-video-downloader-desc": "Download videos from social platforms at maximum speed, with automatic watermark removal.",
+        "tool-video-subtitle-title": "Video Subtitle",
+        "tool-video-subtitle-desc": "Upload video and SRT/VTT subtitle files, edit visually, preview with real-time sync. Download video with burned-in subtitles or subtitle file only.",
         "tool-open-btn": "Open Tool",
 
         "badge-new": "New",

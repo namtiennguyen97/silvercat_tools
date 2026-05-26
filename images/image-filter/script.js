@@ -3,6 +3,85 @@
 // Uses Canvas API to apply CSS/CV filters on pixel data
 // ==========================================================================
 
+// ─── i18n ─────────────────────────────────────────────────────────────────
+const localDict = {
+    vi: {
+        'filter-title-page': 'Bộ Lọc & Hiệu Ứng Ảnh - Silver Cat Tools',
+        'back-home': 'Quay lại Trang Chủ',
+        'filter-head': 'Bộ Lọc',
+        'filter-head-sub': 'Hiệu Ứng Ảnh',
+        'filter-desc': 'Thỏa sức biến tấu bức ảnh với hàng loạt bộ lọc chuyên nghiệp: từ cổ điển đến hiện đại. Tất cả chạy trên trình duyệt - riêng tư tuyệt đối!',
+        'upload-title': 'Tải Ảnh Lên',
+        'drop-title': 'Kéo thả ảnh vào đây hoặc click để chọn',
+        'drop-desc': 'Hỗ trợ JPG, PNG, WebP. Xử lý 100% tại trình duyệt.',
+        'intensity-lbl': 'Cường độ hiệu ứng',
+        'btn-reset': 'Reset',
+        'btn-download': 'Tải Ảnh Đã Filter',
+        'preview-title': 'Xem Trước',
+        'preview-label': 'Kết quả sau khi áp dụng filter',
+        'preview-badge': 'Filtered',
+        'dims-lbl': 'Kích thước:',
+        'filter-lbl': 'Filter:',
+        'no-image': 'Chưa có ảnh nào được tải lên',
+        'filter-none': 'Không',
+        'footer-copyright': '© 2026 Silver Cat Tools.',
+    },
+    en: {
+        'filter-title-page': 'Image Filter & Effects - Silver Cat Tools',
+        'back-home': 'Back to Home',
+        'filter-head': 'Image',
+        'filter-head-sub': 'Filter & Effects',
+        'filter-desc': 'Transform your photos with professional filters: from classic to modern. All processing runs in your browser - 100% private!',
+        'upload-title': 'Upload Image',
+        'drop-title': 'Drop an image here or click to select',
+        'drop-desc': 'Supports JPG, PNG, WebP. 100% browser-side processing.',
+        'intensity-lbl': 'Effect Intensity',
+        'btn-reset': 'Reset',
+        'btn-download': 'Download Filtered Image',
+        'preview-title': 'Preview',
+        'preview-label': 'Result after applying filter',
+        'preview-badge': 'Filtered',
+        'dims-lbl': 'Dimensions:',
+        'filter-lbl': 'Filter:',
+        'no-image': 'No image uploaded yet',
+        'filter-none': 'None',
+        'footer-copyright': '© 2026 Silver Cat Tools.',
+    }
+};
+
+function getCurrentLang() {
+    return localStorage.getItem('preferred-lang') || 'vi';
+}
+
+function applyLocalTranslation(lang) {
+    const dict = localDict[lang] || localDict['vi'];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translation = dict[key];
+        if (translation !== undefined) {
+            if (translation.includes('<') && translation.includes('>')) {
+                el.innerHTML = translation;
+            } else {
+                el.textContent = translation;
+            }
+        }
+    });
+    const titleEl = document.querySelector('title[data-i18n]');
+    if (titleEl && dict[titleEl.getAttribute('data-i18n')]) {
+        document.title = dict[titleEl.getAttribute('data-i18n')];
+    }
+}
+
+function getFilterLabel(f, lang) {
+    if (f.labelKey) {
+        return (localDict[lang] && localDict[lang][f.labelKey]) || localDict['vi'][f.labelKey];
+    }
+    return f.label;
+}
+
+// ==========================================================================
+// MAIN APP
+// ==========================================================================
 (function () {
     'use strict';
 
@@ -26,10 +105,10 @@
     let isProcessing = false;
 
     // ======================================================================
-    // FILTER DEFINITIONS
+    // FILTER DEFINITIONS (i18n keys)
     // ======================================================================
     const filters = [
-        { id: 'none',      icon: '❌', label: 'Không Filter' },
+        { id: 'none',      icon: '❌', labelKey: 'filter-none' },
         { id: 'grayscale', icon: '⚪', label: 'Grayscale' },
         { id: 'sepia',     icon: '🟤', label: 'Sepia' },
         { id: 'invert',    icon: '🔄', label: 'Invert' },
@@ -50,22 +129,33 @@
     // ======================================================================
     // RENDER FILTER BUTTONS
     // ======================================================================
-    filters.forEach(f => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn' + (f.id === 'none' ? ' active' : '');
-        btn.dataset.filter = f.id;
-        btn.innerHTML = `<span class="filter-icon">${f.icon}</span><span class="filter-label">${f.label}</span>`;
-        btn.addEventListener('click', () => applyFilter(f.id));
-        filtersGrid.appendChild(btn);
-    });
+    function renderFilterButtons(lang) {
+        filtersGrid.innerHTML = '';
+        filters.forEach(f => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn' + (f.id === 'none' ? ' active' : '');
+            btn.dataset.filter = f.id;
+            const label = getFilterLabel(f, lang);
+            btn.innerHTML = `<span class="filter-icon">${f.icon}</span><span class="filter-label">${label}</span>`;
+            btn.addEventListener('click', () => applyFilter(f.id));
+            filtersGrid.appendChild(btn);
+        });
+        // Update preview filter name if image loaded
+        if (originalImage) {
+            const curFilter = filters.find(f => f.id === currentFilter);
+            if (curFilter) {
+                previewFilter.textContent = getFilterLabel(curFilter, lang);
+            }
+        }
+    }
 
     // ======================================================================
     // DROPZONE HANDLING
     // ======================================================================
     dropzone.addEventListener('click', () => fileInput.click());
-    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.style.borderColor = 'var(--accent-purple)'; });
-    dropzone.addEventListener('dragleave', () => { dropzone.style.borderColor = ''; });
-    dropzone.addEventListener('drop', (e) => { e.preventDefault(); dropzone.style.borderColor = ''; handleFile(e.dataTransfer.files[0]); });
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => { dropzone.classList.remove('dragover'); });
+    dropzone.addEventListener('drop', (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); handleFile(e.dataTransfer.files[0]); });
     fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
 
     function handleFile(file) {
@@ -123,8 +213,8 @@
         ctx.drawImage(originalImage, 0, 0, drawW, drawH);
 
         previewDims.textContent = `${drawW} × ${drawH}`;
-        const fName = filters.find(f => f.id === currentFilter)?.label || 'Không';
-        previewFilter.textContent = fName;
+        const curFilter = filters.find(f => f.id === currentFilter);
+        previewFilter.textContent = curFilter ? getFilterLabel(curFilter, getCurrentLang()) : '—';
 
         if (currentFilter === 'none') { isProcessing = false; return; }
 
@@ -389,6 +479,26 @@
             const target = document.getElementById(btn.dataset.target);
             if (target) target.classList.add('active-panel');
         });
+    });
+
+    // ======================================================================
+    // INIT i18n
+    // ======================================================================
+    const initLang = getCurrentLang();
+    applyLocalTranslation(initLang);
+    renderFilterButtons(initLang);
+
+    window.addEventListener('languageChanged', e => {
+        const lang = e.detail?.lang || getCurrentLang();
+        applyLocalTranslation(lang);
+        renderFilterButtons(lang);
+        // Re-render preview to update filter name shown
+        if (originalImage) {
+            const curFilter = filters.find(f => f.id === currentFilter);
+            if (curFilter) {
+                previewFilter.textContent = getFilterLabel(curFilter, lang);
+            }
+        }
     });
 
 })();

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bộ Lọc & Hiệu Ứng Ảnh - Silver Cat Tools</title>
+    <title data-i18n="filter-title-page">Bộ Lọc & Hiệu Ứng Ảnh - Silver Cat Tools</title>
     <link rel="icon" type="image/jpeg" href="../../logo.jpg">
     <meta name="description" content="Áp dụng bộ lọc ảnh chuyên nghiệp trực tuyến miễn phí. Grayscale, Sepia, Blur, Vintage và nhiều hiệu ứng khác - xử lý 100% trên trình duyệt.">
     <meta name="keywords" content="filter ảnh, hiệu ứng ảnh, chỉnh sửa ảnh online, effect ảnh, grayscale, sepia, blur, vintage">
@@ -27,25 +27,18 @@
             <div class="brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></div>
             <span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span>
         </a>
-        <ul class="nav-links">
-            <li><a href="../../index.html" class="nav-link">Trang Chủ</a></li>
-            <li><a href="../../index.html#tools-section" class="nav-link">Công Cụ</a></li>
-        </ul>
-        <a href="../../index.html" class="nav-cta">Về Trang Chủ</a>
     </nav>
 
-    <div class="tool-container">
-        <header class="tool-page-header">
-            <a href="../../index.html#tools-section" class="back-link">
-                <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                <span>Quay lại danh mục công cụ</span>
-            </a>
-            <div class="hero-badge" style="background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.2); color: #c084fc;">
-                <span>Xử Lý Hình Ảnh</span>
-            </div>
-            <h1>Bộ Lọc & <span class="text-gradient">Hiệu Ứng Ảnh</span></h1>
-            <p>Thỏa sức biến tấu bức ảnh với hàng loạt bộ lọc chuyên nghiệp: từ cổ điển đến hiện đại. Tất cả chạy trên trình duyệt - riêng tư tuyệt đối!</p>
-        </header>
+    <main class="tool-container">
+        <a href="../../index.html" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            <span data-i18n="back-home">Quay lại Trang Chủ</span>
+        </a>
+
+        <div class="tool-header">
+            <h1 class="tool-main-title"><span data-i18n="filter-head">Bộ Lọc</span> & <span class="text-gradient" data-i18n="filter-head-sub">Hiệu Ứng Ảnh</span></h1>
+            <p class="tool-subtitle" data-i18n="filter-desc">Thỏa sức biến tấu bức ảnh với hàng loạt bộ lọc chuyên nghiệp: từ cổ điển đến hiện đại. Tất cả chạy trên trình duyệt - riêng tư tuyệt đối!</p>
+        </div>
 
         <div class="tool-grid-layout">
             <!-- LEFT: Upload area + Filters -->
@@ -53,21 +46,22 @@
                 <div class="panel-header">
                     <h2 class="panel-title">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                        <span>Tải Ảnh Lên</span>
+                        <span data-i18n="upload-title">Tải Ảnh Lên</span>
                     </h2>
                 </div>
+
                 <div class="dropzone" id="dropzone">
                     <input type="file" id="file-input" accept="image/*" style="display:none;">
                     <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    <div class="dropzone-title">Kéo thả ảnh vào đây hoặc click để chọn</div>
-                    <div class="dropzone-desc">Hỗ trợ JPG, PNG, WebP. Xử lý 100% tại trình duyệt.</div>
+                    <span class="dropzone-title" data-i18n="drop-title">Kéo thả ảnh vào đây hoặc click để chọn</span>
+                    <span class="dropzone-desc" data-i18n="drop-desc">Hỗ trợ JPG, PNG, WebP. Xử lý 100% tại trình duyệt.</span>
                 </div>
 
                 <!-- Intensity slider -->
-                <div class="settings-group" style="margin-top:1.5rem;">
+                <div class="settings-group">
                     <div class="settings-title">
-                        <span>Cường độ hiệu ứng</span>
-                        <span id="intensity-val" style="color:var(--accent-purple);font-weight:700;">100%</span>
+                        <span data-i18n="intensity-lbl">Cường độ hiệu ứng</span>
+                        <span class="range-val" id="intensity-val">100%</span>
                     </div>
                     <div class="range-slider-container">
                         <input type="range" class="range-slider" id="intensity-slider" min="0" max="100" value="100">
@@ -77,14 +71,14 @@
                 <!-- Filter buttons -->
                 <div class="filters-grid" id="filters-grid"></div>
 
-                <div style="display:flex;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+                <div class="panel-footer-actions">
                     <button class="btn btn-primary" id="btn-reset" style="flex:1;justify-content:center;">
                         <svg viewBox="0 0 24 24" fill="currentColor" width="16"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-                        Reset
+                        <span data-i18n="btn-reset">Reset</span>
                     </button>
                     <button class="btn btn-secondary" id="btn-download" style="flex:1;justify-content:center;display:none;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        Tải Ảnh Đã Filter
+                        <span data-i18n="btn-download">Tải Ảnh Đã Filter</span>
                     </button>
                 </div>
             </section>
@@ -94,36 +88,36 @@
                 <div class="panel-header">
                     <h2 class="panel-title">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-                        <span>Xem Trước</span>
+                        <span data-i18n="preview-title">Xem Trước</span>
                     </h2>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:1rem;">
-                    <div class="preview-box" id="preview-box" style="display:none;">
-                        <div class="preview-box-header">
-                            <span class="preview-box-title">Kết quả sau khi áp dụng filter</span>
-                            <span class="preview-box-badge" style="background:rgba(168,85,247,0.1);color:#c084fc;">Filtered</span>
-                        </div>
-                        <div class="preview-image-wrapper">
-                            <canvas id="preview-canvas" style="width:100%;height:auto;display:block;"></canvas>
-                        </div>
-                        <div class="preview-stats-row">
-                            <div class="stat-item"><span class="stat-lbl">Kích thước:</span><span class="stat-val" id="preview-dims">-</span></div>
-                            <div class="stat-item"><span class="stat-lbl">Filter:</span><span class="stat-val" id="preview-filter">Không</span></div>
-                        </div>
+
+                <div class="preview-box" id="preview-box" style="display:none;">
+                    <div class="preview-box-header">
+                        <span class="preview-box-title" data-i18n="preview-label">Kết quả sau khi áp dụng filter</span>
+                        <span class="preview-box-badge" data-i18n="preview-badge">Filtered</span>
                     </div>
-                    <div class="no-image-placeholder" id="no-image-placeholder" style="text-align:center;padding:2rem;color:var(--text-muted);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" style="margin:0 auto 1rem;display:block;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                        <p>Chưa có ảnh nào được tải lên</p>
+                    <div class="preview-image-wrapper">
+                        <canvas id="preview-canvas" style="width:100%;height:auto;display:block;"></canvas>
                     </div>
+                    <div class="preview-stats-row">
+                        <div class="stat-item"><span class="stat-lbl" data-i18n="dims-lbl">Kích thước:</span><span class="stat-val" id="preview-dims">-</span></div>
+                        <div class="stat-item"><span class="stat-lbl" data-i18n="filter-lbl">Filter:</span><span class="stat-val" id="preview-filter">Không</span></div>
+                    </div>
+                </div>
+
+                <div class="no-image-placeholder" id="no-image-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <p data-i18n="no-image">Chưa có ảnh nào được tải lên</p>
                 </div>
             </section>
         </div>
-    </div>
+    </main>
 
     <footer class="footer">
         <div class="footer-container">
             <a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a>
-            <p class="footer-copyright">&copy; 2026 Silver Cat Tools.</p>
+            <p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools.</p>
         </div>
     </footer>
 
