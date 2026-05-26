@@ -1517,3 +1517,79 @@ html, body {
         flex-wrap: nowrap;
     }
 }
+
+/* ==========================================================================
+   PWA INSTALL HEADER BUTTON (desktop)
+   ========================================================================== */
+.pwa-install-header-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--grad-primary);
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--border-radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+}
+
+.pwa-install-header-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.pwa-install-header-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Hide header install on mobile */
+@media (max-width: 768px) {
+    .pwa-install-header-btn {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   PWA INSTALL FOOTER BUTTON (mobile)
+   ========================================================================== */
+.pwa-install-footer-btn {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--accent-indigo);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pwa-install-footer-btn:hover {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: var(--accent-indigo);
+}
+
+.pwa-install-footer-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* Show footer install only on mobile */
+@media (max-width: 768px) {
+    .pwa-install-footer-btn {
+        display: inline-flex;
+    }
+}

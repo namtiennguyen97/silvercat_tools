@@ -16,15 +16,12 @@
         }, 500);
     }
 
-    // Check if already loaded
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         hideLoading();
     } else {
-        // Wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', hideLoading);
     }
 
-    // Fallback: force hide after max 3 seconds no matter what
     setTimeout(hideLoading, 3000);
 })();
 
@@ -61,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeCategory = 'all';
     let searchQuery = '';
 
-    // Function to filter tools
     function filterTools() {
         let visibleCount = 0;
         const query = searchQuery.toLowerCase().trim();
@@ -72,17 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const desc = card.querySelector('.card-desc').textContent.toLowerCase();
             const tags = card.getAttribute('data-tags') ? card.getAttribute('data-tags').toLowerCase() : '';
             
-            // Category check
             const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
-            
-            // Search query check (title, description or tags)
-            const matchesSearch = title.includes(query) || 
-                                  desc.includes(query) || 
-                                  tags.includes(query);
+            const matchesSearch = title.includes(query) || desc.includes(query) || tags.includes(query);
 
             if (matchesCategory && matchesSearch) {
                 card.style.display = 'flex';
-                // Add minor entrance animation
                 card.style.animation = 'fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
                 visibleCount++;
             } else {
@@ -90,18 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Toggle Empty/No results state
         if (visibleCount === 0) {
             noResults.style.display = 'block';
             toolsGrid.style.gridTemplateColumns = '1fr';
         } else {
             noResults.style.display = 'none';
-            // Restore grid layout
             toolsGrid.style.removeProperty('grid-template-columns');
         }
     }
 
-    // Search Input Listener with Debounce/Instant response
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value;
@@ -109,15 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Category Tabs Listener
     categoryTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            // Remove active class from all tabs
             categoryTabs.forEach(t => t.classList.remove('active'));
-            // Add active class to clicked tab
             tab.classList.add('active');
-            
-            // Set active category and filter
             activeCategory = tab.getAttribute('data-category');
             filterTools();
         });
@@ -125,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Interactive Keyboard Shortcuts
     document.addEventListener('keydown', (e) => {
-        // Focus search bar on '/' key press
         if (e.key === '/' && document.activeElement !== searchInput) {
             e.preventDefault();
             if (searchInput) {
@@ -176,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function typePlaceholder() {
         if (!searchInput) return;
-        // Don't continue typing if input is focused
         if (document.activeElement === searchInput) return;
 
         const suggestions = suggestionsDict[currentAppLang];
@@ -195,9 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let typingSpeed = 100;
-        if (isDeleting) {
-            typingSpeed /= 2;
-        }
+        if (isDeleting) typingSpeed /= 2;
 
         if (!isDeleting && charIndex === currentText.length + 1) {
             typingSpeed = 2000;
@@ -235,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoriesContainer = document.getElementById('categories-container');
 
     if (categoriesWrapper && categoriesContainer) {
-        // Create left and right fade indicator overlays dynamically inside the wrapper
         const fadeLeft = document.createElement('div');
         fadeLeft.className = 'categories-fade-left';
         const fadeRight = document.createElement('div');
@@ -250,48 +227,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const clientWidth = categoriesContainer.clientWidth;
 
             if (scrollWidth > clientWidth) {
-                // Left overlay visibility if scrolled right
-                if (scrollLeft > 5) {
-                    categoriesWrapper.classList.add('is-overflowing-left');
-                } else {
-                    categoriesWrapper.classList.remove('is-overflowing-left');
-                }
-
-                // Right overlay visibility if more content to scroll on the right
-                if (scrollLeft + clientWidth < scrollWidth - 5) {
-                    categoriesWrapper.classList.add('is-overflowing-right');
-                } else {
-                    categoriesWrapper.classList.remove('is-overflowing-right');
-                }
+                if (scrollLeft > 5) categoriesWrapper.classList.add('is-overflowing-left');
+                else categoriesWrapper.classList.remove('is-overflowing-left');
+                if (scrollLeft + clientWidth < scrollWidth - 5) categoriesWrapper.classList.add('is-overflowing-right');
+                else categoriesWrapper.classList.remove('is-overflowing-right');
             } else {
                 categoriesWrapper.classList.remove('is-overflowing-left', 'is-overflowing-right');
             }
         };
 
-        // Initialize and listen to scroll and window resizing events
         checkOverflowAndScroll();
         categoriesContainer.addEventListener('scroll', checkOverflowAndScroll);
         window.addEventListener('resize', checkOverflowAndScroll);
 
-        // One-time interactive scroll hint animation (bounce peek) on mobile load
         if (window.innerWidth <= 768) {
             setTimeout(() => {
                 if (categoriesContainer.scrollWidth > categoriesContainer.clientWidth) {
-                    // Peek right
-                    categoriesContainer.scrollTo({
-                        left: 45,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Bounce back to start
+                    categoriesContainer.scrollTo({ left: 45, behavior: 'smooth' });
                     setTimeout(() => {
-                        categoriesContainer.scrollTo({
-                            left: 0,
-                            behavior: 'smooth'
-                        });
+                        categoriesContainer.scrollTo({ left: 0, behavior: 'smooth' });
                     }, 500);
                 }
-            }, 1500); // Trigger shortly after initial loading completes
+            }, 1500);
         }
     }
 });
@@ -300,14 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
 const style = document.createElement('style');
 style.textContent = `
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 `;
 document.head.appendChild(style);
@@ -377,12 +328,20 @@ if ('serviceWorker' in navigator) {
     // Listen for language changes
     window.addEventListener('languageChanged', renderBanner);
 
-    // Listen for the beforeinstallprompt event (Android Chrome)
+    // Check if 5 days have passed since last dismiss
+    function shouldShowBanner() {
+        const dismissedTime = localStorage.getItem('pwa-dismissed-time');
+        if (!dismissedTime) return true; // Never dismissed
+        const elapsed = Date.now() - parseInt(dismissedTime);
+        const fiveDays = 5 * 24 * 60 * 60 * 1000;
+        return elapsed > fiveDays;
+    }
+
+    // Listen for the beforeinstallprompt event (all Chrome platforms)
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        // Only show if user hasn't dismissed before
-        if (!localStorage.getItem('pwa-dismissed')) {
+        if (shouldShowBanner()) {
             banner.style.display = 'flex';
         }
     });
@@ -405,19 +364,18 @@ if ('serviceWorker' in navigator) {
         
         if (closeBtn) {
             banner.style.display = 'none';
-            localStorage.setItem('pwa-dismissed', 'true');
+            // 5 ngày sau mới hỏi lại
+            localStorage.setItem('pwa-dismissed-time', Date.now().toString());
         }
     });
 
-    // Fallback: Show banner for iOS Safari users (no beforeinstallprompt event)
-    // iOS users: detect if not in standalone mode
+    // iOS Safari fallback
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
     
-    if (isIOS && !isStandalone && !localStorage.getItem('pwa-dismissed')) {
-        // Show iOS-specific banner after a short delay
+    if (isIOS && !isStandalone && shouldShowBanner()) {
         setTimeout(() => {
-            if (!localStorage.getItem('pwa-dismissed')) {
+            if (shouldShowBanner()) {
                 const txt = getBannerText();
                 banner.innerHTML = `
                     <div class="pwa-banner-content">
@@ -426,7 +384,7 @@ if ('serviceWorker' in navigator) {
                         </div>
                         <div class="pwa-banner-text">
                             <strong>${txt.title}</strong>
-                            <span>${isIOS ? 'Nhấn vào nút chia sẻ <strong>Chia sẻ</strong> &rarr; <strong>Thêm vào Màn hình chính</strong>' : txt.desc}</span>
+                            <span>Nhấn vào nút chia sẻ <strong>Chia sẻ</strong> &rarr; <strong>Thêm vào Màn hình chính</strong></span>
                         </div>
                         <div class="pwa-banner-actions">
                             <button class="pwa-banner-close">${txt.later}</button>
@@ -438,37 +396,98 @@ if ('serviceWorker' in navigator) {
         }, 3000);
     }
 
-    // Hide banner when app is already installed/standalone
     if (isStandalone) {
         banner.style.display = 'none';
     }
 
-    // Desktop Chrome: Listen for beforeinstallprompt (works on all platforms)
-    // Also add a manual install button in navbar if PWA is installable
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        // Add an install button to the nav-cta area if it doesn't exist already
-        const navCta = document.querySelector('.nav-cta');
-        if (navCta && !document.querySelector('.pwa-install-nav-btn')) {
-            const installNavBtn = document.createElement('button');
-            installNavBtn.className = 'pwa-install-nav-btn';
-            installNavBtn.innerHTML = '📥 Install App';
-            installNavBtn.style.cssText = 'background:var(--grad-primary);color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:8px;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap;margin-left:0.5rem;';
-            installNavBtn.addEventListener('click', () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-                }
-            });
-            navCta.parentNode.insertBefore(installNavBtn, navCta.nextSibling);
+    // ======================================================================
+    // CREATE INSTALL BUTTONS: Header (desktop) + Footer (mobile)
+    // ======================================================================
+    function createInstallButtons() {
+        // Remove old buttons
+        document.querySelectorAll('.pwa-install-header-btn, .pwa-install-footer-btn, .nav-cta').forEach(el => el.remove());
+
+        const lang = localStorage.getItem('preferred-lang') || 'vi';
+        const headerText = lang === 'en' ? 'Install App' : 'Cài Đặt';
+        const footerText = lang === 'en' ? '📥 Install App' : '📥 Cài Đặt Ứng Dụng';
+
+        // === HEADER: Install App button ===
+        const navbar = document.getElementById('main-navbar');
+        if (navbar) {
+            const headerBtn = document.createElement('button');
+            headerBtn.className = 'pwa-install-header-btn';
+            headerBtn.innerHTML = `
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span class="install-text">${headerText}</span>
+            `;
+            headerBtn.addEventListener('click', triggerInstall);
+            navbar.appendChild(headerBtn);
         }
+
+        // === FOOTER: Install App button ===
+        const footerContainer = document.querySelector('.footer-container');
+        if (footerContainer) {
+            const footerBtn = document.createElement('button');
+            footerBtn.className = 'pwa-install-footer-btn';
+            footerBtn.innerHTML = `
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                ${footerText}
+            `;
+            footerBtn.addEventListener('click', triggerInstall);
+            const copyright = footerContainer.querySelector('.footer-copyright');
+            if (copyright) {
+                footerContainer.insertBefore(footerBtn, copyright);
+            } else {
+                footerContainer.appendChild(footerBtn);
+            }
+        }
+    }
+
+    function triggerInstall() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+        } else if (isIOS && !isStandalone) {
+            const txt = getBannerText();
+            banner.innerHTML = `
+                <div class="pwa-banner-content">
+                    <div class="pwa-banner-icon"><img src="logo.jpg" alt="Silver Cat Tools" width="48" height="48" style="border-radius:12px;"></div>
+                    <div class="pwa-banner-text">
+                        <strong>${txt.title}</strong>
+                        <span>Nhấn vào nút chia sẻ <strong>Chia sẻ</strong> &rarr; <strong>Thêm vào Màn hình chính</strong></span>
+                    </div>
+                    <div class="pwa-banner-actions">
+                        <button class="pwa-banner-close">${txt.later}</button>
+                    </div>
+                </div>
+            `;
+            banner.style.display = 'flex';
+        } else if (isStandalone) {
+            alert('Ứng dụng đã được cài đặt!');
+        } else {
+            alert('Trình duyệt của bạn không hỗ trợ. Vui lòng dùng Chrome hoặc Edge.');
+        }
+    }
+
+    // Create buttons when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', createInstallButtons);
+    } else {
+        createInstallButtons();
+    }
+
+    // Re-create buttons when language changes
+    window.addEventListener('languageChanged', () => {
+        setTimeout(createInstallButtons, 100);
     });
 
-    // Also remove the installed-button after app is installed
+    // Remove buttons after app is installed
     window.addEventListener('appinstalled', () => {
-        const navBtn = document.querySelector('.pwa-install-nav-btn');
-        if (navBtn) navBtn.remove();
+        document.querySelectorAll('.pwa-install-header-btn, .pwa-install-footer-btn').forEach(el => el.remove());
         banner.style.display = 'none';
     });
 })();
