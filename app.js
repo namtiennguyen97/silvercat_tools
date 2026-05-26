@@ -287,3 +287,135 @@ style.textContent = `
 }
 `;
 document.head.appendChild(style);
+
+// ==========================================================================
+// 7. PWA: SERVICE WORKER REGISTRATION
+// ==========================================================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+            console.log('SW registered:', reg.scope);
+        }).catch(err => {
+            console.log('SW registration failed:', err);
+        });
+    });
+}
+
+// ==========================================================================
+// 8. PWA: ADD TO HOME SCREEN / INSTALL BANNER
+// ==========================================================================
+(function() {
+    let deferredPrompt = null;
+    const banner = document.createElement('div');
+    banner.className = 'pwa-install-banner';
+    banner.style.display = 'none';
+    
+    const getBannerText = () => {
+        const lang = localStorage.getItem('preferred-lang') || 'vi';
+        if (lang === 'en') {
+            return {
+                title: '📱 Install Silver Cat Tools',
+                desc: 'Add to your home screen for quick access to all tools!',
+                install: 'Install App',
+                later: 'Later'
+            };
+        }
+        return {
+            title: '📱 Cài Đặt Silver Cat Tools',
+            desc: 'Thêm vào màn hình chính để truy cập nhanh các công cụ tiện ích!',
+            install: 'Cài Đặt',
+            later: 'Để Sau'
+        };
+    };
+
+    function renderBanner() {
+        const txt = getBannerText();
+        banner.innerHTML = `
+            <div class="pwa-banner-content">
+                <div class="pwa-banner-icon">
+                    <img src="logo.jpg" alt="Silver Cat Tools" width="48" height="48" style="border-radius:12px;">
+                </div>
+                <div class="pwa-banner-text">
+                    <strong>${txt.title}</strong>
+                    <span>${txt.desc}</span>
+                </div>
+                <div class="pwa-banner-actions">
+                    <button class="pwa-banner-install">${txt.install}</button>
+                    <button class="pwa-banner-close">${txt.later}</button>
+                </div>
+            </div>
+        `;
+    }
+
+    renderBanner();
+    document.body.appendChild(banner);
+
+    // Listen for language changes
+    window.addEventListener('languageChanged', renderBanner);
+
+    // Listen for the beforeinstallprompt event (Android Chrome)
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Only show if user hasn't dismissed before
+        if (!localStorage.getItem('pwa-dismissed')) {
+            banner.style.display = 'flex';
+        }
+    });
+
+    // Handle install button click
+    banner.addEventListener('click', (e) => {
+        const installBtn = e.target.closest('.pwa-banner-install');
+        const closeBtn = e.target.closest('.pwa-banner-close');
+        
+        if (installBtn && deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choice) => {
+                if (choice.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                    banner.style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        }
+        
+        if (closeBtn) {
+            banner.style.display = 'none';
+            localStorage.setItem('pwa-dismissed', 'true');
+        }
+    });
+
+    // Fallback: Show banner for iOS Safari users (no beforeinstallprompt event)
+    // iOS users: detect if not in standalone mode
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    
+    if (isIOS && !isStandalone && !localStorage.getItem('pwa-dismissed')) {
+        // Show iOS-specific banner after a short delay
+        setTimeout(() => {
+            if (!localStorage.getItem('pwa-dismissed')) {
+                const txt = getBannerText();
+                banner.innerHTML = `
+                    <div class="pwa-banner-content">
+                        <div class="pwa-banner-icon">
+                            <img src="logo.jpg" alt="Silver Cat Tools" width="48" height="48" style="border-radius:12px;">
+                        </div>
+                        <div class="pwa-banner-text">
+                            <strong>${txt.title}</strong>
+                            <span>${isIOS ? 'Nhấn vào nút chia sẻ <strong>Chia sẻ</strong> &rarr; <strong>Thêm vào Màn hình chính</strong>' : txt.desc}</span>
+                        </div>
+                        <div class="pwa-banner-actions">
+                            <button class="pwa-banner-close">${txt.later}</button>
+                        </div>
+                    </div>
+                `;
+                banner.style.display = 'flex';
+            }
+        }, 3000);
+    }
+
+    // Hide banner when app is already installed/standalone
+    if (isStandalone) {
+        banner.style.display = 'none';
+    }
+})();
