@@ -186,6 +186,11 @@ const i18nDictionary = {
         "excel-meta-desc": "Đọc và xem nội dung file Excel (.xlsx, .xls), CSV, TSV, ODS online miễn phí. Hỗ trợ nhiều sheet, lọc, tìm kiếm, xuất CSV/JSON. Xử lý 100% tại trình duyệt.",
         "excel-meta-keywords": "đọc file excel online, xem file xlsx, đọc csv, excel reader, csv viewer, xem file excel không cần office, công cụ excel online",
 
+        // --- WEB DOWNLOADER PAGE ---
+        "webdl-title-tag": "Tải Mã Nguồn Web (HTML/CSS/JS) - Silver Cat Tools",
+        "webdl-meta-desc": "Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web online miễn phí. Trích xuất và tải về source code dưới dạng ZIP.",
+        "webdl-meta-keywords": "tải mã nguồn web, download html css js, cào web, web scraper, lấy source code web, download webpage source",
+
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - Cổng Công Cụ & Tiện Ích Trực Tuyến Miễn Phí Cao Cấp",
         "home-meta-desc": "Khám phá bộ sưu tập công cụ tiện ích trực tuyến (Micro-SaaS) miễn phí, nhanh chóng và không quảng cáo. Nén ảnh chất lượng cao, chuyển đổi PDF sang Word, tạo QR nghệ thuật và tải video TikTok/FB không dính logo.",
@@ -448,6 +453,11 @@ const i18nDictionary = {
         "excel-meta-desc": "Read and view Excel (.xlsx, .xls), CSV, TSV, ODS files online for free. Supports multiple sheets, filtering, search, export CSV/JSON. 100% browser-side.",
         "excel-meta-keywords": "excel reader online, xlsx viewer, csv reader, excel file viewer, tsv viewer, ods reader, online spreadsheet viewer",
 
+        // --- WEB DOWNLOADER PAGE ---
+        "webdl-title-tag": "Web Source Downloader (HTML/CSS/JS) - Silver Cat Tools",
+        "webdl-meta-desc": "Download HTML, CSS, JavaScript source code from any website online for free. Extract and download source as ZIP.",
+        "webdl-meta-keywords": "web source downloader, download html css js, web scraper, webpage source code, download website source",
+
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - High-Performance Free Online Utility Tools",
         "home-meta-desc": "Explore a collection of free, high-performance, ad-free online utility tools (Micro-SaaS) running in your browser. Compress images, convert PDF to Word, create artistic QR codes, and download videos.",
@@ -586,6 +596,7 @@ const i18nDictionary = {
         const isVideoDownloaderPage = path.includes('video-downloader');
         const isVideoSubtitlePage = path.includes('video-subtitle');
         const isExcelReaderPage = path.includes('excel-reader');
+        const isWebDownloaderPage = path.includes('web-downloader');
         
         let titleVal = "";
         let descVal = "";
@@ -627,6 +638,10 @@ const i18nDictionary = {
             titleVal = i18nDictionary[lang]['excel-title-tag'] || i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['excel-meta-desc'] || i18nDictionary[lang]['home-meta-desc'];
             keywordsVal = i18nDictionary[lang]['excel-meta-keywords'] || i18nDictionary[lang]['home-meta-keywords'];
+        } else if (isWebDownloaderPage) {
+            titleVal = i18nDictionary[lang]['webdl-title-tag'] || i18nDictionary[lang]['home-title-tag'];
+            descVal = i18nDictionary[lang]['webdl-meta-desc'] || i18nDictionary[lang]['home-meta-desc'];
+            keywordsVal = i18nDictionary[lang]['webdl-meta-keywords'] || i18nDictionary[lang]['home-meta-keywords'];
         } else {
             titleVal = i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['home-meta-desc'];
