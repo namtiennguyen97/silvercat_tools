@@ -4,6 +4,30 @@
  * ==========================================================================
  */
 
+// Hide loading screen when DOM is fully loaded
+window.addEventListener('DOMContentLoaded', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        // Small delay for smooth transition
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            // Remove from DOM after transition to free memory
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 400);
+    }
+});
+
+// Also hide loading screen if everything loads extremely fast (before DOMContentLoaded fires)
+(function() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen && document.readyState === 'complete') {
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => { loadingScreen.style.display = 'none'; }, 500);
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Navigation Scroll Effect
     const navbar = document.querySelector('.navbar');

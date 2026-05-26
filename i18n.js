@@ -174,6 +174,9 @@ const i18nDictionary = {
         "vdl-step3-title": "Tải video về máy",
         "vdl-step3-desc": "Nhấn \"Tải Video Ngay\" và chọn chất lượng mong muốn. Video sẽ được tải xuống thiết bị của bạn ngay lập tức.",
 
+        // Loading screen
+        "loading-text": "Đang tải công cụ...",
+
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - Cổng Công Cụ & Tiện Ích Trực Tuyến Miễn Phí Cao Cấp",
         "home-meta-desc": "Khám phá bộ sưu tập công cụ tiện ích trực tuyến (Micro-SaaS) miễn phí, nhanh chóng và không quảng cáo. Nén ảnh chất lượng cao, chuyển đổi PDF sang Word, tạo QR nghệ thuật và tải video TikTok/FB không dính logo.",
@@ -423,6 +426,9 @@ const i18nDictionary = {
         "vdl-step2-desc": "Paste the copied link into the input box above, or click the Paste button to automatically paste from clipboard.",
         "vdl-step3-title": "Download to device",
         "vdl-step3-desc": "Click \"Download Now\" and choose your preferred quality. The video will be saved to your device instantly.",
+
+        // Loading screen
+        "loading-text": "Loading tools...",
 
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - High-Performance Free Online Utility Tools",
