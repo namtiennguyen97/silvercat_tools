@@ -371,7 +371,7 @@ if ('serviceWorker' in navigator) {
 
     // iOS Safari fallback
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     
     if (isIOS && !isStandalone && shouldShowBanner()) {
         setTimeout(() => {
@@ -406,6 +406,10 @@ if ('serviceWorker' in navigator) {
     function createInstallButtons() {
         // Remove old buttons
         document.querySelectorAll('.pwa-install-header-btn, .pwa-install-footer-btn, .nav-cta').forEach(el => el.remove());
+
+        if (isStandalone) {
+            return;
+        }
 
         const lang = localStorage.getItem('preferred-lang') || 'vi';
         const headerText = lang === 'en' ? 'Install App' : 'Cài Đặt';

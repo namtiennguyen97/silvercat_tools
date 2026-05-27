@@ -42,6 +42,8 @@ const i18nDictionary = {
         "tool-img-cropper-desc": "Cắt ảnh theo tỷ lệ, xoay góc hoặc lật hình ảnh trực quan, nhanh chóng hoàn toàn tại local.",
         "tool-img-pixelator-title": "Tạo Ảnh Pixel & ASCII Art",
         "tool-img-pixelator-desc": "Biến bức ảnh của bạn thành tranh vẽ pixel cổ điển hoặc tác phẩm nghệ thuật bằng chữ độc đáo.",
+        "tool-img-filter-title": "Bộ Lọc & Hiệu Ứng Ảnh",
+        "tool-img-filter-desc": "Grayscale, Sepia, Blur, Vintage, Pixelate, Emboss, Cool, Warm và nhiều hiệu ứng mạnh mẽ khác trên ảnh của bạn.",
         "tool-pdf-to-word-title": "Chuyển PDF Sang Word",
         "tool-pdf-to-word-desc": "Trích xuất nội dung văn bản từ file PDF sang định dạng Word (.docx) chuẩn cấu trúc và ít lỗi font nhất.",
         "tool-replace-text-title": "Tìm Kiếm & Thay Thế Chữ",
@@ -58,6 +60,8 @@ const i18nDictionary = {
         "tool-video-downloader-desc": "Tải video từ các nền tảng mạng xã hội tốc độ cao, hỗ trợ loại bỏ logo watermark tự động.",
         "tool-video-subtitle-title": "Video Subtitle",
         "tool-video-subtitle-desc": "Tải lên video và file phụ đề SRT/VTT, chỉnh sửa trực quan, xem trước với đồng bộ thời gian thực. Tải về video đã ghép phụ đề hoặc file subtitle riêng.",
+        "tool-video-converter-title": "Chuyển Đổi Định Dạng Video",
+        "tool-video-converter-desc": "Chuyển đổi video sang các định dạng MP4, WEBM, AVI, MOV, FLV, MKV hoặc tách nhạc MP3, WAV, AAC, tạo ảnh GIF hoàn toàn offline.",
         "tool-excel-reader-title": "Đọc File Excel/CSV",
         "tool-excel-reader-desc": "Đọc và xem nội dung file Excel (.xlsx, .xls), CSV, TSV, ODS. Hỗ trợ nhiều sheet, lọc, tìm kiếm, xuất CSV/JSON.",
         "tool-web-downloader-title": "Tải Mã Nguồn Web",
@@ -153,6 +157,13 @@ const i18nDictionary = {
         "subtitle-title-tag": "Video Subtitle - Chỉnh Sửa Phụ Đề Trực Quan - Silver Cat Tools",
         "subtitle-meta-desc": "Tải lên video và file phụ đề SRT/VTT, chỉnh sửa nội dung và thời gian trực quan, xem trước đồng bộ thời gian thực. Tải về video đã ghép phụ đề hoặc file subtitle riêng.",
         "subtitle-meta-keywords": "video subtitle, phụ đề video, chỉnh sửa phụ đề, srt editor, vtt, ghép phụ đề vào video, subtitle editor online, edit subtitle",
+
+        // --- VIDEO CONVERTER PAGE ---
+        "videoconverter-title-tag": "Chuyển Đổi Định Dạng Video - Tách Nhạc MP3/WAV, Tạo GIF - Silver Cat Tools",
+        "videoconverter-meta-desc": "Công cụ chuyển đổi định dạng video online miễn phí tốt nhất. Hỗ trợ convert video sang MP4, WEBM, AVI, MOV, FLV, MKV; tách nhạc MP3, WAV, AAC, WMA, FLAC; hoặc tạo ảnh động GIF chất lượng cao hoàn toàn offline và bảo mật.",
+        "videoconverter-meta-keywords": "chuyển đổi video, đổi định dạng video, convert video online, mp4 sang mp3, tách nhạc video, video sang gif, convert mp4 to avi, webm, mov, flv, mkv, wav, aac",
+        "videoconverter-h1": "Chuyển Đổi <span class=\"text-gradient-purple\">Định Dạng Video</span>",
+        "videoconverter-subtitle": "Công cụ đa năng offline: convert video sang các định dạng phổ biến, tách âm thanh chất lượng cao, hoặc tạo ảnh động GIF trực tiếp từ trình duyệt của bạn.",
 
         // --- VIDEO DOWNLOADER PAGE ---
         "badge-category-video": "Tải Video",
@@ -308,6 +319,8 @@ const i18nDictionary = {
         "tool-img-cropper-desc": "Crop, rotate, or flip images locally on your browser with precise aspect ratio controls.",
         "tool-img-pixelator-title": "Retro Pixelator & ASCII Generator",
         "tool-img-pixelator-desc": "Convert standard photos into retro-style pixel art or text-based ASCII masterpieces.",
+        "tool-img-filter-title": "Image Filter & Effects",
+        "tool-img-filter-desc": "Apply Grayscale, Sepia, Blur, Vintage, Pixelate, Emboss, Cool, Warm and many other powerful effects on your photos.",
         "tool-pdf-to-word-title": "PDF to Word Converter",
         "tool-pdf-to-word-desc": "Convert PDF documents to editable Microsoft Word (.docx) files with minimal formatting issues.",
         "tool-replace-text-title": "Find & Replace Text",
@@ -324,6 +337,8 @@ const i18nDictionary = {
         "tool-video-downloader-desc": "Download videos from social platforms at maximum speed, with automatic watermark removal.",
         "tool-video-subtitle-title": "Video Subtitle",
         "tool-video-subtitle-desc": "Upload video and SRT/VTT subtitle files, edit visually, preview with real-time sync. Download video with burned-in subtitles or subtitle file only.",
+        "tool-video-converter-title": "Video Format Converter",
+        "tool-video-converter-desc": "Convert video files to MP4, WEBM, AVI, MOV, FLV, MKV, extract audio to MP3, WAV, AAC, or create animated GIFs offline.",
         "tool-excel-reader-title": "Excel/CSV Reader",
         "tool-excel-reader-desc": "Read and view Excel (.xlsx, .xls), CSV, TSV, ODS files. Supports multiple sheets, filter, search, export CSV/JSON.",
         "tool-web-downloader-title": "Web Source Downloader",
@@ -420,6 +435,13 @@ const i18nDictionary = {
         "subtitle-title-tag": "Video Subtitle - Interactive Subtitle Editor - Silver Cat Tools",
         "subtitle-meta-desc": "Upload video and SRT/VTT subtitle files, edit visually, preview with real-time sync. Download video with burned-in subtitles or subtitle file only.",
         "subtitle-meta-keywords": "video subtitle editor, subtitle maker, srt editor, vtt editor, add subtitles to video, online subtitle tool, burn subtitles",
+
+        // --- VIDEO CONVERTER PAGE ---
+        "videoconverter-title-tag": "Video Format Converter - Extract Audio MP3/WAV, Create GIF - Silver Cat Tools",
+        "videoconverter-meta-desc": "Best free online video format converter. Convert video to MP4, WEBM, AVI, MOV, FLV, MKV; extract audio to MP3, WAV, AAC, WMA, FLAC; or create animated GIFs offline with 100% privacy.",
+        "videoconverter-meta-keywords": "video converter, change video format, convert video online, mp4 to mp3, extract audio, video to gif, convert mp4 to avi, webm, mov, flv, mkv, wav, aac",
+        "videoconverter-h1": "Video Format <span class=\"text-gradient-purple\">Converter</span>",
+        "videoconverter-subtitle": "Versatile offline utility: convert videos to popular formats, extract high-quality audio, or generate animated GIFs right in your browser.",
 
         // --- VIDEO DOWNLOADER PAGE ---
         "badge-category-video": "Video Download",
@@ -595,6 +617,7 @@ const i18nDictionary = {
         const isConverterPage = path.includes('image-converter');
         const isVideoDownloaderPage = path.includes('video-downloader');
         const isVideoSubtitlePage = path.includes('video-subtitle');
+        const isVideoConverterPage = path.includes('video-converter');
         const isExcelReaderPage = path.includes('excel-reader');
         const isWebDownloaderPage = path.includes('web-downloader');
         
@@ -634,6 +657,10 @@ const i18nDictionary = {
             titleVal = i18nDictionary[lang]['subtitle-title-tag'];
             descVal = i18nDictionary[lang]['subtitle-meta-desc'];
             keywordsVal = i18nDictionary[lang]['subtitle-meta-keywords'];
+        } else if (isVideoConverterPage) {
+            titleVal = i18nDictionary[lang]['videoconverter-title-tag'];
+            descVal = i18nDictionary[lang]['videoconverter-meta-desc'];
+            keywordsVal = i18nDictionary[lang]['videoconverter-meta-keywords'];
         } else if (isExcelReaderPage) {
             titleVal = i18nDictionary[lang]['excel-title-tag'] || i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['excel-meta-desc'] || i18nDictionary[lang]['home-meta-desc'];

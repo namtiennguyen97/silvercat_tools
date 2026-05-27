@@ -135,6 +135,13 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://silvercat-utils.com/videos/video-converter/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- ==================== CÔNG CỤ TEXT MỚI ==================== -->
   <url>
     <loc>https://silvercat-utils.com/text/excel-reader/</loc>
