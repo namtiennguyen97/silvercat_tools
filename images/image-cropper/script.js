@@ -14,6 +14,11 @@
             'controls-title': 'Công cụ',
             'lbl-aspect-ratio': 'Tỷ Lệ Khung Hình',
             'lbl-actions': 'Hành Động',
+            'lbl-resize': 'Kích Thước Đầu Ra (px)',
+            'resize-hint': 'Tự động cập nhật theo vùng cắt. Nhập số để resize tùy ý.',
+            'ph-width': 'Rộng',
+            'ph-height': 'Cao',
+            'lock-title': 'Khóa tỷ lệ khung hình',
             'btn-crop-download': 'Cắt & Tải Về',
             'footer-copyright': '© 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và bảo mật tối đa.'
         },
@@ -29,6 +34,11 @@
             'controls-title': 'Tools',
             'lbl-aspect-ratio': 'Aspect Ratio',
             'lbl-actions': 'Actions',
+            'lbl-resize': 'Output Size (px)',
+            'resize-hint': 'Auto-syncs with crop area. Type values to resize freely.',
+            'ph-width': 'Width',
+            'ph-height': 'Height',
+            'lock-title': 'Lock aspect ratio',
             'btn-crop-download': 'Crop & Download',
             'footer-copyright': '© 2026 Silver Cat Tools. Built for optimal performance and privacy.'
         }
@@ -39,6 +49,14 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (dict[key]) el.textContent = dict[key];
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (dict[key]) el.setAttribute('placeholder', dict[key]);
+        });
+        document.querySelectorAll('[data-i18n-title]').forEach(el => {
+            const key = el.getAttribute('data-i18n-title');
+            if (dict[key]) el.setAttribute('title', dict[key]);
         });
         const titleEl = document.querySelector('title[data-i18n]');
         if (titleEl && dict[titleEl.getAttribute('data-i18n')]) {
@@ -55,9 +73,17 @@
     const editorContainer = document.getElementById('editor-container');
     const imageToCrop = document.getElementById('image-to-crop');
     const btnCrop = document.getElementById('btn-crop');
-    
+    const widthInput = document.getElementById('resize-width');
+    const heightInput = document.getElementById('resize-height');
+    const btnLockRatio = document.getElementById('btn-lock-ratio');
+    const lockIconOn = document.getElementById('lock-icon-on');
+    const lockIconOff = document.getElementById('lock-icon-off');
+
     let cropper = null;
     let currentFileName = 'cropped.png';
+    let lockRatio = true;
+    let currentRatio = 1;
+    let syncing = false;
 
     dropzone.addEventListener('click', () => fileUpload.click());
     dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
@@ -82,7 +108,9 @@
             cropper = new Cropper(imageToCrop, {
                 aspectRatio: NaN,
                 viewMode: 1,
-                background: false
+                background: false,
+                ready: syncDimsFromCrop,
+                cropend: syncDimsFromCrop
             });
         };
         reader.readAsDataURL(file);
@@ -94,8 +122,48 @@
             btn.classList.add('active');
             if (cropper) {
                 cropper.setAspectRatio(parseFloat(btn.dataset.ratio));
+                syncDimsFromCrop();
             }
         });
+    });
+
+    function syncDimsFromCrop() {
+        if (!cropper) return;
+        const d = cropper.getData(true);
+        if (!d.width || !d.height) return;
+        syncing = true;
+        widthInput.value = d.width;
+        heightInput.value = d.height;
+        currentRatio = d.width / d.height;
+        syncing = false;
+    }
+
+    widthInput.addEventListener('input', () => {
+        if (syncing) return;
+        const w = parseFloat(widthInput.value);
+        if (lockRatio && w > 0 && currentRatio > 0) {
+            syncing = true;
+            heightInput.value = Math.max(1, Math.round(w / currentRatio));
+            syncing = false;
+        }
+    });
+    heightInput.addEventListener('input', () => {
+        if (syncing) return;
+        const h = parseFloat(heightInput.value);
+        if (lockRatio && h > 0 && currentRatio > 0) {
+            syncing = true;
+            widthInput.value = Math.max(1, Math.round(h * currentRatio));
+            syncing = false;
+        }
+    });
+    btnLockRatio.addEventListener('click', () => {
+        lockRatio = !lockRatio;
+        btnLockRatio.classList.toggle('active', lockRatio);
+        lockIconOn.style.display = lockRatio ? '' : 'none';
+        lockIconOff.style.display = lockRatio ? 'none' : '';
+        const w = parseFloat(widthInput.value);
+        const h = parseFloat(heightInput.value);
+        if (lockRatio && w > 0 && h > 0) currentRatio = w / h;
     });
 
     let scaleX = 1;
@@ -107,10 +175,15 @@
 
     btnCrop.addEventListener('click', () => {
         if (!cropper) return alert('Vui lòng tải ảnh lên trước.');
-        const canvas = cropper.getCroppedCanvas({
+        const opts = {
             imageSmoothingEnabled: true,
             imageSmoothingQuality: 'high'
-        });
+        };
+        const tw = parseInt(widthInput.value, 10);
+        const th = parseInt(heightInput.value, 10);
+        if (tw > 0) opts.width = tw;
+        if (th > 0) opts.height = th;
+        const canvas = cropper.getCroppedCanvas(opts);
         
         canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob);

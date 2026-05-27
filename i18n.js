@@ -66,6 +66,8 @@ const i18nDictionary = {
         "tool-excel-reader-desc": "Đọc và xem nội dung file Excel (.xlsx, .xls), CSV, TSV, ODS. Hỗ trợ nhiều sheet, lọc, tìm kiếm, xuất CSV/JSON.",
         "tool-web-downloader-title": "Tải Mã Nguồn Web",
         "tool-web-downloader-desc": "Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web. Xem trực tiếp và tải về dưới dạng ZIP.",
+        "tool-compare-diff-title": "So Sánh Văn Bản & Code",
+        "tool-compare-diff-desc": "So sánh 2 văn bản hoặc file code và xem khác biệt trực quan kiểu GitHub diff. Side-by-side, unified view, bỏ qua khoảng trắng / hoa thường.",
         "tool-open-btn": "Mở công cụ",
 
         "badge-new": "Mới",
@@ -203,6 +205,11 @@ const i18nDictionary = {
         "webdl-title-tag": "Tải Mã Nguồn Web (HTML/CSS/JS) - Silver Cat Tools",
         "webdl-meta-desc": "Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web online miễn phí. Trích xuất và tải về source code dưới dạng ZIP.",
         "webdl-meta-keywords": "tải mã nguồn web, download html css js, cào web, web scraper, lấy source code web, download webpage source",
+
+        // --- COMPARE DIFF PAGE ---
+        "compare-title-tag": "So Sánh Văn Bản & Code - Compare Diff Online - Silver Cat Tools",
+        "compare-meta-desc": "So sánh 2 file văn bản hoặc code online miễn phí. Hiển thị diff trực quan kiểu GitHub với side-by-side và unified view, hỗ trợ bỏ qua khoảng trắng/hoa thường.",
+        "compare-meta-keywords": "so sánh văn bản, so sánh 2 file, compare text online, diff online, text diff, github diff, compare code, file compare",
 
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - Cổng Công Cụ & Tiện Ích Trực Tuyến Miễn Phí Cao Cấp",
@@ -345,6 +352,8 @@ const i18nDictionary = {
         "tool-excel-reader-desc": "Read and view Excel (.xlsx, .xls), CSV, TSV, ODS files. Supports multiple sheets, filter, search, export CSV/JSON.",
         "tool-web-downloader-title": "Web Source Downloader",
         "tool-web-downloader-desc": "Download HTML, CSS, JavaScript source code from any website. View online and download as ZIP.",
+        "tool-compare-diff-title": "Compare Text & Code Diff",
+        "tool-compare-diff-desc": "Compare two texts or code files and view differences GitHub-style. Side-by-side and unified views, ignore whitespace or case.",
         "tool-open-btn": "Open Tool",
 
         "badge-new": "New",
@@ -483,6 +492,11 @@ const i18nDictionary = {
         "webdl-title-tag": "Web Source Downloader (HTML/CSS/JS) - Silver Cat Tools",
         "webdl-meta-desc": "Download HTML, CSS, JavaScript source code from any website online for free. Extract and download source as ZIP.",
         "webdl-meta-keywords": "web source downloader, download html css js, web scraper, webpage source code, download website source",
+
+        // --- COMPARE DIFF PAGE ---
+        "compare-title-tag": "Compare Text & Code Diff Online - Silver Cat Tools",
+        "compare-meta-desc": "Compare two text or code files online for free. Visual GitHub-style diff with side-by-side and unified views, ignore whitespace or case.",
+        "compare-meta-keywords": "compare text online, diff online, text diff tool, compare two files, github diff, compare code, file diff, online comparison tool",
 
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - High-Performance Free Online Utility Tools",
@@ -624,6 +638,7 @@ const i18nDictionary = {
         const isVideoConverterPage = path.includes('video-converter');
         const isExcelReaderPage = path.includes('excel-reader');
         const isWebDownloaderPage = path.includes('web-downloader');
+        const isCompareDiffPage = path.includes('compare-diff');
         
         let titleVal = "";
         let descVal = "";
@@ -673,6 +688,10 @@ const i18nDictionary = {
             titleVal = i18nDictionary[lang]['webdl-title-tag'] || i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['webdl-meta-desc'] || i18nDictionary[lang]['home-meta-desc'];
             keywordsVal = i18nDictionary[lang]['webdl-meta-keywords'] || i18nDictionary[lang]['home-meta-keywords'];
+        } else if (isCompareDiffPage) {
+            titleVal = i18nDictionary[lang]['compare-title-tag'] || i18nDictionary[lang]['home-title-tag'];
+            descVal = i18nDictionary[lang]['compare-meta-desc'] || i18nDictionary[lang]['home-meta-desc'];
+            keywordsVal = i18nDictionary[lang]['compare-meta-keywords'] || i18nDictionary[lang]['home-meta-keywords'];
         } else {
             titleVal = i18nDictionary[lang]['home-title-tag'];
             descVal = i18nDictionary[lang]['home-meta-desc'];
