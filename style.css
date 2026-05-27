@@ -1181,6 +1181,69 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
+   ORIENTATION LOCK OVERLAY (mobile landscape warning)
+   ========================================================================== */
+.rotate-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999;
+    background: var(--bg-main);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInOverlay 0.3s ease;
+}
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.rotate-overlay-content {
+    text-align: center;
+    padding: 2rem;
+    max-width: 320px;
+}
+
+.rotate-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    color: var(--accent-indigo);
+    animation: rotatePhone 2s ease-in-out infinite;
+}
+
+.rotate-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes rotatePhone {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    50% { transform: rotate(90deg); }
+    75% { transform: rotate(0deg); }
+}
+
+.rotate-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.rotate-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ==========================================================================
    GLOBAL MOBILE OVERFLOW FIX — prevents horizontal scroll on all pages
    ========================================================================== */
 html, body {

@@ -193,6 +193,10 @@ const i18nDictionary = {
         "vdl-step3-title": "Tải video về máy",
         "vdl-step3-desc": "Nhấn \"Tải Video Ngay\" và chọn chất lượng mong muốn. Video sẽ được tải xuống thiết bị của bạn ngay lập tức.",
 
+        // Orientation overlay
+        "rotate-title": "Xoay Dọc Điện Thoại",
+        "rotate-desc": "Vui lòng xoay điện thoại sang chế độ dọc để có trải nghiệm tốt nhất.",
+
         // Loading screen
         "loading-text": "Đang tải công cụ...",
 
@@ -479,6 +483,10 @@ const i18nDictionary = {
         "vdl-step2-desc": "Paste the copied link into the input box above, or click the Paste button to automatically paste from clipboard.",
         "vdl-step3-title": "Download to device",
         "vdl-step3-desc": "Click \"Download Now\" and choose your preferred quality. The video will be saved to your device instantly.",
+
+        // Orientation overlay
+        "rotate-title": "Rotate Phone to Portrait",
+        "rotate-desc": "Please rotate your phone to portrait mode for the best experience.",
 
         // Loading screen
         "loading-text": "Loading tools...",
