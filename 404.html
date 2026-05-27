@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM_ERROR - SILVERHAND</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #050a14;
+            --primary: #00ffff;
+            --danger: #ff3366;
+            --text: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        /* Better Noise Effect */
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .glitch-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 20;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .error-image-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .error-image {
+            max-width: 250px;
+            width: 80%;
+            height: auto;
+            filter: drop-shadow(0 0 10px var(--primary));
+            position: relative;
+            z-index: 5;
+            animation: main-float 4s infinite ease-in-out;
+        }
+
+        /* Glitch Layers */
+        .error-image-wrapper::before,
+        .error-image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--img-url);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: .5;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .error-image-wrapper::before {
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+            filter: hue-rotate(90deg) brightness(1.5);
+        }
+
+        .error-image-wrapper::after {
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+            filter: hue-rotate(290deg) brightness(1.5);
+        }
+
+        @keyframes main-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 50% 0); transform: translate(-5px, -5px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(5px, 5px); }
+            40% { clip-path: inset(40% 0 40% 0); transform: translate(-10px, 0); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(10px, -5px); }
+            80% { clip-path: inset(10% 0 70% 0); transform: translate(-5px, 10px); }
+            100% { clip-path: inset(30% 0 20% 0); transform: translate(0, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 80% 0); transform: translate(5px, 5px); }
+            20% { clip-path: inset(30% 0 40% 0); transform: translate(-5px, -5px); }
+            40% { clip-path: inset(50% 0 30% 0); transform: translate(10px, 5px); }
+            60% { clip-path: inset(20% 0 60% 0); transform: translate(-10px, 0); }
+            80% { clip-path: inset(70% 0 10% 0); transform: translate(5px, -10px); }
+            100% { clip-path: inset(40% 0 30% 0); transform: translate(0, 0); }
+        }
+
+        .error-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(24px, 8vw, 40px);
+            color: var(--danger);
+            text-shadow: 2px 0 var(--primary), -2px 0 #ff00ff;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            animation: glitch-text 2s infinite;
+            white-space: nowrap;
+        }
+
+        .error-msg {
+            font-size: clamp(12px, 4vw, 18px);
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .btn-back {
+            width: 100%;
+            max-width: 280px;
+            padding: 12px 20px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            background: rgba(0, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-back:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        @media (min-width: 600px) {
+            .btn-container {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .btn-back {
+                width: auto;
+            }
+        }
+
+        @keyframes glitch-text {
+            0% { text-shadow: 2px 0 var(--primary), -2px 0 #ff00ff; }
+            25% { text-shadow: -2px 0 var(--primary), 2px 0 #ff00ff; transform: skew(2deg); }
+            50% { text-shadow: 2px 0 var(--danger), -2px 0 var(--primary); }
+            75% { text-shadow: -2px 0 var(--danger), 2px 0 var(--primary); transform: skew(-2deg); }
+            100% { text-shadow: 2px 0 var(--primary), -2px 0 #ff00ff; }
+        }
+
+        .system-logs {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: left;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        /* Flying Particles */
+        #particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: fly-up linear;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+            opacity: 0;
+            top: 0;
+        }
+
+        @keyframes fly-up {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.4; }
+            85% { opacity: 0.4; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles"></div>
+    <div class="glitch-overlay"></div>
+    <div class="noise"></div>
+
+    <div class="container">
+        <div class="error-image-wrapper">
+            <img id="errorImg" src="assets/img/404.png" alt="ERROR" class="error-image">
+        </div>
+        <div id="errorCode" class="error-code">ERROR_404</div>
+        <div id="errorMsg" class="error-msg">RESOURCE_NOT_FOUND</div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="index.html" class="btn-back">
+                <i class="fa-solid fa-house"></i> RETURN TO HUB
+            </a>
+        </div>
+    </div>
+
+    <div class="system-logs">
+        [SYS_ERROR] ADDR: <span id="currentUrl"></span><br>
+        [SYS_STATUS] KERNEL_PANIC: CRITICAL_FAILURE<br>
+        [SYS_TIME] <span id="timestamp"></span>
+    </div>
+
+    <script>
+        // Detect error type from URL
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type') || '404';
+        
+        const img = document.getElementById('errorImg');
+        const code = document.getElementById('errorCode');
+        const msg = document.getElementById('errorMsg');
+
+        const imgWrapper = document.querySelector('.error-image-wrapper');
+
+        if (type === '401' || type === 'unauthorized') {
+            const url = 'assets/img/unauthorized.png';
+            img.src = url;
+            imgWrapper.style.setProperty('--img-url', `url('${url}')`);
+            code.textContent = 'ACCESS_DENIED';
+            msg.textContent = 'AUTHORIZATION_REQUIRED';
+            document.title = 'ACCESS_DENIED - SILVERHAND';
+        } else {
+            const url = 'assets/img/404.png';
+            img.src = url;
+            imgWrapper.style.setProperty('--img-url', `url('${url}')`);
+            code.textContent = 'ERROR_404';
+            msg.textContent = 'RESOURCE_NOT_FOUND';
+        }
+
+        // Meta info
+        document.getElementById('currentUrl').textContent = window.location.pathname;
+        document.getElementById('timestamp').textContent = new Date().toISOString();
+
+        // Particles
+        const particlesContainer = document.getElementById('particles');
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const size = Math.random() * 40 + 15;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 8 + 7;
+            const delay = Math.random() * 5;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${left}%`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            
+            // Randomly choose color between cyan and magenta
+            if (Math.random() > 0.5) {
+                particle.style.borderColor = 'rgba(255, 0, 255, 0.6)';
+                particle.style.background = 'rgba(255, 0, 255, 0.1)';
+                particle.style.boxShadow = '0 0 10px rgba(255, 0, 255, 0.2)';
+            }
+            
+            particlesContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        setInterval(createParticle, 500);
+        for(let i=0; i<10; i++) createParticle(); 
+    </script>
+</body>
+</html>

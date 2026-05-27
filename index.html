@@ -77,6 +77,7 @@
     </script>
 </head>
 <body>
+    <div id="particles-home"></div>
 
     <!-- LOADING SCREEN -->
     <div id="loading-screen">
@@ -715,6 +716,16 @@
                 <li><a href="#tools-section" class="footer-link" id="footer-tools" data-i18n="footer-tools">Công Cụ</a></li>
                 <li><a href="#" class="footer-link" id="footer-privacy" data-i18n="footer-privacy">Điều Khoản & Bảo Mật</a></li>
             </ul>
+            <div class="footer-other">
+                <span class="footer-other-label" data-i18n="footer-other-label">Khác</span>
+                <ul class="footer-other-links">
+                    <li><a href="https://lifeafter-saodem.vercel.app/" class="footer-other-link" data-i18n="footer-life-after">Life After camp HUB
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a></li>
+                </ul>
+            </div>
             <p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và trải nghiệm cao cấp.</p>
         </div>
     </footer>
@@ -722,5 +733,49 @@
     <!-- Interactive Script JS -->
     <script src="i18n.js?v=1.0.0"></script>
     <script src="app.js?v=1.0.1"></script>
+
+    <!-- Floating Particles -->
+    <script>
+    (function() {
+        const particlesContainer = document.getElementById('particles-home');
+        if (!particlesContainer) return;
+
+        const colors = ['cyan', 'magenta', 'teal'];
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle-home ' + colors[Math.floor(Math.random() * colors.length)];
+            
+            const size = Math.random() * 30 + 10;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 10 + 8;
+            const delay = Math.random() * 6;
+            
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = left + '%';
+            particle.style.animationDuration = duration + 's';
+            particle.style.animationDelay = delay + 's';
+            
+            // Square shape only
+            particle.style.borderRadius = '2px';
+            if (Math.random() > 0.5) {
+                particle.style.transform = 'rotate(45deg)';
+            }
+            
+            particlesContainer.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        setInterval(createParticle, 400);
+        // Seed initial particles
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createParticle, i * 100);
+        }
+    })();
+    </script>
 </body>
 </html>

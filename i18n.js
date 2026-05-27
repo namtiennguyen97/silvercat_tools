@@ -78,6 +78,8 @@ const i18nDictionary = {
         "footer-home": "Trang Chủ",
         "footer-tools": "Công Cụ",
         "footer-privacy": "Điều Khoản & Bảo Mật",
+        "footer-other-label": "Khác",
+        "footer-life-after": "Life After camp HUB",
         "footer-copyright": "&copy; 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và trải nghiệm cao cấp.",
 
         // About Section
@@ -355,6 +357,8 @@ const i18nDictionary = {
         "footer-home": "Home",
         "footer-tools": "Tools",
         "footer-privacy": "Terms & Privacy",
+        "footer-other-label": "Other",
+        "footer-life-after": "Life After camp HUB",
         "footer-desc": "Silver Cat Tools",
         "footer-copyright": "&copy; 2026 Silver Cat Tools. Built for optimal performance and premium experience.",
 

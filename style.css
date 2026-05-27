@@ -106,6 +106,62 @@ body::after {
     100% { transform: translate(80px, 50px) scale(1.15); }
 }
 
+/* ==========================================================================
+   FLOATING PARTICLES (CYBERPUNK STYLE)
+   ========================================================================== */
+#particles-home {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle-home {
+    position: absolute;
+    pointer-events: none;
+    animation: fly-up-home linear;
+    opacity: 0;
+    top: 0;
+}
+
+.particle-home.cyan {
+    border: 1px solid rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.08);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+}
+
+.particle-home.magenta {
+    border: 1px solid rgba(168, 85, 247, 0.5);
+    background: rgba(168, 85, 247, 0.08);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.15);
+}
+
+.particle-home.teal {
+    border: 1px solid rgba(20, 184, 166, 0.4);
+    background: rgba(20, 184, 166, 0.06);
+    box-shadow: 0 0 10px rgba(20, 184, 166, 0.12);
+}
+
+@keyframes fly-up-home {
+    0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.3;
+    }
+    85% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
@@ -957,6 +1013,54 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--accent-indigo);
 }
 
+.footer-other {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.footer-other-label {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.footer-other-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.footer-other-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.footer-other-link svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    transition: var(--transition-smooth);
+}
+
+.footer-other-link:hover {
+    color: var(--accent-purple);
+}
+
+.footer-other-link:hover svg {
+    transform: translateX(3px);
+}
+
 .footer-copyright {
     color: var(--text-muted);
     font-size: 0.85rem;
@@ -1048,7 +1152,13 @@ h1, h2, h3, h4, h5, h6 {
     }
     .footer-links {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.75rem;
+        align-items: center;
+    }
+    .footer-other-links {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
     }
     /* Fix home page content padding */
     .main-content {
