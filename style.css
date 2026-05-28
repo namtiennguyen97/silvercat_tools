@@ -640,6 +640,7 @@ h1, h2, h3, h4, h5, h6 {
 .tool-card.card-purple:hover { box-shadow: var(--shadow-main), var(--glow-purple); }
 .tool-card.card-pink:hover { box-shadow: var(--shadow-main), var(--glow-pink); }
 .tool-card.card-amber:hover { box-shadow: var(--shadow-main), 0 0 25px rgba(245, 158, 11, 0.25); }
+.tool-card.card-blue:hover { box-shadow: var(--shadow-main), 0 0 25px rgba(59, 130, 246, 0.25); }
 
 .card-header {
     display: flex;
@@ -664,6 +665,7 @@ h1, h2, h3, h4, h5, h6 {
 .card-purple .card-icon { background: rgba(168, 85, 247, 0.1); color: var(--accent-purple); }
 .card-pink .card-icon { background: rgba(236, 72, 153, 0.1); color: var(--accent-pink); }
 .card-amber .card-icon { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); }
+.card-blue .card-icon { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); }
 
 .tool-card:hover .card-icon {
     transform: scale(1.1) rotate(5deg);
@@ -743,6 +745,7 @@ h1, h2, h3, h4, h5, h6 {
 .card-purple .card-footer { color: #e9d5ff; }
 .card-pink .card-footer { color: #fbcfe8; }
 .card-amber .card-footer { color: #fde68a; }
+.card-blue .card-footer { color: #93c5fd; }
 
 .card-footer svg {
     width: 16px;

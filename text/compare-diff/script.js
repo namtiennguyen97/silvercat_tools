@@ -7,6 +7,7 @@
             'badge-category-docs': 'Tài Liệu & Văn Bản',
             'compare-h1-prefix': 'So Sánh',
             'compare-h1-suffix': 'Văn Bản & Code',
+            'compare-subtitle': 'So sánh 2 file văn bản hoặc code và xem khác biệt trực quan kiểu GitHub diff. Hỗ trợ side-by-side và unified view, bỏ qua khoảng trắng / phân biệt hoa thường.',
             'lbl-original': 'Văn Bản Gốc (A)',
             'lbl-modified': 'Văn Bản Mới (B)',
             'btn-upload': 'Tải file',
@@ -35,6 +36,7 @@
             'badge-category-docs': 'Documents & Text',
             'compare-h1-prefix': 'Compare',
             'compare-h1-suffix': 'Text & Code',
+            'compare-subtitle': 'Compare two text or code files and view differences in a visual GitHub-style diff. Supports side-by-side and unified views, ignore whitespace or case.',
             'lbl-original': 'Original (A)',
             'lbl-modified': 'Modified (B)',
             'btn-upload': 'Upload',
@@ -81,6 +83,8 @@
         });
         const h1 = document.getElementById('local-title');
         if (h1) h1.innerHTML = dict['compare-h1-prefix'] + ' <span class="text-gradient-amber">' + dict['compare-h1-suffix'] + '</span>';
+        const subtitle = document.getElementById('local-subtitle');
+        if (subtitle) subtitle.textContent = dict['compare-subtitle'] || subtitle.textContent;
         refreshMeta();
     }
 
@@ -107,8 +111,15 @@
     const statDel = document.getElementById('stat-del');
     const statEq = document.getElementById('stat-eq');
 
+    const diffNavPrev = document.getElementById('diff-nav-prev');
+    const diffNavNext = document.getElementById('diff-nav-next');
+    const diffNavCounter = document.getElementById('diff-nav-counter');
+    const diffNavControls = document.getElementById('diff-nav-controls');
+
     let viewMode = 'split';
     let lastDiff = null;
+    let diffChunks = [];
+    let currentChunkIndex = -1;
 
     // ---------- Helpers ----------
     function countLines(s) {
@@ -252,9 +263,78 @@
         return html.join('');
     }
 
+    function findDiffChunks() {
+        // Find all rows that are add/del (change rows), group into contiguous chunks
+        const rows = diffOutput.querySelectorAll(
+            viewMode === 'unified'
+                ? '.diff-unified-row.add, .diff-unified-row.del'
+                : '.diff-cell.add, .diff-cell.del'
+        );
+        const chunks = [];
+        let currentChunk = null;
+        rows.forEach(row => {
+            // For split view, find the parent diff-split-row
+            const targetRow = viewMode === 'split' ? row.closest('.diff-split-row') : row;
+            if (!targetRow) return;
+            if (!currentChunk || currentChunk.row !== targetRow) {
+                if (currentChunk && currentChunk.rows.length > 0) {
+                    chunks.push(currentChunk.rows);
+                }
+                currentChunk = { row: targetRow, rows: [targetRow] };
+            }
+            // Avoid duplicates in same row
+            if (currentChunk.rows[currentChunk.rows.length - 1] !== targetRow) {
+                currentChunk.rows.push(targetRow);
+            }
+        });
+        if (currentChunk && currentChunk.rows.length > 0) {
+            chunks.push(currentChunk.rows);
+        }
+        return chunks;
+    }
+
+    function updateNavState() {
+        diffChunks = findDiffChunks();
+        if (diffChunks.length === 0) {
+            diffNavControls.style.display = 'none';
+            return;
+        }
+        diffNavControls.style.display = 'inline-flex';
+        if (currentChunkIndex < 0 || currentChunkIndex >= diffChunks.length) {
+            currentChunkIndex = 0;
+        }
+        diffNavPrev.disabled = currentChunkIndex <= 0;
+        diffNavNext.disabled = currentChunkIndex >= diffChunks.length - 1;
+        diffNavCounter.textContent = (currentChunkIndex + 1) + '/' + diffChunks.length;
+    }
+
+    let _navLock = false;
+
+    function scrollToChunk(index) {
+        if (index < 0 || index >= diffChunks.length) return;
+        _navLock = true;
+        currentChunkIndex = index;
+        const row = diffChunks[index][0];
+        if (row) {
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // brief highlight
+            row.style.transition = 'background 0.3s';
+            row.style.background = 'rgba(245, 158, 11, 0.15)';
+            setTimeout(() => {
+                row.style.background = '';
+            }, 800);
+        }
+        updateNavState();
+        setTimeout(() => { _navLock = false; }, 400);
+    }
+
+    diffNavPrev.addEventListener('click', () => scrollToChunk(currentChunkIndex - 1));
+    diffNavNext.addEventListener('click', () => scrollToChunk(currentChunkIndex + 1));
+
     function renderDiff(ops) {
         const html = viewMode === 'unified' ? renderUnified(ops) : renderSplit(ops);
         diffOutput.innerHTML = html;
+        updateNavState();
     }
 
     function updateStats(ops) {
@@ -297,6 +377,9 @@
             renderDiff(ops);
         }
         resultPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Reset nav position after compare
+        currentChunkIndex = 0;
+        updateNavState();
     }
 
     // ---------- Events ----------
@@ -364,6 +447,38 @@
     [optIgnoreWs, optIgnoreCase].forEach(el => el.addEventListener('change', () => {
         if (lastDiff) runCompare();
     }));
+
+    // Re-calculate diff chunks when scrolling (for virtualization)
+    diffOutput.addEventListener('scroll', () => {
+        // Only update nav state if user manually scrolls (debounced)
+        if (diffChunks.length === 0) return;
+        if (_navLock) return; // skip when navigating programmatically
+        clearTimeout(diffOutput._navScrollTimer);
+        diffOutput._navScrollTimer = setTimeout(() => {
+            // Determine which chunk is most visible
+            const containerRect = diffOutput.getBoundingClientRect();
+            const centerY = containerRect.top + containerRect.height / 2;
+            let bestIdx = -1;
+            let bestDist = Infinity;
+            for (let i = 0; i < diffChunks.length; i++) {
+                const el = diffChunks[i][0];
+                if (!el) continue;
+                const rect = el.getBoundingClientRect();
+                const elCenter = rect.top + rect.height / 2;
+                const dist = Math.abs(elCenter - centerY);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestIdx = i;
+                }
+            }
+            if (bestIdx >= 0 && bestIdx !== currentChunkIndex) {
+                currentChunkIndex = bestIdx;
+                diffNavPrev.disabled = currentChunkIndex <= 0;
+                diffNavNext.disabled = currentChunkIndex >= diffChunks.length - 1;
+                diffNavCounter.textContent = (currentChunkIndex + 1) + '/' + diffChunks.length;
+            }
+        }, 200);
+    });
 
     window.addEventListener('languageChanged', e => applyLocalTranslation(e.detail.lang));
     applyLocalTranslation(currentLang);

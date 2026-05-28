@@ -68,6 +68,8 @@ const i18nDictionary = {
         "tool-web-downloader-desc": "Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web. Xem trực tiếp và tải về dưới dạng ZIP.",
         "tool-compare-diff-title": "So Sánh Văn Bản & Code",
         "tool-compare-diff-desc": "So sánh 2 văn bản hoặc file code và xem khác biệt trực quan kiểu GitHub diff. Side-by-side, unified view, bỏ qua khoảng trắng / hoa thường.",
+        "tool-cron-generator-title": "Cron Generator & Humanizer",
+        "tool-cron-generator-desc": "Xây dựng cron expression trực quan, humanize cron string sang ngôn ngữ tự nhiên, và bảng cheat sheet cú pháp cron.",
         "tool-open-btn": "Mở công cụ",
 
         "badge-new": "Mới",
@@ -214,6 +216,7 @@ const i18nDictionary = {
         "compare-title-tag": "So Sánh Văn Bản & Code - Compare Diff Online - Silver Cat Tools",
         "compare-meta-desc": "So sánh 2 file văn bản hoặc code online miễn phí. Hiển thị diff trực quan kiểu GitHub với side-by-side và unified view, hỗ trợ bỏ qua khoảng trắng/hoa thường.",
         "compare-meta-keywords": "so sánh văn bản, so sánh 2 file, compare text online, diff online, text diff, github diff, compare code, file compare",
+        "compare-subtitle": "So sánh 2 file văn bản hoặc code và xem khác biệt trực quan kiểu GitHub diff. Hỗ trợ side-by-side và unified view, bỏ qua khoảng trắng / phân biệt hoa thường.",
 
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - Cổng Công Cụ & Tiện Ích Trực Tuyến Miễn Phí Cao Cấp",
@@ -358,6 +361,8 @@ const i18nDictionary = {
         "tool-web-downloader-desc": "Download HTML, CSS, JavaScript source code from any website. View online and download as ZIP.",
         "tool-compare-diff-title": "Compare Text & Code Diff",
         "tool-compare-diff-desc": "Compare two texts or code files and view differences GitHub-style. Side-by-side and unified views, ignore whitespace or case.",
+        "tool-cron-generator-title": "Cron Generator & Humanizer",
+        "tool-cron-generator-desc": "Visually build cron expressions, humanize existing cron strings into plain English, and cheat sheet for syntax.",
         "tool-open-btn": "Open Tool",
 
         "badge-new": "New",
@@ -505,6 +510,7 @@ const i18nDictionary = {
         "compare-title-tag": "Compare Text & Code Diff Online - Silver Cat Tools",
         "compare-meta-desc": "Compare two text or code files online for free. Visual GitHub-style diff with side-by-side and unified views, ignore whitespace or case.",
         "compare-meta-keywords": "compare text online, diff online, text diff tool, compare two files, github diff, compare code, file diff, online comparison tool",
+        "compare-subtitle": "Compare two text or code files and view differences in a visual GitHub-style diff. Supports side-by-side and unified views, ignore whitespace or case.",
 
         // --- HOME PAGE METADATA ---
         "home-title-tag": "Silver Cat Tools - High-Performance Free Online Utility Tools",

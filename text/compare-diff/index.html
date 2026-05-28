@@ -169,6 +169,15 @@
                     <span class="stat-pill stat-del"><span id="stat-del">0</span> <span data-i18n="stat-removed">xóa</span></span>
                     <span class="stat-pill stat-eq"><span id="stat-eq">0</span> <span data-i18n="stat-unchanged">giữ nguyên</span></span>
                 </div>
+                <div class="diff-nav-controls" id="diff-nav-controls" style="display:none;">
+                    <button class="diff-nav-btn" id="diff-nav-prev" title="Previous diff chunk" disabled>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                    </button>
+                    <span class="diff-nav-counter" id="diff-nav-counter">0/0</span>
+                    <button class="diff-nav-btn" id="diff-nav-next" title="Next diff chunk" disabled>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                </div>
             </div>
             <div id="diff-output" class="diff-output"></div>
             <div class="empty-diff" id="empty-diff" style="display:none;">

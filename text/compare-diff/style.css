@@ -243,6 +243,48 @@
 
 /* ---------- RESULT ---------- */
 .result-panel { padding-bottom: 8px; }
+.diff-nav-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    padding: 2px 4px;
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+.diff-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+}
+.diff-nav-btn:hover:not(:disabled) {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+.diff-nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+.diff-nav-counter {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    min-width: 32px;
+    text-align: center;
+    user-select: none;
+    font-variant-numeric: tabular-nums;
+}
+
 .stats-pills {
     display: inline-flex;
     flex-wrap: wrap;
