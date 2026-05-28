@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L5LN7FVKY5');</script>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="d-vTUmEh1z84tkAvITe569i1jamKSFmsX4MVeJkKMys" />
+    <title>UUID/ULID Generator - Silver Cat Tools</title>
+    <link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Generate UUID v4, v7 and ULID. Bulk generate, 1-click copy. Decode timestamps from UUID v7 and ULID.">
+    <meta name="keywords" content="uuid generator, ulid generator, uuid v4, uuid v7, generate uuid, ulid, dev tools">
+    <meta name="author" content="Silver Cat Tools"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://silvercat-utils.com/text/uuid-generator/">
+    <meta property="og:type" content="website"><meta property="og:title" content="UUID/ULID Generator - Silver Cat Tools"><meta property="og:description" content="Generate UUID v4, v7 and ULID. Bulk generate, 1-click copy."><meta property="og:image" content="https://silvercat-utils.com/logo.jpg"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="vi_VN">
+    <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="UUID/ULID Generator - Silver Cat Tools"><meta name="twitter:description" content="Generate UUID v4, v7 and ULID."><meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=1.0.3"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar glass scrolled" id="main-navbar">
+    <a href="../../index.html" class="nav-brand"><div class="brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></div><span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span></a>
+    <ul class="nav-links"><li><a href="../../index.html" class="nav-link" data-i18n="nav-home">Trang Chủ</a></li><li><a href="../../index.html#tools-section" class="nav-link" data-i18n="nav-tools">Công Cụ</a></li></ul>
+    <a href="../../index.html" class="nav-cta" data-i18n="nav-cta-btn-back">Về Trang Chủ</a>
+</nav>
+<div class="tool-container">
+    <header class="tool-page-header">
+        <a href="../../index.html#tools-section" class="back-link"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg><span data-i18n="back-link">Quay lại danh mục công cụ</span></a>
+        <div class="hero-badge" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.2);color:#fbbf24;"><span>Dev Tools</span></div>
+        <h1>UUID / <span class="text-gradient-amber">ULID</span> Generator</h1>
+        <p>Generate UUID v4, v7 and ULID. Bulk generate, 1-click copy. Decode timestamps from UUID v7 and ULID.</p>
+    </header>
+
+    <div class="uuid-type-bar">
+        <div class="segmented">
+            <button class="seg-btn active" id="type-uuid4" data-i18n="uuid-v4">UUID v4</button>
+            <button class="seg-btn" id="type-uuid7" data-i18n="uuid-v7">UUID v7</button>
+            <button class="seg-btn" id="type-ulid" data-i18n="uuid-ulid">ULID</button>
+        </div>
+        <div class="control-group" style="margin-left:auto;">
+            <span class="ctrl-label" data-i18n="uuid-count">Số lượng:</span>
+            <input type="number" class="count-input" id="uuid-count" value="1" min="1" max="100">
+            <button class="action-btn-sm" id="btn-generate" data-i18n="uuid-gen">Tạo</button>
+        </div>
+    </div>
+
+    <section class="tool-panel">
+        <div class="panel-header"><h2 class="panel-title" data-i18n="uuid-result">Kết Quả</h2><button class="action-btn-sm" id="btn-copy-all" data-i18n="uuid-copy-all">Copy Tất Cả</button></div>
+        <div class="uuid-list" id="uuid-list">
+            <div class="uuid-item"><code class="uuid-code" id="uuid-single">—</code><button class="copy-single" data-i18n-title="Copy">📋</button></div>
+        </div>
+    </section>
+
+    <section class="tool-panel" style="margin-top:20px;">
+        <div class="panel-header"><h2 class="panel-title" data-i18n="uuid-decode">Giải Mã Timestamp</h2></div>
+        <div class="uuid-input-row">
+            <input type="text" class="url-input" id="uuid-decode-input" placeholder="Paste UUID v7 or ULID to decode timestamp..." spellcheck="false">
+            <button class="action-btn-sm" id="btn-decode" data-i18n="uuid-decode-btn">Giải Mã</button>
+        </div>
+        <div class="decode-result" id="decode-result" data-i18n="uuid-decode-hint">Paste a UUID v7 or ULID above to decode its timestamp</div>
+    </section>
+</div>
+<footer class="footer"><div class="footer-container"><a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a><p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools.</p></div></footer>
+<script src="../../i18n.js?v=1.0.0"></script><script src="script.js"></script>
+</body>
+</html>

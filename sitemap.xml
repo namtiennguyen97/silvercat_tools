@@ -127,6 +127,35 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- ==================== CÔNG CỤ DEV TOOLS ==================== -->
+  <url>
+    <loc>https://silvercat-utils.com/text/jwt-decoder/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://silvercat-utils.com/text/json-yaml-converter/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://silvercat-utils.com/text/url-parser/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://silvercat-utils.com/text/uuid-generator/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- ==================== CÔNG CỤ VIDEOS ==================== -->
   <url>
     <loc>https://silvercat-utils.com/videos/video-downloader/</loc>

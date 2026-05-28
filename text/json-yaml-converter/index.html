@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-L5LN7FVKY5');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="d-vTUmEh1z84tkAvITe569i1jamKSFmsX4MVeJkKMys" />
+    <title>JSON ↔ YAML Converter - Silver Cat Tools</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Convert between JSON and YAML instantly. Format, validate, minify JSON. Custom indent and real-time syntax error checking.">
+    <meta name="keywords" content="json to yaml, yaml to json, json converter, yaml converter, json formatter, yaml formatter, dev tools">
+    <meta name="author" content="Silver Cat Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://silvercat-utils.com/text/json-yaml-converter/">
+    <meta property="og:type" content="website"><meta property="og:title" content="JSON ↔ YAML Converter - Silver Cat Tools"><meta property="og:description" content="Convert between JSON and YAML instantly. Format, validate, minify JSON."><meta property="og:image" content="https://silvercat-utils.com/logo.jpg"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="vi_VN">
+    <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="JSON ↔ YAML Converter - Silver Cat Tools"><meta name="twitter:description" content="Convert between JSON and YAML instantly."><meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=1.0.3">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar glass scrolled" id="main-navbar">
+    <a href="../../index.html" class="nav-brand"><div class="brand-icon"><img src="../../logo.jpg" alt="Silver Cat Tools" class="brand-logo-img"></div><span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span></a>
+    <ul class="nav-links"><li><a href="../../index.html" class="nav-link" data-i18n="nav-home">Trang Chủ</a></li><li><a href="../../index.html#tools-section" class="nav-link" data-i18n="nav-tools">Công Cụ</a></li></ul>
+    <a href="../../index.html" class="nav-cta" data-i18n="nav-cta-btn-back">Về Trang Chủ</a>
+</nav>
+<div class="tool-container">
+    <header class="tool-page-header">
+        <a href="../../index.html#tools-section" class="back-link"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg><span data-i18n="back-link">Quay lại danh mục công cụ</span></a>
+        <div class="hero-badge" style="background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.2);color:#c084fc;"><span>Dev Tools</span></div>
+        <h1>JSON <span class="text-gradient-purple">↔ YAML</span> Converter</h1>
+        <p>Convert between JSON and YAML instantly. Format, validate, minify JSON. Custom indent and real-time syntax error checking.</p>
+    </header>
+
+    <div class="control-bar">
+        <div class="control-group">
+            <span class="ctrl-label" data-i18n="jy-mode">Chế độ:</span>
+            <div class="segmented">
+                <button class="seg-btn active" id="mode-json-yaml" data-i18n="jy-json2yaml">JSON → YAML</button>
+                <button class="seg-btn" id="mode-yaml-json" data-i18n="jy-yaml2json">YAML → JSON</button>
+            </div>
+        </div>
+        <div class="control-group">
+            <span class="ctrl-label" data-i18n="jy-indent">Indent:</span>
+            <select class="indent-select" id="indent-select">
+                <option value="2">2 spaces</option>
+                <option value="4">4 spaces</option>
+            </select>
+        </div>
+        <div class="control-group control-actions">
+            <button class="action-btn-sm" id="btn-format" data-i18n="jy-format">Format</button>
+            <button class="action-btn-sm" id="btn-minify" data-i18n="jy-minify">Minify</button>
+            <button class="action-btn-sm" id="btn-clear-jy" data-i18n="btn-clear">Xóa Hết</button>
+        </div>
+    </div>
+
+    <div class="jy-grid">
+        <section class="tool-panel">
+            <div class="panel-header"><h2 class="panel-title"><span id="input-label">JSON Input</span></h2></div>
+            <textarea class="jy-editor" id="input-json" placeholder='{"key": "value"}' spellcheck="false"></textarea>
+        </section>
+        <section class="tool-panel">
+            <div class="panel-header"><h2 class="panel-title"><span id="output-label">YAML Output</span></h2><button class="action-btn-sm" id="btn-copy-output" data-i18n="btn-copy">Sao Chép</button></div>
+            <textarea class="jy-editor" id="output-yaml" placeholder="key: value" readonly spellcheck="false"></textarea>
+        </section>
+    </div>
+    <div class="jy-swap-wrap"><button class="action-btn-sm" id="btn-swap-jy" data-i18n="jy-swap">Hoán đổi Input/Output</button></div>
+
+    <section class="tool-panel" style="margin-top:20px;">
+        <div class="panel-header"><h2 class="panel-title"><span data-i18n="jy-samples">Ví Dụ Mẫu</span></h2></div>
+        <div class="sample-grid">
+            <button class="preset-btn" data-sample="sample1" data-i18n="jy-sample-api">API Response</button>
+            <button class="preset-btn" data-sample="sample2" data-i18n="jy-sample-config">Docker Config</button>
+            <button class="preset-btn" data-sample="sample3" data-i18n="jy-sample-k8s">K8s Manifest</button>
+        </div>
+    </section>
+</div>
+<footer class="footer"><div class="footer-container"><a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a><p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools.</p></div></footer>
+<script src="../../i18n.js?v=1.0.0"></script>
+<script src="script.js"></script>
+</body>
+</html>
