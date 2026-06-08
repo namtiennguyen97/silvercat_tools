@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L5LN7FVKY5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="d-vTUmEh1z84tkAvITe569i1jamKSFmsX4MVeJkKMys" />
+    <title>Free Online Crypto Price Tracker — Live Cryptocurrency Prices, Market Cap | Silver Cat Tools</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Free online crypto price tracker — track live cryptocurrency prices, market cap, 24h change, and trading volume. Supports Bitcoin, Ethereum, and top 50 coins. Data from CoinGecko. 100% browser-side.">
+    <meta name="keywords" content="crypto price tracker, bitcoin price, ethereum price, cryptocurrency live prices, crypto market cap, btc usd, eth usd, coin tracker, crypto portfolio">
+    <meta name="author" content="Silver Cat Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://silvercat-utils.com/text/crypto-tracker/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silvercat-utils.com/text/crypto-tracker/">
+    <meta property="og:site_name" content="Silver Cat Tools">
+    <meta property="og:title" content="Free Crypto Price Tracker — Live Cryptocurrency Prices | Silver Cat Tools">
+    <meta property="og:description" content="Track live cryptocurrency prices, market cap, and 24h changes. Bitcoin, Ethereum, and top 50 coins. Free, no ads, 100% browser-side.">
+    <meta property="og:image" content="https://silvercat-utils.com/logo.jpg">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Crypto Price Tracker — Live Cryptocurrency Prices | Silver Cat Tools">
+    <meta name="twitter:description" content="Track live cryptocurrency prices, market cap, and 24h changes. Free, no ads.">
+    <meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=1.0.3">
+    <link rel="stylesheet" href="style.css?v=1.0.0">
+</head>
+<body>
+    <nav class="navbar glass scrolled" id="main-navbar">
+        <a href="../../index.html" class="nav-brand">
+            <div class="brand-icon"><img src="../../logo.jpg" alt="Silver Cat Tools Logo" class="brand-logo-img"></div>
+            <span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../../index.html" class="nav-link">Home</a></li>
+            <li><a href="../../index.html#tools-section" class="nav-link">Tools</a></li>
+        </ul>
+        <a href="../../index.html" class="nav-cta">Go to Home</a>
+    </nav>
+
+    <div class="tool-container">
+        <header class="tool-page-header">
+            <a href="../../index.html#tools-section" class="back-link">
+                <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                <span>Back to tools collection</span>
+            </a>
+            <div class="hero-badge" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2); color: #fbbf24;">
+                <span>Utilities</span>
+            </div>
+            <h1>Crypto <span class="text-gradient-amber">Price Tracker</span></h1>
+            <p>Track live cryptocurrency prices, market cap, and 24h changes for the top 50 coins. Data from CoinGecko — updated in real-time.</p>
+        </header>
+
+        <!-- Control Bar -->
+        <div class="crypto-controls">
+            <div class="control-left">
+                <select id="currency-select" class="form-select" style="width:auto;min-width:100px;">
+                    <option value="usd">USD ($)</option>
+                    <option value="eur">EUR (€)</option>
+                    <option value="gbp">GBP (£)</option>
+                    <option value="jpy">JPY (¥)</option>
+                    <option value="vnd">VND (₫)</option>
+                    <option value="btc">BTC (₿)</option>
+                </select>
+                <input type="text" id="search-input" class="form-control" placeholder="Search coins..." style="width:200px;">
+            </div>
+            <div class="control-right">
+                <label class="auto-refresh-label">
+                    <input type="checkbox" id="auto-refresh" checked>
+                    <span>Auto-refresh (30s)</span>
+                </label>
+                <span class="last-updated" id="last-updated">Loading...</span>
+                <button class="action-btn-sm" id="btn-refresh">Refresh Now</button>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state">
+            <div class="loading-spinner-sm"></div>
+            <span>Fetching live prices...</span>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" id="error-state" style="display:none;">
+            <p>⚠️ Could not fetch cryptocurrency data. The CoinGecko API may be rate-limited. Please try again in a moment.</p>
+            <button class="action-btn-sm" id="btn-retry">Retry</button>
+        </div>
+
+        <!-- Coin Table -->
+        <div class="coin-table-wrapper" id="coin-table-wrapper" style="display:none;">
+            <table class="coin-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Coin</th>
+                        <th>Price</th>
+                        <th>24h Change</th>
+                        <th class="hide-mobile">Market Cap</th>
+                        <th class="hide-mobile">Volume (24h)</th>
+                    </tr>
+                </thead>
+                <tbody id="coin-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a>
+            <p class="footer-copyright">&copy; 2026 Silver Cat Tools. Built for optimal performance and premium experience.</p>
+        </div>
+    </footer>
+
+    <!-- Coin Chart Modal -->
+    <div class="modal-overlay" id="chart-modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-coin-name">Bitcoin</h3>
+                <div class="modal-header-right">
+                    <select id="chart-days" class="form-select" style="width:auto;">
+                        <option value="1">24h</option>
+                        <option value="7" selected>7 days</option>
+                        <option value="30">30 days</option>
+                        <option value="90">90 days</option>
+                    </select>
+                    <button class="modal-close" id="modal-close">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-price-row">
+                    <span class="modal-current-price" id="modal-price">-</span>
+                    <span class="modal-change" id="modal-change">-</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="price-chart"></canvas>
+                </div>
+                <div class="chart-loading" id="chart-loading" style="display:flex;">
+                    <div class="loading-spinner-sm"></div>
+                    <span>Loading chart...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../i18n.js?v=1.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="script.js?v=1.0.0"></script>
+</body>
+</html>
