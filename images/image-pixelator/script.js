@@ -6,7 +6,7 @@
             'pixel-title-page': 'Tạo Ảnh Pixel Art & Mosaics - Silver Cat Tools',
             'meta-desc': 'Công cụ chuyển đổi hình ảnh thành phong cách Pixel Art 8-bit hoặc khảm ngọc ngay trên trình duyệt, miễn phí.',
             'meta-keywords': 'ảnh pixel, pixel art, 8-bit image, mosaic photo, tạo ảnh pixel online',
-            'back-home': 'Quay lại Trang Chủ',
+            'back-home': 'Quay lại Home',
             'pixel-head': 'Tạo Ảnh Pixel',
             'pixel-head-sub': '8-bit & Mosaics',
             'pixel-desc': 'Biến bức ảnh của bạn thành phong cách nghệ thuật retro 8-bit độc đáo ngay trong trình duyệt.',
@@ -16,7 +16,7 @@
             'controls-title': 'Cài Đặt Pixel',
             'lbl-pixel-size': 'Kích Thước Pixel',
             'btn-download-img': 'Tải Ảnh Về',
-            'footer-copyright': '© 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và bảo mật tối đa.'
+            'footer-copyright': '© 2026 Silver Cat Tools. Built for optimal performance and premium experience.'
         },
         en: {
             'pixel-title-page': 'Pixel Art & Mosaics Generator - Silver Cat Tools',

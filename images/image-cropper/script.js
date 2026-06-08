@@ -6,7 +6,7 @@
             'crop-title-page': 'Cắt & Xoay Ảnh Trực Tuyến - Silver Cat Tools',
             'meta-desc': 'Công cụ cắt ảnh, xoay ảnh, lật ảnh trực tuyến miễn phí và an toàn. Xử lý ảnh nhanh chóng mà không cần cài đặt.',
             'meta-keywords': 'cắt ảnh online, crop ảnh, xoay ảnh, lật ảnh, chỉnh sửa ảnh cơ bản',
-            'back-home': 'Quay lại Trang Chủ',
+            'back-home': 'Quay lại Home',
             'crop-head': 'Cắt & Xoay',
             'crop-head-sub': 'Hình Ảnh',
             'crop-desc': 'Cắt ảnh theo tỷ lệ, xoay góc hoặc lật hình ảnh trực quan, nhanh chóng hoàn toàn tại local.',
@@ -20,7 +20,7 @@
             'ph-height': 'Cao',
             'lock-title': 'Khóa tỷ lệ khung hình',
             'btn-crop-download': 'Cắt & Tải Về',
-            'footer-copyright': '© 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và bảo mật tối đa.'
+            'footer-copyright': '© 2026 Silver Cat Tools. Built for optimal performance and premium experience.'
         },
         en: {
             'crop-title-page': 'Image Cropper & Rotator - Silver Cat Tools',

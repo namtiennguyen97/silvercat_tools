@@ -518,66 +518,6 @@
         });
     });
 
-    // Listen to languageChanged to translate dynamically rendered elements
-    window.addEventListener('languageChanged', () => {
-        // Translate elements inside resultSection if visible
-        if (resultSection.style.display === 'block') {
-            // Update download button texts
-            document.querySelectorAll('.btn-dl-option span').forEach(span => {
-                span.textContent = getLangText('Tải xuống', 'Download');
-            });
-            // Update option labels if they are "Original Video...", "Audio Only...", etc.
-            document.querySelectorAll('.option-quality').forEach(span => {
-                const text = span.textContent;
-                if (text.includes('Video gốc') || text.includes('Original Video')) {
-                    span.textContent = getLangText('Video gốc (Chất lượng cao nhất)', 'Original Video (Best Quality)');
-                } else if (text.includes('Chỉ âm thanh') || text.includes('Audio Only')) {
-                    span.textContent = getLangText('Chỉ âm thanh (MP3)', 'Audio Only (MP3)');
-                } else if (text.includes('Âm thanh') || text.includes('Audio')) {
-                    span.textContent = getLangText('Âm thanh (MP3)', 'Audio (MP3)');
-                } else if (text.includes('Tải video') || text.includes('Download Video')) {
-                    span.textContent = getLangText('Tải video', 'Download Video');
-                } else if (text.startsWith('Video') || text.startsWith('Video')) {
-                    const match = text.match(/\d+/);
-                    if (match) {
-                        span.textContent = `${getLangText('Video', 'Video')} ${match[0]}`;
-                    }
-                }
-            });
-        }
-        
-        // Translate elements inside errorSection if visible
-        if (errorSection.style.display === 'block') {
-            const currentErr = errorMessage.textContent.trim();
-            if (currentErr.includes('Lỗi kết nối') || currentErr.includes('Network error')) {
-                errorMessage.textContent = getLangText(
-                    'Lỗi kết nối mạng. Dịch vụ tải video có thể tạm thời không khả dụng. Vui lòng thử lại sau ít phút.',
-                    'Network error. The download service may be temporarily unavailable. Please try again in a few moments.'
-                );
-            } else if (currentErr.includes('Không thể xử lý') || currentErr.includes('Could not process')) {
-                const platform = detectPlatform(urlInput.value.trim());
-                const platformNames = {
-                    tiktok: 'TikTok',
-                    facebook: 'Facebook',
-                    instagram: 'Instagram',
-                    youtube: 'YouTube',
-                    twitter: 'X (Twitter)',
-                    unknown: 'Video'
-                };
-                const platformName = platformNames[platform] || 'Video';
-                errorMessage.textContent = getLangText(
-                    `Không thể xử lý video ${platformName} này. Video có thể ở chế độ riêng tư, đã bị xóa hoặc bị giới hạn khu vực.`,
-                    `Could not process this ${platformName} video. The video may be private, deleted, or region-locked.`
-                );
-            } else {
-                errorMessage.textContent = getLangText(
-                    'Đã xảy ra lỗi không mong muốn. Vui lòng kiểm tra lại đường link và thử lại.',
-                    'An unexpected error occurred. Please check the URL and try again.'
-                );
-            }
-        }
-    });
-
     // Auto-focus URL input on page load
     window.addEventListener('load', () => {
         setTimeout(() => urlInput.focus(), 300);

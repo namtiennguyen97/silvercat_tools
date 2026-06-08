@@ -41,7 +41,7 @@ const localDictionary = {
         'cat-image': 'Image',
         'cat-video': 'Video',
         'search-format-placeholder': 'Tìm định dạng...',
-        'back-link': 'Quay lại danh mục công cụ',
+        'back-link': 'Back to tools collection',
         'loading-text': 'Đang tải công cụ...',
         'phase-init': 'Khởi tạo tài nguyên...',
         'phase-decode': 'Giải mã luồng âm thanh...',
@@ -144,34 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let conversionInterval = null;
     let secondsElapsed = 0;
     let durationInSec = 0;
-
-    // Apply translations
-    function applyLocalTranslation() {
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
-        const dict = localDictionary[lang];
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key]) {
-                if (dict[key].includes('<') && dict[key].includes('>')) {
-                    el.innerHTML = dict[key];
-                } else {
-                    el.textContent = dict[key];
-                }
-            }
-        });
-
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
-            if (dict[key]) {
-                el.setAttribute('placeholder', dict[key]);
-            }
-        });
-    }
-
-    // Bind translate events
-    window.addEventListener('languageChanged', applyLocalTranslation);
-    applyLocalTranslation();
 
     // ----------------------------------------------------------------------
     // 2. DROPZONE & FILE INPUT HANDLERS

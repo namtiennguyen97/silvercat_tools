@@ -19,12 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    function applyLocalTranslation() {
-        if (window.translatePage && window.getCurrentLang) {
-            window.translatePage(window.getCurrentLang());
-        }
-    }
-
     // Bind triggers
     dropzone.addEventListener('click', () => fileInput.click());
     dropzone.addEventListener('dragover', (e) => {
@@ -100,13 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Status details
             let statusBadgeHTML = '';
             if (item.status === 'pending') {
-                statusBadgeHTML = `<span class="item-status-badge badge-pending" data-i18n="status-pending">Đang chờ</span>`;
+                statusBadgeHTML = `<span class="item-status-badge badge-pending">Pending</span>`;
             } else if (item.status === 'converting') {
-                statusBadgeHTML = `<span class="item-status-badge badge-converting" data-i18n="status-converting">Đang xử lý...</span>`;
+                statusBadgeHTML = `<span class="item-status-badge badge-converting">Processing...</span>`;
             } else if (item.status === 'success') {
-                statusBadgeHTML = `<span class="item-status-badge badge-success" data-i18n="status-success">Thành công</span>`;
+                statusBadgeHTML = `<span class="item-status-badge badge-success">Success</span>`;
             } else {
-                statusBadgeHTML = `<span class="item-status-badge badge-error" data-i18n="status-error">Lỗi</span>`;
+                statusBadgeHTML = `<span class="item-status-badge badge-error">Error</span>`;
             }
 
             // Action buttons
@@ -160,8 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btnDownloadAll.style.display = 'none';
         }
 
-        // Apply translations on newly added elements
-        applyLocalTranslation();
     }
 
     // Convert Single Image Flow
@@ -300,13 +292,4 @@ document.addEventListener('DOMContentLoaded', () => {
         updateQueueUI();
     });
 
-    window.addEventListener('languageChanged', () => {
-        applyLocalTranslation();
-        updateQueueUI();
-    });
-
-    // Init translations
-    setTimeout(() => {
-        applyLocalTranslation();
-    }, 100);
 });

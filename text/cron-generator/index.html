@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script>
@@ -26,9 +26,7 @@
     <meta property="og:description" content="Generate cron expressions visually or humanize existing cron strings into plain English. Quick presets, visual builder, cheat sheet.">
     <meta property="og:image" content="https://silvercat-utils.com/logo.jpg">
     <meta property="og:locale" content="en_US">
-    <meta property="og:locale:alternate" content="vi_VN">
-
-    <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Cron Expression Generator & Humanizer - Silver Cat Tools">
     <meta name="twitter:description" content="Generate cron expressions visually or humanize existing cron strings into plain English.">
     <meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
@@ -50,21 +48,21 @@
             <span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span>
         </a>
         <ul class="nav-links">
-            <li><a href="../../index.html" class="nav-link" id="nav-home" data-i18n="nav-home">Trang Chủ</a></li>
-            <li><a href="../../index.html#tools-section" class="nav-link" id="nav-tools" data-i18n="nav-tools">Công Cụ</a></li>
+            <li><a href="../../index.html" class="nav-link" id="nav-home">Home</a></li>
+            <li><a href="../../index.html#tools-section" class="nav-link" id="nav-tools">Tools</a></li>
         </ul>
-        <a href="../../index.html" class="nav-cta" id="nav-cta-btn" data-i18n="nav-cta-btn-back">Về Trang Chủ</a>
+        <a href="../../index.html" class="nav-cta" id="nav-cta-btn">Go to Home</a>
     </nav>
 
     <div class="tool-container">
         <header class="tool-page-header">
             <a href="../../index.html#tools-section" class="back-link">
                 <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-                <span data-i18n="back-link">Quay lại danh mục công cụ</span>
+                <span>Back to tools collection</span>
             </a>
 
             <div class="hero-badge" style="background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2); color: #60a5fa;">
-                <span data-i18n="badge-category-utils">Tiện Ích</span>
+                <span>Dev Tools</span>
             </div>
             <h1 id="local-title">
                 Cron <span class="text-gradient-blue">Generator & Humanizer</span>
@@ -78,15 +76,15 @@
         <div class="cron-tabs">
             <button class="cron-tab active" data-tab="generator" id="tab-generator">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                <span data-i18n="cron-tab-generator">Generator</span>
+                <span>Generator</span>
             </button>
             <button class="cron-tab" data-tab="humanizer" id="tab-humanizer">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                <span data-i18n="cron-tab-humanizer">Humanizer</span>
+                <span>Humanizer</span>
             </button>
             <button class="cron-tab" data-tab="cheatsheet" id="tab-cheatsheet">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span data-i18n="cron-tab-cheatsheet">Cheat Sheet</span>
+                <span>Cheat Sheet</span>
             </button>
         </div>
 
@@ -360,7 +358,7 @@
             <a href="../../index.html" class="footer-logo">
                 <span class="footer-brand-icon"><img src="../../logo.jpg" alt="Silver Cat Tools Logo" class="brand-logo-img"></span> Silver Cat Tools
             </a>
-            <p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools. Built for optimal performance and premium experience.</p>
+            <p class="footer-copyright">&copy; 2026 Silver Cat Tools. Built for optimal performance and premium experience.</p>
         </div>
     </footer>
 

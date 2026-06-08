@@ -6,7 +6,7 @@
             'pdf-title-page': 'Ghép Ảnh Thành PDF - Silver Cat Tools',
             'meta-desc': 'Ghép nhiều ảnh thành một tài liệu PDF chất lượng cao ngay trong trình duyệt, không cần cài phần mềm.',
             'meta-keywords': 'image to pdf, ghép pdf, chuyển ảnh pdf, tạo pdf từ ảnh, pdf generator',
-            'back-home': 'Quay lại Trang Chủ',
+            'back-home': 'Quay lại Home',
             'pdf-head': 'Ghép Ảnh',
             'pdf-head-sub': 'Thành PDF',
             'pdf-desc': 'Chọn nhiều ảnh, sắp xếp thứ tự và tạo file PDF trong chớp mắt.',
@@ -22,7 +22,7 @@
             'result-title': 'Kết Quả PDF',
             'no-pdf': 'Chưa có PDF. Vui lòng tải ảnh và nhấn "Tạo PDF".',
             'btn-download-pdf': 'Tải PDF',
-            'footer-copyright': '© 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và bảo mật tối đa.'
+            'footer-copyright': '© 2026 Silver Cat Tools. Built for optimal performance and premium experience.'
         },
         en: {
             'pdf-title-page': 'Image to PDF - Silver Cat Tools',

@@ -1,87 +1,125 @@
 # 🛠️ Silver Cat Tools - Developer Guidelines
 
-Tài liệu này chứa các quy tắc phát triển, cấu trúc thư mục và cơ chế hoạt động kỹ thuật của dự án **Silver Cat Tools**. Vui lòng đọc kỹ trước khi bắt đầu tạo công cụ mới hoặc chỉnh sửa mã nguồn hiện tại.
+This document contains the development rules, folder structure, and technical mechanisms of the **Silver Cat Tools** project. Please read carefully before creating a new tool or modifying existing source code.
 
 ---
 
-## 📌 HƯỚNG DẪN QUAN TRỌNG KHI PHÁT TRIỂN
+## 📌 IMPORTANT DEVELOPMENT GUIDELINES
 
 > [!IMPORTANT]
-> **1. Quy tắc Preview giao diện**
-> *   **KHÔNG** chạy server localhost (Node.js, Live Server, Vite, v.v.).
-> *   **BẮT BUỘC** sử dụng giao thức file tĩnh cục bộ (file protocol) để xem trước và kiểm thử trang web:
->     `file:///D:/free-utility-tools/index.html` hoặc `file:///D:/free-utility-tools/[thư_mục_công_cụ]/index.html`
+> **1. Preview Rule**
+> *   **DO NOT** run a localhost server (Node.js, Live Server, Vite, etc.).
+> *   **REQUIRED** use the static file protocol to preview and test the website:
+>     `file:///D:/free-utility-tools/index.html` or `file:///D:/free-utility-tools/[tool_folder]/index.html`
 >
-> **2. Cấu trúc tài nguyên dùng chung**
-> *   Tất cả các công cụ con nằm trong thư mục cấp 2 (ví dụ: `/text/replace-text/`) phải liên kết ngược lại tài nguyên dùng chung ở thư mục gốc bằng đường dẫn tương đối `../../`:
+> **2. Shared Resource Structure**
+> *   All sub-tools located in level-2 folders (e.g., `/text/replace-text/`) must link back to shared resources at the root using relative paths `../../`:
 >     *   Logo: `../../logo.jpg`
->     *   CSS dùng chung: `../../style.css`
->     *   Dịch thuật dùng chung: `../../i18n.js`
->     *   Script dùng chung: `../../app.js`
+>     *   Shared CSS: `../../style.css`
+>     *   Shared Script: `../../app.js` (for the home page only)
+>
+> **3. English-Only (No i18n)**
+> *   The project is **100% English-only** for SEO optimization. All UI text must be hardcoded directly in HTML tags.
+> *   The old `i18n.js` file is a **no-op stub** — do NOT rely on it for translations. Do NOT use `data-i18n` attributes.
+> *   Do NOT add any Vietnamese or other language text. Google Bot indexes static HTML content only.
 
 ---
 
-## 🌐 CƠ CHẾ ĐA NGÔN NGỮ (i18n)
-
-Hệ thống dịch thuật hỗ trợ hai ngôn ngữ: **Tiếng Việt (VI)** và **Tiếng Anh (EN)**. Cơ chế hoạt động dựa trên các nguyên tắc sau:
-
-1.  **Engine dịch thuật chính (`/i18n.js`):**
-    *   Tự động tải bộ từ vựng chung dựa trên phân tích URL thông qua `window.location.pathname.includes(...)`.
-    *   Dịch các thành phần giao diện chung (Navbar, Footer, các tiêu đề danh mục).
-    *   Lưu lựa chọn ngôn ngữ của người dùng vào `localStorage` dưới khóa `preferredLanguage`.
-
-2.  **Từ điển riêng của từng công cụ (`localDictionary`):**
-    *   Mỗi công cụ tự định nghĩa từ vựng riêng trong đối tượng `localDictionary` bên trong file `script.js` cục bộ của nó.
-    *   *Ví dụ cấu trúc từ điển cục bộ:*
-        ```javascript
-        const localDictionary = {
-            vi: {
-                'tool-title': 'Bộ Nén Ảnh',
-                'btn-compress': 'Bắt đầu nén'
-            },
-            en: {
-                'tool-title': 'Image Compressor',
-                'btn-compress': 'Start Compress'
-            }
-        };
-        ```
-
-3.  **Lắng nghe sự kiện chuyển đổi ngôn ngữ:**
-    *   Để đồng bộ hóa dịch thuật thời gian thực khi người dùng chuyển đổi cờ VI/EN trên thanh điều hướng, hãy đăng ký lắng nghe sự kiện `languageChanged` trong file script của công cụ:
-        ```javascript
-        window.addEventListener('languageChanged', () => {
-            applyLocalTranslation(); // Hàm cập nhật các thẻ chữ riêng biệt của công cụ
-        });
-        ```
-
----
-
-## 📂 CẤU TRÚC THƯ MỤC DỰ ÁN
+## 📂 PROJECT DIRECTORY STRUCTURE
 
 ```
 d:\free-utility-tools\
-├── logo.jpg                     # Logo thương hiệu chung
-├── style.css                    # CSS nền tảng chung (Navbar, layout, biến CSS màu)
-├── app.js                       # Logic tương tác trang chủ chung
-├── i18n.js                      # Engine đa ngôn ngữ (Tiếng Việt & Tiếng Anh)
-├── index.html                   # Trang chủ hiển thị danh mục các công cụ
-├── DEVELOPER.md                 # Tài liệu này (Hướng dẫn phát triển)
+├── logo.jpg                     # Shared brand logo
+├── style.css                    # Shared platform CSS (Navbar, layout, CSS variables)
+├── app.js                       # Home page interaction logic (search, filter, PWA install)
+├── i18n.js                      # No-op stub (legacy compatibility only — do NOT use for translations)
+├── index.html                   # Home page displaying all tool categories
+├── DEVELOPER.md                 # This document (Development Guidelines)
+├── README.md                    # Project overview & documentation
 │
-├── images/                      # Danh mục các công cụ xử lý hình ảnh
-│   ├── color-palette/           # Trích xuất bảng màu từ hình ảnh
-│   ├── image-compressor/        # Bộ nén ảnh chất lượng cao
-│   ├── image-converter/         # Bộ chuyển đổi định dạng ảnh hàng loạt
-│   ├── image-cropper/           # Cắt & xoay ảnh cơ bản
-│   ├── image-pixelator/         # Tạo ảnh Pixel & ASCII Art
-│   ├── image-to-pdf/            # Ghép ảnh thành PDF
-│   └── image-watermarker/       # Chèn Watermark hàng loạt
+├── images/                      # Image processing tools
+│   ├── batch-resizer/           # Batch image resizer
+│   ├── collage-maker/           # Photo collage maker
+│   ├── color-palette/           # Extract color palettes from images
+│   ├── image-compressor/        # High-quality image compressor
+│   ├── image-converter/         # Batch image format converter
+│   ├── image-cropper/           # Crop & rotate images
+│   ├── image-filter/            # Image filters & effects
+│   ├── image-pixelator/         # Pixel art & ASCII generator
+│   ├── image-splitter/          # Split image into grid tiles
+│   ├── image-to-pdf/            # Convert images to PDF
+│   └── image-watermarker/       # Batch image watermarker
 │
-├── text/                        # Danh mục các công cụ xử lý văn bản
-│   ├── replace-text/            # Tìm kiếm & Thay thế chữ hàng loạt
-│   ├── word-counter/            # Bộ đếm từ & Phân tích mật độ, độ dễ đọc
-│   ├── markdown-converter/      # Trình soạn thảo Markdown & Live Preview HTML
-│   └── text-encoder/            # Bộ mã hóa/giải mã chuỗi (Base64, Hex, Binary, ROT13...)
+├── text/                        # Text & document tools
+│   ├── compare-diff/            # Text & code diff checker
+│   ├── cron-generator/          # Cron expression generator & humanizer
+│   ├── excel-reader/            # Excel/CSV file reader
+│   ├── json-yaml-converter/     # JSON ↔ YAML converter
+│   ├── jwt-decoder/             # JWT token decoder & debugger
+│   ├── markdown-converter/      # Markdown editor & live HTML preview
+│   ├── replace-text/            # Find & replace text with RegEx
+│   ├── text-encoder/            # Text encoder & decoder (Base64, Hex, ROT13, etc.)
+│   ├── url-parser/              # URL parser & query builder
+│   ├── uuid-generator/          # UUID/ULID generator
+│   ├── web-downloader/          # Web source code downloader
+│   └── word-counter/            # Word counter & text analyzer
 │
-└── videos/                      # Danh mục công cụ xử lý video
-    └── video-downloader/        # Tải video TikTok/FB không dính logo watermark
+└── videos/                      # Video tools
+    ├── video-converter/         # Video format converter & audio extractor
+    ├── video-downloader/        # Social media video downloader (TikTok, Facebook, Instagram)
+    └── video-subtitle/          # Video subtitle editor (SRT/VTT)
 ```
+
+---
+
+## 🏗️ TOOL TEMPLATE STRUCTURE
+
+Each tool follows a consistent 3-file pattern:
+
+```
+[tool-folder]/
+├── index.html    # Main HTML with hardcoded English text + SEO meta tags
+├── script.js     # Core algorithm logic (no i18n, no language switching)
+└── style.css     # Tool-specific styles
+```
+
+### HTML Template Requirements
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <!-- Standard meta tags (charset, viewport, description, keywords, robots, canonical) -->
+    <!-- Open Graph meta tags (og:title, og:description, og:image, og:locale=en_US) -->
+    <!-- Twitter Cards -->
+    <!-- Google Fonts -->
+    <!-- CSS: ../../style.css + local style.css -->
+</head>
+<body>
+    <!-- Navbar with ../../ links -->
+    <!-- Main tool content with HARDCODED English text -->
+    <!-- Footer -->
+    <!-- Scripts: ../../i18n.js (no-op) + local script.js -->
+</body>
+</html>
+```
+
+### SEO Meta Tag Rules
+
+- `<title>`: Start with "Free Online..." + tool name + "| Silver Cat Tools"
+- `<meta name="description">`: 150-160 character English description
+- `<meta name="keywords">`: English-only keywords separated by commas
+- `og:locale`: Always `en_US`
+- No `og:locale:alternate` tags
+- All OG and Twitter titles/descriptions in English
+
+---
+
+## 🚫 WHAT NOT TO DO
+
+- ❌ Do NOT add `data-i18n` attributes to HTML elements
+- ❌ Do NOT use JavaScript to dynamically render text based on language
+- ❌ Do NOT add Vietnamese or any non-English text
+- ❌ Do NOT run localhost servers for preview
+- ❌ Do NOT rely on `i18n.js` for any functionality — it is a no-op stub

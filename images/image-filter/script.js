@@ -7,7 +7,7 @@
 const localDict = {
     vi: {
         'filter-title-page': 'Bộ Lọc & Hiệu Ứng Ảnh - Silver Cat Tools',
-        'back-home': 'Quay lại Trang Chủ',
+        'back-home': 'Quay lại Home',
         'filter-head': 'Bộ Lọc',
         'filter-head-sub': 'Hiệu Ứng Ảnh',
         'filter-desc': 'Thỏa sức biến tấu bức ảnh với hàng loạt bộ lọc chuyên nghiệp: từ cổ điển đến hiện đại. Tất cả chạy trên trình duyệt - riêng tư tuyệt đối!',

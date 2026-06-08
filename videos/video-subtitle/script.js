@@ -6,11 +6,11 @@
 const localDict = {
     vi: {
         'subtitle-title-page': 'Video Subtitle - Chỉnh Sửa Phụ Đề - Silver Cat Tools',
-        'back-home': 'Quay lại Trang Chủ',
+        'back-home': 'Quay lại Home',
         'subtitle-head': 'Video',
         'subtitle-head-sub': 'Subtitle',
         'subtitle-desc': 'Tạo phụ đề từ đầu như CapCut hoặc tải file SRT/VTT có sẵn. Chỉnh sửa thời gian, nội dung, xem trước đồng bộ.',
-        'subtitle-upload-title': 'Tải Video & Phụ Đề',
+        'subtitle-upload-title': 'Video Download & Phụ Đề',
         'subtitle-drop-video': 'Kéo thả video vào đây hoặc click để chọn',
         'subtitle-drop-video-desc': 'Hỗ trợ MP4, WebM. Xử lý 100% tại trình duyệt.',
         'subtitle-drop-srt': 'Tải file phụ đề có sẵn (.srt, .vtt) — không bắt buộc',
@@ -26,7 +26,7 @@ const localDict = {
         'subtitle-th-start': 'Bắt đầu',
         'subtitle-th-end': 'Kết thúc',
         'subtitle-th-text': 'Nội dung',
-        'subtitle-export-video': 'Tải Video + Phụ Đề',
+        'subtitle-export-video': 'Video Download + Phụ Đề',
         'subtitle-export-srt': 'Tải File .srt',
         'subtitle-preview-title': 'Xem Trước',
         'subtitle-preview-empty': 'Tải video lên trước, sau đó thêm phụ đề hoặc tải file .srt/.vtt',

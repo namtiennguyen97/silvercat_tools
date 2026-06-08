@@ -1,12 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    function getLang() {
-        return window.getCurrentLang ? window.getCurrentLang() : 'vi';
-    }
-
-    function applyLocalTranslation() {
-        // Main translations are automatically handled by translatePage() in i18n.js
-    }
-
     // Mobile Tabs Logic
     const tabBtnSettings = document.getElementById('tab-btn-settings');
     const tabBtnPreview = document.getElementById('tab-btn-preview');
@@ -126,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function processFile(file) {
         if (!file.type.match('image.*')) {
-            alert(getLang() === 'vi' ? 'Vui lòng chọn tệp tin hình ảnh hợp lệ!' : 'Please upload a valid image file!');
+            alert('Please upload a valid image file!');
             return;
         }
         originalFileSize = file.size;
@@ -158,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log('compressImage started');
             if (!loadedImage) {
-                alert(getLang() === 'vi' ? 'Vui lòng tải ảnh lên trước!' : 'Please upload an image first!');
+                alert('Please upload an image first!');
                 return;
             }
 
@@ -223,16 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (savingsPct > 0) {
                         pctElement.textContent = `-${savingsPct}%`;
-                        savingTitle.textContent = getLang() === 'vi' ? 'Tiết kiệm dung lượng thành công!' : 'File size shrunk successfully!';
-                        savingDesc.textContent = getLang() === 'vi' ? 
-                            `Giảm từ ${formatBytes(originalFileSize)} xuống còn ${formatBytes(blob.size)}.` : 
-                            `Reduced from ${formatBytes(originalFileSize)} to ${formatBytes(blob.size)}.`;
+                        savingTitle.textContent = 'File size shrunk successfully!';
+                        savingDesc.textContent = `Reduced from ${formatBytes(originalFileSize)} to ${formatBytes(blob.size)}.`;
                     } else {
                         pctElement.textContent = `+${Math.abs(savingsPct)}%`;
-                        savingTitle.textContent = getLang() === 'vi' ? 'Kích thước sau nén tăng lên' : 'Optimized file size is larger';
-                        savingDesc.textContent = getLang() === 'vi' ? 
-                            'Nên tăng mức nén (giảm slider chất lượng) hoặc giảm kích thước ảnh để có kích thước tối ưu.' : 
-                            'Adjust quality slider lower or scale down dimensions to shrink the file size.';
+                        savingTitle.textContent = 'Optimized file size is larger';
+                        savingDesc.textContent = 'Adjust quality slider lower or scale down dimensions to shrink the file size.';
                     }
                     
                     widget.style.display = 'flex';
@@ -318,14 +306,4 @@ document.addEventListener('DOMContentLoaded', () => {
         link.click();
     });
 
-    window.addEventListener('languageChanged', () => {
-        if (loadedImage) {
-            compressImage();
-        }
-    });
-
-    // Init translations
-    setTimeout(() => {
-        applyLocalTranslation();
-    }, 100);
 });

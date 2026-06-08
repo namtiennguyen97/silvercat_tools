@@ -1,179 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- ==================== TRANG CHỦ ==================== -->
+  <!-- ==================== HOME ==================== -->
   <url>
     <loc>https://silvercat-utils.com/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://silvercat-utils.com/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://silvercat-utils.com/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://silvercat-utils.com/" />
   </url>
 
-  <!-- ==================== CÔNG CỤ IMAGES ==================== -->
+  <!-- ==================== IMAGE TOOLS ==================== -->
   <url>
     <loc>https://silvercat-utils.com/images/image-compressor/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/images/image-converter/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/images/image-watermarker/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/images/color-palette/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/images/image-to-pdf/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/images/image-cropper/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/images/image-pixelator/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/images/image-filter/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://silvercat-utils.com/images/batch-resizer/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://silvercat-utils.com/images/image-splitter/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://silvercat-utils.com/images/collage-maker/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-  <!-- ==================== CÔNG CỤ TEXT ==================== -->
+  <!-- ==================== TEXT & DOCUMENT TOOLS ==================== -->
   <url>
     <loc>https://silvercat-utils.com/text/replace-text/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/word-counter/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/markdown-converter/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/text-encoder/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/excel-reader/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/web-downloader/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/compare-diff/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/cron-generator/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- ==================== CÔNG CỤ DEV TOOLS ==================== -->
+  <!-- ==================== DEV TOOLS ==================== -->
   <url>
     <loc>https://silvercat-utils.com/text/jwt-decoder/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/json-yaml-converter/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/url-parser/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/text/uuid-generator/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- ==================== CÔNG CỤ VIDEOS ==================== -->
+  <!-- NEW: Log Parser & Regex Filter -->
+  <url>
+    <loc>https://silvercat-utils.com/text/log-parser/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- NEW: Smart Data Converter -->
+  <url>
+    <loc>https://silvercat-utils.com/text/data-converter/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ==================== VIDEO TOOLS ==================== -->
   <url>
     <loc>https://silvercat-utils.com/videos/video-downloader/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/videos/video-subtitle/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://silvercat-utils.com/videos/video-converter/</loc>
-    <lastmod>2026-05-28</lastmod>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

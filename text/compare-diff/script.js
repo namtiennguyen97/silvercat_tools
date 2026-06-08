@@ -3,8 +3,8 @@
 
     const localDict = {
         vi: {
-            'back-link': 'Quay lại danh mục công cụ',
-            'badge-category-docs': 'Tài Liệu & Văn Bản',
+            'back-link': 'Back to tools collection',
+            'badge-category-docs': 'Documents & Text',
             'compare-h1-prefix': 'So Sánh',
             'compare-h1-suffix': 'Văn Bản & Code',
             'compare-subtitle': 'So sánh 2 file văn bản hoặc code và xem khác biệt trực quan kiểu GitHub diff. Hỗ trợ side-by-side và unified view, bỏ qua khoảng trắng / phân biệt hoa thường.',

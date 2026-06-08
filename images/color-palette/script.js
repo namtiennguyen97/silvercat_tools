@@ -7,7 +7,7 @@
             'palette-title-page': 'Trích Xuất Bảng Màu - Silver Cat Tools',
             'meta-desc': 'Trích xuất bảng màu nổi bật từ ảnh, lấy mã màu HEX, RGB một cách nhanh chóng trong trình duyệt.',
             'meta-keywords': 'color palette, trích xuất màu, palette generator, hex color, rgb, image colors',
-            'back-home': 'Quay lại Trang Chủ',
+            'back-home': 'Quay lại Home',
             'palette-head': 'Trích Xuất Bảng Màu',
             'palette-head-sub': 'Ảnh',
             'palette-desc': 'Lấy ra các màu chủ đạo, hiển thị mã HEX, RGB và sao chép nhanh.',

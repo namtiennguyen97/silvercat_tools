@@ -6,7 +6,7 @@
             'watermark-title-page': 'Chèn Watermark Hàng Loạt - Silver Cat Tools',
             'meta-desc': 'Chèn logo hoặc chữ đóng dấu bản quyền lên hàng loạt hình ảnh cùng lúc ngay trên trình duyệt của bạn. Nhanh chóng, bảo mật và miễn phí.',
             'meta-keywords': 'watermark ảnh, chèn logo ảnh, đóng dấu bản quyền ảnh, watermark hàng loạt, chèn chữ vào ảnh, đóng dấu logo',
-            'back-home': 'Quay lại Trang Chủ',
+            'back-home': 'Quay lại Home',
             'watermark-head': 'Chèn Watermark', 'watermark-head-sub': 'Hàng Loạt',
             'watermark-desc': 'Đóng dấu logo hoặc văn bản bản quyền lên nhiều ảnh cùng lúc.',
             'mob-settings': 'Thiết Lập', 'mob-preview': 'Kết Quả',

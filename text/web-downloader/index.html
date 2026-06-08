@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script>
     <script>
@@ -10,23 +10,22 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="webdl-title-tag">Tải Mã Nguồn Web - Silver Cat Tools</title>
+    <title>Web Source Downloader - Silver Cat Tools</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <meta name="description" content="Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web nào. Extract và download source code trực tiếp từ URL.">
+    <meta name="description" content="Download HTML, CSS, JavaScript source code from any website. Extract and download source code directly from a URL.">
     <meta name="keywords" content="tải mã nguồn web, download html css js, cào web, web scraper, lấy source code web">
     <meta name="author" content="Silver Cat Tools">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://silvercat-utils.com/text/web-downloader/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://silvercat-utils.com/text/web-downloader/">
-    <meta property="og:title" content="Tải Mã Nguồn Web (HTML/CSS/JS) - Silver Cat Tools">
+    <meta property="og:title" content="Free Online Web Source Downloader — Download HTML, CSS, JS from Any Downloader | Silver Cat Tools">
     <meta property="og:description" content="Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web nào.">
     <meta property="og:image" content="https://silvercat-utils.com/logo.jpg">
-    <meta property="og:locale" content="vi_VN">
-    <meta property="og:locale:alternate" content="en_US">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tải Mã Nguồn Web (HTML/CSS/JS) - Silver Cat Tools">
+    <meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Web Source Downloader (HTML/CSS/JS) - Silver Cat Tools">
     <meta name="twitter:description" content="Tải mã nguồn HTML, CSS, JavaScript của bất kỳ trang web nào.">
     <meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,10 +46,10 @@
         <header class="tool-page-header">
             <a href="../../index.html" class="back-link">
                 <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                <span data-i18n="back-home">Quay lại Trang Chủ</span>
+                <span>Back to Home</span>
             </a>
-            <h1><span data-i18n="webdl-head">Tải Mã Nguồn</span> <span class="text-gradient" data-i18n="webdl-head-sub">Website</span></h1>
-            <p data-i18n="webdl-desc">Nhập URL để tải mã nguồn HTML, CSS, JavaScript của trang web. Trích xuất và tải về từng file riêng lẻ hoặc toàn bộ.</p>
+            <h1><span>Web Source</span> <span class="text-gradient">Downloader</span></h1>
+            <p>Enter a URL to download the HTML, CSS, and JavaScript source code. Trích xuất và tải về từng file riêng lẻ hoặc toàn bộ.</p>
         </header>
 
         <div class="tool-grid-layout">
@@ -58,49 +57,49 @@
                 <div class="panel-header">
                     <h2 class="panel-title">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        <span data-i18n="webdl-input-title">Nhập URL</span>
+                        <span>Enter URL</span>
                     </h2>
                 </div>
 
                 <div class="url-input-row">
-                    <input type="url" id="url-input" class="url-input" placeholder="https://example.com" data-i18n-placeholder="webdl-url-placeholder" value="https://">
+                    <input type="url" id="url-input" class="url-input" placeholder="https://example.com" value="https://">
                     <button class="btn btn-primary" id="btn-fetch">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        <span data-i18n="webdl-btn-fetch">Tải Về</span>
+                        <span>Download</span>
                     </button>
                 </div>
 
                 <div id="status-area" class="status-area" style="display:none;">
                     <div class="status-bar">
                         <span class="status-spinner"></span>
-                        <span id="status-text" data-i18n="webdl-loading">Đang tải...</span>
+                        <span id="status-text">Loading...</span>
                     </div>
                 </div>
 
                 <div id="file-info" style="display:none;">
                     <span class="stat-item" style="padding:0.5rem 0.75rem;">
-                        <span class="stat-lbl" data-i18n="webdl-page-title">Tiêu đề:</span>
+                        <span class="stat-lbl">Title:</span>
                         <span class="stat-val" id="page-title">-</span>
                     </span>
                     <span class="stat-item" style="padding:0.5rem 0.75rem;">
-                        <span class="stat-lbl" data-i18n="webdl-page-url">URL:</span>
+                        <span class="stat-lbl">URL:</span>
                         <span class="stat-val" id="page-url">-</span>
                     </span>
                     <span class="stat-item" style="padding:0.5rem 0.75rem;">
-                        <span class="stat-lbl" data-i18n="webdl-page-size">Dung lượng:</span>
+                        <span class="stat-lbl">Size:</span>
                         <span class="stat-val" id="page-size">-</span>
                     </span>
                 </div>
 
                 <div class="settings-group" id="resource-group" style="display:none;">
-                    <div class="settings-title" data-i18n="webdl-resources-title">Tài nguyên tìm thấy</div>
+                    <div class="settings-title">Resources found</div>
                     <div id="resource-list" class="resource-list"></div>
                 </div>
 
                 <div class="panel-footer-actions" id="action-buttons" style="display:none;">
                     <button class="btn btn-primary" id="btn-download-all" style="flex:1;justify-content:center;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        <span data-i18n="webdl-download-all">Tải Tất Cả (ZIP)</span>
+                        <span>Download All (ZIP)</span>
                     </button>
                 </div>
             </section>
@@ -109,8 +108,8 @@
                 <div class="panel-header">
                     <h2 class="panel-title">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                        <span data-i18n="webdl-preview-title">Mã Nguồn</span>
-                        <span id="line-count" class="badge-count">0 dòng</span>
+                        <span>Source Code</span>
+                        <span id="line-count" class="badge-count">0 lines</span>
                     </h2>
                 </div>
 
@@ -118,7 +117,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" style="margin:0 auto 1rem;display:block;">
                         <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
                     </svg>
-                    <p data-i18n="webdl-empty">Nhập URL và nhấn "Tải Về" để xem mã nguồn</p>
+                    <p>Enter URL và nhấn "Download" để xem mã nguồn</p>
                 </div>
 
                 <div id="code-wrapper" class="code-wrapper" style="display:none;">
@@ -140,7 +139,7 @@
     <footer class="footer">
         <div class="footer-container">
             <a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a>
-            <p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools.</p>
+            <p class="footer-copyright">&copy; 2026 Silver Cat Tools.</p>
         </div>
     </footer>
 

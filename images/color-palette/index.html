@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script>
@@ -13,11 +13,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="d-vTUmEh1z84tkAvITe569i1jamKSFmsX4MVeJkKMys" />
-    <title data-i18n="palette-title-page">Trích Xuất Bảng Màu | Image Color Palette Generator - Silver Cat Tools</title>
+    <title>Free Online Color Palette Generator — Extract Color Palettes from Images | Silver Cat Tools</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <meta name="description" content="Trích xuất bảng màu nổi bật từ ảnh trực tuyến. Extract dominant color palettes from images, get HEX and RGB color codes instantly in your browser.">
-    <meta name="keywords" content="color palette, extract image colors, palette generator, trích xuất màu, hex color, rgb color, dominant colors">
+    <meta name="description" content="Free online color palette generator — extract dominant color palettes from any image. Get HEX, RGB, and HSL color codes instantly. 100% browser-side processing.">
+    <meta name="keywords" content="color palette generator, extract colors from image, hex color picker, rgb color extractor, dominant color palette, image color analyzer">
     <meta name="author" content="Silver Cat Tools">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://silvercat-utils.com/images/color-palette/">
@@ -26,16 +26,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://silvercat-utils.com/color-palette.html">
     <meta property="og:site_name" content="Silver Cat Tools">
-    <meta property="og:title" content="Trích Xuất Bảng Màu | Image Color Palette Generator - Silver Cat Tools">
-    <meta property="og:description" content="Trích xuất bảng màu nổi bật từ ảnh trực tuyến. Extract dominant color palettes from images, get HEX and RGB color codes instantly in your browser.">
+    <meta property="og:title" content="Free Online Color Palette Generator — Extract Colors from Images | Silver Cat Tools">
+    <meta property="og:description" content="Extract dominant color palettes from any image. Get HEX and RGB color codes instantly. 100% browser-side processing.">
     <meta property="og:image" content="https://silvercat-utils.com/logo.jpg">
-    <meta property="og:locale" content="vi_VN">
-    <meta property="og:locale:alternate" content="en_US">
-
-    <!-- Twitter Cards -->
+    <meta property="og:locale" content="en_US">
+<!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Trích Xuất Bảng Màu | Image Color Palette Generator - Silver Cat Tools">
-    <meta name="twitter:description" content="Trích xuất bảng màu nổi bật từ ảnh trực tuyến. Extract dominant color palettes from images, get HEX and RGB color codes instantly in your browser.">
+    <meta name="twitter:title" content="Free Online Color Palette Generator — Extract Colors from Images | Silver Cat Tools">
+    <meta name="twitter:description" content="Extract dominant color palettes from any image. Get HEX and RGB color codes instantly. 100% browser-side processing.">
     <meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,43 +51,43 @@
     <main class="tool-container">
         <a href="../../index.html" class="back-link">
             <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-            <span data-i18n="back-home">Quay lại Trang Chủ</span>
+            <span>Back to tools collection</span>
         </a>
         <div class="tool-header">
-            <h1 class="tool-main-title"><span data-i18n="palette-head">Trích Xuất Bảng Màu</span> <span class="text-gradient-teal" data-i18n="palette-head-sub">Ảnh</span></h1>
-            <p class="tool-subtitle" data-i18n="palette-desc">Lấy ra các màu chủ đạo, hiển thị mã HEX, RGB và sao chép nhanh.</p>
+            <h1 class="tool-main-title"><span>Color Palette</span> <span class="text-gradient-teal">Extractor</span></h1>
+            <p class="tool-subtitle">Extract the dominant colors from your image, view HEX/RGB codes, and copy them instantly.</p>
         </div>
         <div class="mobile-tabs-container">
-            <button class="mobile-tab-btn active" data-target="panel-settings" data-i18n="mob-settings">Cài Đặt</button>
-            <button class="mobile-tab-btn" data-target="panel-result" data-i18n="mob-result">Kết Quả</button>
+            <button class="mobile-tab-btn active" data-target="panel-settings">Settings</button>
+            <button class="mobile-tab-btn" data-target="panel-result">Results</button>
         </div>
         <div class="tool-grid-layout">
             <section class="tool-panel active-panel" id="panel-settings">
-                <div class="panel-header"><h2 class="panel-title" data-i18n="settings-title">Cài Đặt</h2></div>
+                <div class="panel-header"><h2 class="panel-title">Settings</h2></div>
                 <div class="dropzone" id="dropzone">
                     <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    <span class="dropzone-title" data-i18n="drop-title">Kéo thả ảnh hoặc click để tải</span>
+                    <span class="dropzone-title">Drag & drop an image or click to upload</span>
                     <input type="file" id="file-upload" accept="image/*" style="display:none;" multiple>
                 </div>
                 <div class="settings-group">
-                    <label class="form-label" data-i18n="lbl-color-count">Số màu tối đa</label>
+                    <label class="form-label">Max number of colors</label>
                     <input type="range" class="range-slider" id="color-count" min="3" max="12" value="6">
                     <span class="range-val" id="color-count-val">6</span>
                 </div>
-                <button class="btn btn-primary" id="btn-extract" style="width:100%;" data-i18n="btn-extract">Trích Xuất Màu</button>
+                <button class="btn btn-primary" id="btn-extract" style="width:100%;">Extract Colors</button>
             </section>
             <section class="tool-panel" id="panel-result">
-                <div class="panel-header"><h2 class="panel-title" data-i18n="result-title">Màu Đã Trích Xuất</h2></div>
+                <div class="panel-header"><h2 class="panel-title">Extracted Colors</h2></div>
                 <div class="preview-container" id="result-container">
-                    <div class="click-guide" id="click-guide" data-i18n="click-guide" style="display: none; align-items: center; justify-content: center; gap: 0.5rem; background: rgba(168, 85, 247, 0.05); border: 1px dashed rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 0.65rem 1rem; font-size: 0.82rem; color: #cbd5e1; text-align: center; margin-bottom: 0.25rem;">💡 Bạn có thể chạm hoặc click trực tiếp vào bất kỳ vị trí nào trên hình ảnh để trích xuất mã màu tại điểm đó!</div>
+                    <div class="click-guide" id="click-guide" style="display: none; align-items: center; justify-content: center; gap: 0.5rem; background: rgba(168, 85, 247, 0.05); border: 1px dashed rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 0.65rem 1rem; font-size: 0.82rem; color: #cbd5e1; text-align: center; margin-bottom: 0.25rem;">💡 💡 Tap or click anywhere on the image to extract the exact color code at that pixel!</div>
                     <canvas id="preview-canvas" style="max-width:100%; max-height:350px; display:none; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.5);"></canvas>
-                    <div id="no-result" data-i18n="no-result">Chưa có kết quả. Tải ảnh và nhấn "Trích Xuất Màu".</div>
+                    <div id="no-result">No results yet. Upload an image and click "Extract Colors".</div>
                     <div class="color-palette-grid" id="palette-grid"></div>
                 </div>
             </section>
         </div>
     </main>
-    <footer class="footer" id="about"><div class="footer-container"><a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a><p class="footer-copyright" data-i18n="footer-copyright">&copy; 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu và bảo mật tối đa.</p></div></footer>
+    <footer class="footer" id="about"><div class="footer-container"><a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Logo" class="brand-logo-img"></span> Silver Cat Tools</a><p class="footer-copyright">&copy; 2026 Silver Cat Tools. Built for optimal performance and premium experience.</p></div></footer>
     <script src="../../i18n.js"></script>
     <script src="script.js"></script>
 </body>

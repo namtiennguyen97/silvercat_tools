@@ -1,6 +1,7 @@
 /**
  * ==========================================================================
  * INTERACTIVE LOGIC - MICRO-SAAS HUB (GLASSMORPHISM DARK THEME)
+ * ENGLISH-ONLY VERSION - OPTIMIZED FOR SEO
  * ==========================================================================
  */
 
@@ -116,39 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 5. Typing Suggestion Animation inside Placeholder (Enhancement)
-    const suggestionsDict = {
-        vi: ['nén ảnh', 'chuyển pdf sang word', 'tạo mã qr', 'tải video tiktok', 'đếm từ', 'biên soạn markdown'],
-        en: ['compress image', 'pdf to word', 'qr generator', 'tiktok downloader', 'word counter', 'markdown editor']
-    };
-    const prefixDict = {
-        vi: 'Tìm kiếm công cụ (ví dụ: "',
-        en: 'Search tools (e.g., "'
-    };
-    const suffixDict = { vi: '")', en: '")' };
-    const focusDict = {
-        vi: 'Nhập tên công cụ bạn cần tìm... (Nhấn "/" để tìm nhanh)',
-        en: 'Type tool name... (Press "/" to quick search)'
-    };
-    const blurDict = {
-        vi: 'Tìm kiếm công cụ...',
-        en: 'Search tools...'
-    };
-
-    let currentAppLang = localStorage.getItem('preferred-lang') || 'vi';
-    window.addEventListener('languageChanged', (e) => {
-        if (e.detail && e.detail.lang) {
-            currentAppLang = e.detail.lang;
-        } else {
-            currentAppLang = localStorage.getItem('preferred-lang') || 'vi';
-        }
-        if (!searchInput) return;
-        if (document.activeElement === searchInput) {
-            searchInput.placeholder = focusDict[currentAppLang];
-        } else if (searchInput.value !== '') {
-            searchInput.placeholder = blurDict[currentAppLang];
-        }
-    });
+    // 5. Typing Suggestion Animation inside Placeholder (English only)
+    const suggestions = ['compress image', 'pdf to word', 'qr generator', 'tiktok downloader', 'word counter', 'markdown editor'];
+    const prefix = 'Search tools (e.g., "';
+    const suffix = '")';
+    const focusPlaceholder = 'Type tool name... (Press "/" to quick search)';
+    const blurPlaceholder = 'Search tools...';
 
     let suggestionIndex = 0;
     let charIndex = 0;
@@ -159,12 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!searchInput) return;
         if (document.activeElement === searchInput) return;
 
-        const suggestions = suggestionsDict[currentAppLang];
         if (suggestionIndex >= suggestions.length) suggestionIndex = 0;
         
         const currentText = suggestions[suggestionIndex];
-        const prefix = prefixDict[currentAppLang];
-        const suffix = suffixDict[currentAppLang];
         
         if (isDeleting) {
             searchInput.placeholder = prefix + currentText.substring(0, charIndex) + suffix;
@@ -194,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput) {
         searchInput.addEventListener('focus', () => {
             clearTimeout(typingTimer);
-            searchInput.placeholder = focusDict[currentAppLang];
+            searchInput.placeholder = focusPlaceholder;
         });
 
         searchInput.addEventListener('blur', () => {
@@ -203,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isDeleting = false;
                 typePlaceholder();
             } else {
-                searchInput.placeholder = blurDict[currentAppLang];
+                searchInput.placeholder = blurPlaceholder;
             }
         });
     }
@@ -277,7 +248,7 @@ if ('serviceWorker' in navigator) {
 }
 
 // ==========================================================================
-// 8. PWA: ADD TO HOME SCREEN / INSTALL BANNER
+// 8. PWA: ADD TO HOME SCREEN / INSTALL BANNER (ENGLISH ONLY)
 // ==========================================================================
 (function() {
     let deferredPrompt = null;
@@ -285,38 +256,29 @@ if ('serviceWorker' in navigator) {
     banner.className = 'pwa-install-banner';
     banner.style.display = 'none';
     
-    const getBannerText = () => {
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
-        if (lang === 'en') {
-            return {
-                title: '📱 Install Silver Cat Tools',
-                desc: 'Add to your home screen for quick access to all tools!',
-                install: 'Install App',
-                later: 'Later'
-            };
-        }
-        return {
-            title: '📱 Cài Đặt Silver Cat Tools',
-            desc: 'Thêm vào màn hình chính để truy cập nhanh các công cụ tiện ích!',
-            install: 'Cài Đặt',
-            later: 'Để Sau'
-        };
+    const bannerText = {
+        title: '📱 Install Silver Cat Tools',
+        desc: 'Add to your home screen for quick access to all tools!',
+        install: 'Install App',
+        later: 'Later',
+        iosDesc: 'Tap the share button <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong>',
+        alreadyInstalled: 'App is already installed!',
+        notSupported: 'Your browser does not support installation. Please use Chrome or Edge.'
     };
 
     function renderBanner() {
-        const txt = getBannerText();
         banner.innerHTML = `
             <div class="pwa-banner-content">
                 <div class="pwa-banner-icon">
                     <img src="logo.jpg" alt="Silver Cat Tools" width="48" height="48" style="border-radius:12px;">
                 </div>
                 <div class="pwa-banner-text">
-                    <strong>${txt.title}</strong>
-                    <span>${txt.desc}</span>
+                    <strong>${bannerText.title}</strong>
+                    <span>${bannerText.desc}</span>
                 </div>
                 <div class="pwa-banner-actions">
-                    <button class="pwa-banner-install">${txt.install}</button>
-                    <button class="pwa-banner-close">${txt.later}</button>
+                    <button class="pwa-banner-install">${bannerText.install}</button>
+                    <button class="pwa-banner-close">${bannerText.later}</button>
                 </div>
             </div>
         `;
@@ -325,13 +287,10 @@ if ('serviceWorker' in navigator) {
     renderBanner();
     document.body.appendChild(banner);
 
-    // Listen for language changes
-    window.addEventListener('languageChanged', renderBanner);
-
     // Check if 5 days have passed since last dismiss
     function shouldShowBanner() {
         const dismissedTime = localStorage.getItem('pwa-dismissed-time');
-        if (!dismissedTime) return true; // Never dismissed
+        if (!dismissedTime) return true;
         const elapsed = Date.now() - parseInt(dismissedTime);
         const fiveDays = 5 * 24 * 60 * 60 * 1000;
         return elapsed > fiveDays;
@@ -364,7 +323,7 @@ if ('serviceWorker' in navigator) {
         
         if (closeBtn) {
             banner.style.display = 'none';
-            // 5 ngày sau mới hỏi lại
+            // Ask again after 5 days
             localStorage.setItem('pwa-dismissed-time', Date.now().toString());
         }
     });
@@ -376,18 +335,17 @@ if ('serviceWorker' in navigator) {
     if (isIOS && !isStandalone && shouldShowBanner()) {
         setTimeout(() => {
             if (shouldShowBanner()) {
-                const txt = getBannerText();
                 banner.innerHTML = `
                     <div class="pwa-banner-content">
                         <div class="pwa-banner-icon">
                             <img src="logo.jpg" alt="Silver Cat Tools" width="48" height="48" style="border-radius:12px;">
                         </div>
                         <div class="pwa-banner-text">
-                            <strong>${txt.title}</strong>
-                            <span>Nhấn vào nút chia sẻ <strong>Chia sẻ</strong> &rarr; <strong>Thêm vào Màn hình chính</strong></span>
+                            <strong>${bannerText.title}</strong>
+                            <span>${bannerText.iosDesc}</span>
                         </div>
                         <div class="pwa-banner-actions">
-                            <button class="pwa-banner-close">${txt.later}</button>
+                            <button class="pwa-banner-close">${bannerText.later}</button>
                         </div>
                     </div>
                 `;
@@ -411,10 +369,6 @@ if ('serviceWorker' in navigator) {
             return;
         }
 
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
-        const headerText = lang === 'en' ? 'Install App' : 'Cài Đặt';
-        const footerText = lang === 'en' ? '📥 Install App' : '📥 Cài Đặt Ứng Dụng';
-
         // === HEADER: Install App button ===
         const navbar = document.getElementById('main-navbar');
         if (navbar) {
@@ -424,7 +378,7 @@ if ('serviceWorker' in navigator) {
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                <span class="install-text">${headerText}</span>
+                <span class="install-text">Install App</span>
             `;
             headerBtn.addEventListener('click', triggerInstall);
             navbar.appendChild(headerBtn);
@@ -439,7 +393,7 @@ if ('serviceWorker' in navigator) {
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                ${footerText}
+                📥 Install App
             `;
             footerBtn.addEventListener('click', triggerInstall);
             const copyright = footerContainer.querySelector('.footer-copyright');
@@ -456,24 +410,23 @@ if ('serviceWorker' in navigator) {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
         } else if (isIOS && !isStandalone) {
-            const txt = getBannerText();
             banner.innerHTML = `
                 <div class="pwa-banner-content">
                     <div class="pwa-banner-icon"><img src="logo.jpg" alt="Silver Cat Tools" width="48" height="48" style="border-radius:12px;"></div>
                     <div class="pwa-banner-text">
-                        <strong>${txt.title}</strong>
-                        <span>Nhấn vào nút chia sẻ <strong>Chia sẻ</strong> &rarr; <strong>Thêm vào Màn hình chính</strong></span>
+                        <strong>${bannerText.title}</strong>
+                        <span>${bannerText.iosDesc}</span>
                     </div>
                     <div class="pwa-banner-actions">
-                        <button class="pwa-banner-close">${txt.later}</button>
+                        <button class="pwa-banner-close">${bannerText.later}</button>
                     </div>
                 </div>
             `;
             banner.style.display = 'flex';
         } else if (isStandalone) {
-            alert('Ứng dụng đã được cài đặt!');
+            alert(bannerText.alreadyInstalled);
         } else {
-            alert('Trình duyệt của bạn không hỗ trợ. Vui lòng dùng Chrome hoặc Edge.');
+            alert(bannerText.notSupported);
         }
     }
 
@@ -483,11 +436,6 @@ if ('serviceWorker' in navigator) {
     } else {
         createInstallButtons();
     }
-
-    // Re-create buttons when language changes
-    window.addEventListener('languageChanged', () => {
-        setTimeout(createInstallButtons, 100);
-    });
 
     // Remove buttons after app is installed
     window.addEventListener('appinstalled', () => {
