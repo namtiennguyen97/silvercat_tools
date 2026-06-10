@@ -64,7 +64,7 @@ document.getElementById('btn-add-param').addEventListener('click',function(){if(
 document.getElementById('btn-copy-url').addEventListener('click',function(){
   navigator.clipboard.writeText(builtUrl.textContent).then(function(){
     var btn=document.getElementById('btn-copy-url');btn.textContent='Copied!';
-    setTimeout(function(){btn.textContent=localStorage.getItem('preferred-lang')==='vi'?'Sao Chép':'Copy';},1500);
+    setTimeout(function(){btn.textContent='Copy';},1500);
   });
 });
 document.querySelectorAll('[data-url]').forEach(function(btn){

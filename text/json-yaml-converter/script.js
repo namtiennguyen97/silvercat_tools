@@ -189,7 +189,7 @@ btnClear.addEventListener('click',()=>{inputEl.value='';outputEl.value='';});
 btnCopy.addEventListener('click',()=>{
   navigator.clipboard.writeText(outputEl.value).then(()=>{
     btnCopy.textContent='Copied!';
-    setTimeout(()=>{btnCopy.textContent='Sao Chép';},1500);
+    setTimeout(()=>{btnCopy.textContent='Copy';},1500);
   });
 });
 
@@ -222,6 +222,6 @@ document.querySelectorAll('[data-sample]').forEach(btn=>{
 window.addEventListener('languageChanged',()=>{
   if(currentMode==='json2yaml'){inputLabel.textContent='JSON Input';outputLabel.textContent='YAML Output';}
   else{inputLabel.textContent='YAML Input';outputLabel.textContent='JSON Output';}
-  btnCopy.textContent=btnCopy.textContent==='Copied!'?'Copied!':(localStorage.getItem('preferred-lang')==='vi'?'Sao Chép':'Copy');
+  btnCopy.textContent=btnCopy.textContent==='Copied!'?'Copied!':('Copy');
 });
 })();

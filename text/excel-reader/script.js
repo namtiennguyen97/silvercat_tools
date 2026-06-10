@@ -5,27 +5,27 @@
 // ─── i18n ─────────────────────────────────────────────────────────────────
 const localDict = {
     vi: {
-        'excel-title-tag': 'Đọc File Excel/CSV - Silver Cat Tools',
-        'excel-head': 'Đọc File',
+        'excel-title-tag': 'Read Excel/CSV File - Silver Cat Tools',
+        'excel-head': 'Read File',
         'excel-head-sub': 'Excel/CSV',
-        'excel-desc': 'Tải lên file Excel (.xlsx, .xls) hoặc CSV để xem dữ liệu trực quan. Hỗ trợ nhiều sheet, lọc, tìm kiếm và xuất dữ liệu.',
+        'excel-desc': 'Upload Excel (.xlsx, .xls) or CSV files to view data visually. Supports multiple sheets, filtering, searching and data export.' ,
         'excel-upload-title': 'Tải File Lên',
-        'excel-drop': 'Kéo thả file vào đây hoặc click để chọn',
-        'excel-drop-desc': 'Hỗ trợ .xlsx, .xls, .csv, .tsv, .ods. 100% tại trình duyệt.',
+        'excel-drop': 'Drag & drop a file here or click to browse',
+        'excel-drop-desc': 'Supports .xlsx, .xls, .csv, .tsv, .ods. 100% browser-side.',
         'excel-file-name': 'Tên file:',
-        'excel-file-size': 'Kích thước:',
+        'excel-file-size': 'File size:',
         'excel-file-rows': 'Tổng dòng:',
-        'excel-sheet-title': 'Chọn Sheet',
+        'excel-sheet-title': 'Select Sheet',
         'excel-filter-title': 'Tìm kiếm & Lọc',
         'excel-filter-placeholder': 'Tìm kiếm trong dữ liệu...',
-        'excel-export-csv': 'Xuất CSV',
-        'excel-export-json': 'Xuất JSON',
+        'excel-export-csv': 'Export CSV',
+        'excel-export-json': 'Export JSON',
         'excel-preview-title': 'Xem Dữ Liệu',
         'excel-empty': 'Tải file lên để xem dữ liệu',
         'badge-rows': 'dòng',
         'excel-loading': 'Đang xử lý file...',
-        'excel-error-parse': 'Không thể đọc file. Vui lòng kiểm tra định dạng.',
-        'excel-error-large': 'File quá lớn. Vui lòng chọn file nhỏ hơn 50MB.',
+        'excel-error-parse': 'Cannot read file. Please check the file format.',
+        'excel-error-large': 'File too large. Please select a file smaller than 50MB.',
         'excel-no-sheets': 'Không tìm thấy sheet nào trong file.',
         'excel-file-encoding': 'Bảng mã:',
     },
@@ -236,7 +236,7 @@ function applyLocalTranslation(lang) {
 
         // Render body
         if (filteredData.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="${headers.length}" style="text-align:center;padding:2rem;color:var(--text-muted);">${filter ? 'Không tìm thấy kết quả' : 'Không có dữ liệu'}</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="${headers.length}" style="text-align:center;padding:2rem;color:var(--text-muted);">${filter ? 'No results found' : 'No data'}</td></tr>`;
         } else {
             tableBody.innerHTML = filteredData.map(row => {
                 const cells = headers.map((_, idx) => {

@@ -9,12 +9,12 @@ const localDict = {
         'back-home': 'Quay lại Home',
         'subtitle-head': 'Video',
         'subtitle-head-sub': 'Subtitle',
-        'subtitle-desc': 'Tạo phụ đề từ đầu như CapCut hoặc tải file SRT/VTT có sẵn. Chỉnh sửa thời gian, nội dung, xem trước đồng bộ.',
+        'subtitle-desc': 'Create subtitles from scratch like CapCut or upload existing SRT/VTT files. Edit timing, content, and preview in sync.',
         'subtitle-upload-title': 'Video Download & Phụ Đề',
-        'subtitle-drop-video': 'Kéo thả video vào đây hoặc click để chọn',
-        'subtitle-drop-video-desc': 'Hỗ trợ MP4, WebM. Xử lý 100% tại trình duyệt.',
+        'subtitle-drop-video': 'Drag & drop a video here or click to browse',
+        'subtitle-drop-video-desc': 'Supports MP4, WebM. 100% browser-side processing.',
         'subtitle-drop-srt': 'Tải file phụ đề có sẵn (.srt, .vtt) — không bắt buộc',
-        'subtitle-drop-srt-desc': 'Có thể tạo phụ đề từ đầu bên dưới. Hỗ trợ SRT, VTT.',
+        'subtitle-drop-srt-desc': 'Can create subtitles from scratch below. Supports SRT, VTT.',
         'subtitle-status-novideo': '❌ Chưa có video',
         'subtitle-status-nosub': '💡 Có thể tạo phụ đề từ đầu bên dưới',
         'subtitle-status-okvideo': '✅ Video: {name}',
@@ -28,17 +28,17 @@ const localDict = {
         'subtitle-th-text': 'Nội dung',
         'subtitle-export-video': 'Video Download + Phụ Đề',
         'subtitle-export-srt': 'Tải File .srt',
-        'subtitle-preview-title': 'Xem Trước',
+        'subtitle-preview-title': 'Preview',
         'subtitle-preview-empty': 'Tải video lên trước, sau đó thêm phụ đề hoặc tải file .srt/.vtt',
         'subtitle-stat-video': 'Video:',
         'subtitle-stat-subs': 'Phụ đề:',
-        'subtitle-exporting': 'Đang xuất video...',
-        'subtitle-export-done': 'Tải xuống hoàn tất',
+        'subtitle-exporting': 'Exporting video...',
+        'subtitle-export-done': 'Download complete',
         'subtitle-no-video': 'Vui lòng tải video trước.',
         'subtitle-no-subs': 'Vui lòng thêm ít nhất 1 phụ đề.',
-        'subtitle-mob-upload': 'Tải lên',
-        'subtitle-mob-preview': 'Xem trước',
-        'subtitle-placeholder': 'Nhập nội dung phụ đề...',
+        'subtitle-mob-upload': 'Upload',
+        'subtitle-mob-preview': 'Preview',
+        'subtitle-placeholder': 'Enter subtitle content...',
         'footer-copyright': '© 2026 Silver Cat Tools.',
     },
     en: {
@@ -407,7 +407,7 @@ function applyLocalTranslation(lang) {
 
             const dict = localDict[getCurrentLang()] || localDict['vi'];
             // Show tip about preview tab (especially helpful on mobile)
-            statusVideo.textContent = '✅ ' + file.name + ' — ' + (dict['subtitle-mob-preview-hint'] || '🎬 Xem video ở tab Xem trước');
+            statusVideo.textContent = '✅ ' + file.name + ' — ' + (dict['subtitle-mob-preview-hint'] || '🎬 Xem video ở tab Preview');
             previewVideoName.textContent = file.name;
             noPreview.style.display = 'none';
             previewBox.style.display = 'block';

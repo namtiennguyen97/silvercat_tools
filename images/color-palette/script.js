@@ -4,22 +4,22 @@
     // ─── i18n ─────────────────────────────────────────────────────────────
     const localDict = {
         vi: {
-            'palette-title-page': 'Trích Xuất Bảng Màu - Silver Cat Tools',
-            'meta-desc': 'Trích xuất bảng màu nổi bật từ ảnh, lấy mã màu HEX, RGB một cách nhanh chóng trong trình duyệt.',
-            'meta-keywords': 'color palette, trích xuất màu, palette generator, hex color, rgb, image colors',
+            'palette-title-page': 'Color Palette Extractor - Silver Cat Tools',
+            'meta-desc': 'Extract prominent color palettes from images, get HEX and RGB color codes quickly in your browser.',
+            'meta-keywords': 'color palette, extract colors, palette generator, hex color, rgb, image colors',
             'back-home': 'Quay lại Home',
-            'palette-head': 'Trích Xuất Bảng Màu',
+            'palette-head': 'Color Palette Extractor',
             'palette-head-sub': 'Ảnh',
-            'palette-desc': 'Lấy ra các màu chủ đạo, hiển thị mã HEX, RGB và sao chép nhanh.',
+            'palette-desc': 'Extract dominant colors, display HEX and RGB codes with quick copy.',
             'mob-settings': 'Cài Đặt',
-            'mob-result': 'Kết Quả',
+            'mob-result': 'Result',
             'settings-title': 'Cài Đặt',
             'drop-title': 'Kéo thả ảnh hoặc click để tải',
             'lbl-color-count': 'Số màu tối đa',
-            'btn-extract': 'Tải Bảng Màu (.txt)',
-            'result-title': 'Màu Đã Trích Xuất',
-            'no-result': 'Chưa có kết quả. Tải ảnh và nhấn "Trích Xuất Màu".',
-            'click-guide': '💡 Bạn có thể chạm hoặc click trực tiếp vào bất kỳ vị trí nào trên hình ảnh để trích xuất mã màu tại điểm đó!',
+            'btn-extract': 'Download Palette (.txt)',
+            'result-title': 'Extracted Colors',
+            'no-result': 'No results yet. Upload an image and click "Extract Colors".',
+            'click-guide': '💡 You can tap or click directly on any position in the image to extract the color code at that point!',
             'footer-copyright': '© 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu.'
         },
         en: {
@@ -152,7 +152,7 @@
         if (!loadedImage) return alert('Vui lòng tải ảnh lên trước.');
         
         const swatches = paletteGrid.querySelectorAll('.color-swatch');
-        if (swatches.length === 0) return alert('Chưa có màu nào được trích xuất.');
+        if (swatches.length === 0) return alert('No colors have been extracted yet.');
         
         let textContent = "Silver Cat Tools - Color Palette\n--------------------------------\n\n";
         swatches.forEach(sw => {

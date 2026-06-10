@@ -4,17 +4,17 @@
     const localDict = {
         vi: {
             'pixel-title-page': 'Tạo Ảnh Pixel Art & Mosaics - Silver Cat Tools',
-            'meta-desc': 'Công cụ chuyển đổi hình ảnh thành phong cách Pixel Art 8-bit hoặc khảm ngọc ngay trên trình duyệt, miễn phí.',
+            'meta-desc': 'Convert images to 8-bit Pixel Art or mosaic style right in your browser, free.',
             'meta-keywords': 'ảnh pixel, pixel art, 8-bit image, mosaic photo, tạo ảnh pixel online',
             'back-home': 'Quay lại Home',
             'pixel-head': 'Tạo Ảnh Pixel',
             'pixel-head-sub': '8-bit & Mosaics',
-            'pixel-desc': 'Biến bức ảnh của bạn thành phong cách nghệ thuật retro 8-bit độc đáo ngay trong trình duyệt.',
+            'pixel-desc': 'Transform your photo into a unique retro 8-bit pixel art style right in your browser.',
             'mob-settings': 'Cấu Hình',
-            'mob-preview': 'Kết Quả',
+            'mob-preview': 'Result',
             'drop-title': 'Kéo thả ảnh hoặc click để tải',
             'controls-title': 'Cài Đặt Pixel',
-            'lbl-pixel-size': 'Kích Thước Pixel',
+            'lbl-pixel-size': 'Pixel Size',
             'btn-download-img': 'Tải Ảnh Về',
             'footer-copyright': '© 2026 Silver Cat Tools. Built for optimal performance and premium experience.'
         },

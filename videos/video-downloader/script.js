@@ -103,7 +103,7 @@
             </div>
             <button class="btn-dl-option" data-url="${downloadUrl}" data-filename="${filename || ''}">
                 ${dlIcon}
-                <span>${getLangText('Tải xuống', 'Download')}</span>
+                <span>${getLangText('Download', 'Download')}</span>
             </button>
         `;
 
@@ -120,10 +120,10 @@
                 btn.innerHTML = `${spinIcon} <span>${getLangText('Đang bắt đầu tải...', 'Starting download...')}</span>`;
                 
                 setTimeout(() => {
-                    btn.innerHTML = `${checkIcon} <span>${getLangText('Thành công!', 'Done!')}</span>`;
+                    btn.innerHTML = `${checkIcon} <span>${getLangText('Done!', 'Done!')}</span>`;
                     setTimeout(() => {
                         btn.disabled = false;
-                        btn.innerHTML = `${dlIcon} <span>${getLangText('Tải xuống', 'Download')}</span>`;
+                        btn.innerHTML = `${dlIcon} <span>${getLangText('Download', 'Download')}</span>`;
                     }, 2000);
                 }, 800);
 
@@ -155,10 +155,10 @@
                     setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
 
                     // Show success
-                    btn.innerHTML = `${checkIcon} <span>${getLangText('Thành công!', 'Done!')}</span>`;
+                    btn.innerHTML = `${checkIcon} <span>${getLangText('Done!', 'Done!')}</span>`;
                     setTimeout(() => {
                         btn.disabled = false;
-                        btn.innerHTML = `${dlIcon} <span>${getLangText('Tải xuống', 'Download')}</span>`;
+                        btn.innerHTML = `${dlIcon} <span>${getLangText('Download', 'Download')}</span>`;
                     }, 2500);
                 } catch (err) {
                     console.warn('fetch-blob failed:', err.message);
@@ -173,7 +173,7 @@
                     document.body.removeChild(a);
                     
                     btn.disabled = false;
-                    btn.innerHTML = `${dlIcon} <span>${getLangText('Tải xuống', 'Download')}</span>`;
+                    btn.innerHTML = `${dlIcon} <span>${getLangText('Download', 'Download')}</span>`;
                 }
             }
         });
@@ -301,7 +301,7 @@
         if (data.status === 'redirect' || data.status === 'tunnel' || data.status === 'stream') {
             // Single download link — 'tunnel' is the v10 equivalent of 'stream'
             const opt = createDownloadOption(
-                getLangText('Video gốc (Chất lượng cao nhất)', 'Original Video (Best Quality)'),
+                getLangText('Original Video (Best Quality)', 'Original Video (Best Quality)'),
                 'HD',
                 'badge-hd',
                 '',
@@ -422,7 +422,7 @@
         } else if (error.message.includes('API error')) {
             msg = lang === 'en'
                 ? `Could not process this ${platformName} video. The video may be private, deleted, or region-locked.`
-                : `Không thể xử lý video ${platformName} này. Video có thể ở chế độ riêng tư, đã bị xóa hoặc bị giới hạn khu vực.`;
+                : `Cannot process this ${platformName}  video. It may be private, deleted, or region-restricted.`;
         } else {
             msg = lang === 'en'
                 ? 'An unexpected error occurred. Please check the URL and try again.'

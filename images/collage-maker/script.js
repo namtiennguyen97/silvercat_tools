@@ -48,7 +48,7 @@
     function updateDropzoneText() {
         const title = dropzone.querySelector('.dropzone-title');
         title.textContent = images.length >= 9 ? 'Đã đủ 9 ảnh!' : 
-            `Đã chọn ${images.length}/9 ảnh. Thêm nữa hoặc nhấn "Tạo Collage"`;
+            `Selected ${images.length}/9 images. Add more or click "Create Collage"`;
     }
 
     btnCreate.addEventListener('click', () => {

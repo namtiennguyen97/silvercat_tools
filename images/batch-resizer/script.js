@@ -131,7 +131,7 @@
                 URL.revokeObjectURL(url);
 
                 statusEl.className = 'queue-item-status status-success';
-                statusEl.textContent = '✅ Thành công';
+                statusEl.textContent = '✅ Success';
             } catch (err) {
                 console.error(err);
                 statusEl.className = 'queue-item-status status-error';

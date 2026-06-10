@@ -4,14 +4,14 @@
     const localDict = {
         vi: {
             'pdf-title-page': 'Ghép Ảnh Thành PDF - Silver Cat Tools',
-            'meta-desc': 'Ghép nhiều ảnh thành một tài liệu PDF chất lượng cao ngay trong trình duyệt, không cần cài phần mềm.',
+            'meta-desc': 'Combine multiple images into a high-quality PDF document right in your browser, no software installation needed.',
             'meta-keywords': 'image to pdf, ghép pdf, chuyển ảnh pdf, tạo pdf từ ảnh, pdf generator',
             'back-home': 'Quay lại Home',
             'pdf-head': 'Ghép Ảnh',
             'pdf-head-sub': 'Thành PDF',
-            'pdf-desc': 'Chọn nhiều ảnh, sắp xếp thứ tự và tạo file PDF trong chớp mắt.',
+            'pdf-desc': 'Select multiple images, arrange the order and create a PDF file in a snap.',
             'mob-upload': 'Tải Ảnh',
-            'mob-result': 'Kết Quả PDF',
+            'mob-result': 'PDF Result',
             'upload-title': 'Tải Ảnh & Sắp Xếp',
             'drop-title': 'Kéo thả ảnh hoặc click để tải',
             'lbl-paper-size': 'Khổ giấy',
@@ -19,7 +19,7 @@
             'orient-portrait': 'Dọc',
             'orient-landscape': 'Ngang',
             'btn-generate-pdf': 'Tạo PDF',
-            'result-title': 'Kết Quả PDF',
+            'result-title': 'PDF Result',
             'no-pdf': 'Chưa có PDF. Vui lòng tải ảnh và nhấn "Tạo PDF".',
             'btn-download-pdf': 'Tải PDF',
             'footer-copyright': '© 2026 Silver Cat Tools. Built for optimal performance and premium experience.'
