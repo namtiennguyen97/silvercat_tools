@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="logo.jpg" alt="Silver Cat Tools Logo" width="120" style="border-radius: 50%; box-shadow: 0 4px 25px rgba(0,0,0,0.25);"/>
+  <img src="favicon.png" alt="Silver Cat Tools Logo" width="120" style="border-radius: 50%; box-shadow: 0 4px 25px rgba(0,0,0,0.25);"/>
   <h1>Silver Cat Tools</h1>
   <p><i>A Premium Offline-First Suite of Client-Side Web Utilities</i></p>
 
