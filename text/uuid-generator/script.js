@@ -83,7 +83,7 @@ document.getElementById('btn-copy-all').addEventListener('click',()=>{
   const codes=uuidList.querySelectorAll('.uuid-code');
   navigator.clipboard.writeText(Array.from(codes).map(c=>c.textContent).join('\n')).then(()=>{
     const btn=document.getElementById('btn-copy-all');btn.textContent='✅ Copied!';
-    setTimeout(()=>{btn.textContent='Copy Tất Cả';},1500);
+    setTimeout(()=>{btn.textContent='Copy All';},1500);
   });
 });
 document.getElementById('btn-decode').addEventListener('click',decodeTimestamp);

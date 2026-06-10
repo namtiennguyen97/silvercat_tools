@@ -339,7 +339,7 @@
         return (b/1048576).toFixed(2) + ' MB';
     }
 
-    const initLang = localStorage.getItem('preferred-lang') || 'vi';
+    const initLang = 'en';
     applyLocalTranslation(initLang);
     window.addEventListener('languageChanged', e => applyLocalTranslation(e.detail?.lang || localStorage.getItem('preferred-lang') || 'vi'));
 })();

@@ -37,7 +37,7 @@
     };
 
     function applyLocalTranslation(lang) {
-        const dict = localDict[lang] || localDict['vi'];
+        const dict = localDict['en'];
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (dict[key]) el.textContent = dict[key];
@@ -119,7 +119,7 @@
     });
 
     btnDownload.addEventListener('click', () => {
-        if (!originalImage) return alert('Vui lòng tải ảnh lên trước.');
+        if (!originalImage) return alert('Please upload an image first.');
         canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');

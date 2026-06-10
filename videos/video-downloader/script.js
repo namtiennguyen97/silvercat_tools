@@ -81,8 +81,8 @@
 
     // Get language-aware text
     function getLangText(vi, en) {
-        const lang = window.getCurrentLang ? window.getCurrentLang() : 'vi';
-        return lang === 'en' ? en : vi;
+        const lang = 'en';
+        return en;
     }
 
     // Create download option HTML
@@ -412,13 +412,13 @@
         const platformName = platformNames[platform] || 'Video';
 
         // Show a helpful error with specific message
-        const lang = window.getCurrentLang ? window.getCurrentLang() : 'vi';
+        const lang = 'en';
         let msg;
 
         if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
             msg = lang === 'en'
                 ? 'Network error. The download service may be temporarily unavailable. Please try again in a few moments.'
-                : 'Lỗi kết nối mạng. Dịch vụ tải video có thể tạm thời không khả dụng. Vui lòng thử lại sau ít phút.';
+                : 'Network error. The download service may be temporarily unavailable. Please try again in a few moments.';
         } else if (error.message.includes('API error')) {
             msg = lang === 'en'
                 ? `Could not process this ${platformName} video. The video may be private, deleted, or region-locked.`
@@ -426,7 +426,7 @@
         } else {
             msg = lang === 'en'
                 ? 'An unexpected error occurred. Please check the URL and try again.'
-                : 'Đã xảy ra lỗi không mong muốn. Vui lòng kiểm tra lại đường link và thử lại.';
+                : 'An unexpected error occurred. Please check the URL and try again.';
         }
 
         errorMessage.textContent = msg;
@@ -450,10 +450,10 @@
         if (!isValidUrl(url)) {
             urlInput.style.outline = '2px solid #ef4444';
             setTimeout(() => { urlInput.style.outline = ''; }, 1500);
-            const lang = window.getCurrentLang ? window.getCurrentLang() : 'vi';
+            const lang = 'en';
             errorMessage.textContent = lang === 'en'
                 ? 'Please enter a valid URL starting with http:// or https://'
-                : 'Vui lòng nhập đường link hợp lệ bắt đầu bằng http:// hoặc https://';
+                : 'Please enter a valid URL starting with http:// or https://';
             showSection(errorSection);
             return;
         }

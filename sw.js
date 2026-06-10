@@ -1,11 +1,11 @@
 // Silver Cat Tools - Service Worker
-// Khi sửa file này (dù chỉ 1 ký tự), trình duyệt sẽ tự động phát hiện
-// và cập nhật service worker ở lần truy cập sau.
-// Thay đổi CACHE_VERSION để force re-cache toàn bộ tài nguyên.
+// When editing this file (even 1 character), the browser will automatically detect
+// and update the service worker on next access.
+// Change CACHE_VERSION to force re-cache of all resources.
 const CACHE_VERSION = 'v20260526';
 const CACHE_NAME = 'silvercat-tools-' + CACHE_VERSION;
 
-// Tài nguyên cần cache ngay khi cài đặt
+// Resources to cache immediately upon installation
 const PRECACHE_URLS = [
   './',
   './index.html',
@@ -39,7 +39,7 @@ self.addEventListener('activate', event => {
       );
     }).then(() => self.clients.claim())
     .then(() => {
-      // Thông báo cho các tab đang mở rằng đã có bản cập nhật
+      // Notify open tabs that an update is available
       return self.clients.matchAll().then(clients => {
         clients.forEach(client => {
           client.postMessage({ type: 'SW_UPDATED', version: CACHE_VERSION });

@@ -3,25 +3,6 @@
 
     // ─── i18n ─────────────────────────────────────────────────────────────
     const localDict = {
-        vi: {
-            'palette-title-page': 'Color Palette Extractor - Silver Cat Tools',
-            'meta-desc': 'Extract prominent color palettes from images, get HEX and RGB color codes quickly in your browser.',
-            'meta-keywords': 'color palette, extract colors, palette generator, hex color, rgb, image colors',
-            'back-home': 'Quay lại Home',
-            'palette-head': 'Color Palette Extractor',
-            'palette-head-sub': 'Ảnh',
-            'palette-desc': 'Extract dominant colors, display HEX and RGB codes with quick copy.',
-            'mob-settings': 'Cài Đặt',
-            'mob-result': 'Result',
-            'settings-title': 'Cài Đặt',
-            'drop-title': 'Kéo thả ảnh hoặc click để tải',
-            'lbl-color-count': 'Số màu tối đa',
-            'btn-extract': 'Download Palette (.txt)',
-            'result-title': 'Extracted Colors',
-            'no-result': 'No results yet. Upload an image and click "Extract Colors".',
-            'click-guide': '💡 You can tap or click directly on any position in the image to extract the color code at that point!',
-            'footer-copyright': '© 2026 Silver Cat Tools. Được xây dựng cho hiệu suất tối ưu.'
-        },
         en: {
             'palette-title-page': 'Image Color Palette Generator - Silver Cat Tools',
             'meta-desc': 'Extract dominant color palettes from images, get HEX and RGB color codes instantly in your browser.',
@@ -44,7 +25,7 @@
     };
 
     function applyLocalTranslation(lang) {
-        const dict = localDict[lang] || localDict['vi'];
+        const dict = localDict['en'];
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (dict[key]) el.textContent = dict[key];
@@ -149,7 +130,7 @@
     btnExtract.addEventListener('click', downloadPaletteText);
 
     function downloadPaletteText() {
-        if (!loadedImage) return alert('Vui lòng tải ảnh lên trước.');
+        if (!loadedImage) return alert('Please upload an image first.');
         
         const swatches = paletteGrid.querySelectorAll('.color-swatch');
         if (swatches.length === 0) return alert('No colors have been extracted yet.');

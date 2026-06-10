@@ -80,10 +80,10 @@ const localDict = {
     }
 };
 
-function getCurrentLang() { return localStorage.getItem('preferred-lang') || 'vi'; }
+function getCurrentLang() { return 'en'; }
 
 function applyLocalTranslation(lang) {
-    const dict = localDict[lang] || localDict['vi'];
+    const dict = localDict['en'];
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         const translation = dict[key];
@@ -371,7 +371,7 @@ function applyLocalTranslation(lang) {
     // ======================================================================
     function updateStatusUI() {
         const lang = getCurrentLang();
-        const dict = localDict[lang] || localDict['vi'];
+        const dict = localDict['en'];
         if (subtitles.length > 0) {
             statusSub.textContent = dict['subtitle-status-oksub'].replace('{count}', subtitles.length).replace('{format}', 'SRT');
         } else {
@@ -407,7 +407,7 @@ function applyLocalTranslation(lang) {
 
             const dict = localDict[getCurrentLang()] || localDict['vi'];
             // Show tip about preview tab (especially helpful on mobile)
-            statusVideo.textContent = '✅ ' + file.name + ' — ' + (dict['subtitle-mob-preview-hint'] || '🎬 Xem video ở tab Preview');
+            statusVideo.textContent = '✅ ' + file.name + ' — ' + (dict['subtitle-mob-preview-hint'] || '🎬 View video in Preview tab');
             previewVideoName.textContent = file.name;
             noPreview.style.display = 'none';
             previewBox.style.display = 'block';

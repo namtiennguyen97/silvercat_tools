@@ -35,11 +35,11 @@
         const rh = Math.floor(img.naturalHeight / rows);
         const total = cols * rows;
 
-        splitResult.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--text-secondary);">Đang xử lý...</div>';
+        splitResult.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--text-secondary);">Processing...</div>';
 
         setTimeout(() => {
             let html = '<div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1rem;">';
-            html += `<button class="btn btn-secondary" id="download-all-zip" style="justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Tải Tất Cả</button>`;
+            html += `<button class="btn btn-secondary" id="download-all-zip" style="justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download All</button>`;
             html += '</div><div class="split-grid">';
 
             const blobs = [];
@@ -60,8 +60,8 @@
 
                         html += `<div class="split-item">
                             <img src="${url}" alt="Part ${idx}">
-                            <div class="split-label">Phần ${idx}/${total}</div>
-                            <button class="btn-download-single" data-url="${url}" data-label="part_${r+1}_${c+1}">Tải</button>
+                            <div class="split-label">Part ${idx}/${total}</div>
+                            <button class="btn-download-single" data-url="${url}" data-label="part_${r+1}_${c+1}">Download</button>
                         </div>`;
 
                         loaded++;

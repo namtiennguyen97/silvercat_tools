@@ -592,83 +592,9 @@
    HOW TO USE SECTION
    ========================================================================== */
 .howto-section {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-.howto-title {
-    text-align: center;
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-    color: var(--text-primary);
-}
-
-.howto-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-}
-
-.howto-step {
-    position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    transition: var(--transition-smooth);
-}
-
-.howto-step:hover {
-    transform: translateY(-4px);
-    border-color: rgba(236, 72, 153, 0.2);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-}
-
-.step-number {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 28px;
-    height: 28px;
-    background: var(--grad-pink);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: white;
-    box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
-}
-
-.step-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 1rem;
-    color: var(--accent-pink);
-    opacity: 0.8;
-}
-
-.step-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
-.howto-step h4 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-
-.howto-step p {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
+    --howto-accent-glow: rgba(236, 72, 153, 0.3);
+    --howto-grad: var(--grad-pink);
+    --howto-accent-color: var(--accent-pink);
 }
 
 /* ==========================================================================

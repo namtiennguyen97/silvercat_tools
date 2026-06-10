@@ -139,7 +139,7 @@
                         </label>
                         <label class="checkbox-container">
                             <input type="checkbox" id="option-regex">
-                            <span>Dùng Regular Expression (RegEx)</span>
+                            <span>Use Regular Expression (RegEx)</span>
                         </label>
                     </div>
 
@@ -177,7 +177,7 @@
                     <span class="counter-badge" id="output-stats">0 characters | 0 words</span>
                 </div>
                 
-                <textarea class="text-editor-area" id="output-text" placeholder="Results will appear here when you click the process button ở bảng điều khiển bên trái..." readonly></textarea>
+                <textarea class="text-editor-area" id="output-text" placeholder="Results will appear here when you click the process button on the left panel..." readonly></textarea>
                 
                 <!-- Action Tools -->
                 <div class="action-row">
@@ -197,7 +197,54 @@
             </div>
             
         </div>
-    </div>
+            <!-- How to Use Section -->
+        <section class="howto-section">
+            <h2 class="howto-title">How to use</h2>
+            <div class="howto-grid">
+                <div class="howto-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                    </div>
+                    <h4>Enter source text</h4>
+                    <p>Paste your text into the input panel.</p>
+                </div>
+                <div class="howto-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="21" x2="4" y2="14"/>
+                            <line x1="4" y1="10" x2="4" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12" y2="3"/>
+                            <line x1="20" y1="21" x2="20" y2="16"/>
+                            <line x1="20" y1="12" x2="20" y2="3"/>
+                            <line x1="1" y1="14" x2="7" y2="14"/>
+                            <line x1="9" y1="8" x2="15" y2="8"/>
+                            <line x1="17" y1="16" x2="23" y2="16"/>
+                        </svg>
+                    </div>
+                    <h4>Find & Replace</h4>
+                    <p>Specify search queries (supports RegEx) and replacement words.</p>
+                </div>
+                <div class="howto-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <h4>Apply & Copy</h4>
+                    <p>Click Replace, view results, and copy the new text to clipboard.</p>
+                </div>
+            </div>
+        </section>
+</div>
 
     <!-- Interactive Script JS -->
     <script src="../../i18n.js?v=1.0.0"></script>

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
         const lang = window.getCurrentLang ? window.getCurrentLang() : 'vi';
         if (lang === 'vi') {
-            element.textContent = `${charCount} ký tự | ${wordCount} từ`;
+            element.textContent = `${charCount} characters | ${wordCount} words`;
         } else {
             element.textContent = `${charCount} chars | ${wordCount} words`;
         }
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 const alertMsg = window.getCurrentLang && window.getCurrentLang() === 'en' 
                     ? 'Invalid RegEx syntax: ' 
-                    : 'Lỗi biểu thức RegEx không hợp lệ: ';
+                    : 'Invalid RegEx expression error: ';
                 alert(alertMsg + error.message);
                 return;
             }

@@ -49,7 +49,7 @@
     };
 
     function applyLocalTranslation(lang) {
-        const dict = localDict[lang] || localDict['vi'];
+        const dict = localDict['en'];
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (dict[key]) el.textContent = dict[key];
@@ -160,9 +160,9 @@
     }
 
     btnGenerate.addEventListener('click', async () => {
-        if (images.length === 0) return alert('Vui lòng thêm ít nhất một ảnh.');
+        if (images.length === 0) return alert('Please add at least one image.');
         
-        btnGenerate.textContent = 'Đang xử lý...';
+        btnGenerate.textContent = 'Processing...';
         btnGenerate.disabled = true;
 
         try {
@@ -211,7 +211,7 @@
 
             pdfResult.innerHTML = `
                 <iframe src="${pdfUrl}" width="100%" height="400px" style="border:1px solid var(--border-color); border-radius:12px; margin-bottom:20px;"></iframe>
-                <button class="btn btn-primary" id="btn-download-pdf-actual">Tải PDF Xuống</button>
+                <button class="btn btn-primary" id="btn-download-pdf-actual">Download PDF</button>
             `;
 
             document.getElementById('btn-download-pdf-actual').onclick = () => {
@@ -229,10 +229,10 @@
 
         } catch (e) {
             console.error(e);
-            alert('Lỗi tạo PDF: ' + e.message);
+            alert('PDF generation error: ' + e.message);
         }
 
-        btnGenerate.textContent = localDict[window.currentLang || 'vi']?.['btn-generate-pdf'] || 'Tạo PDF';
+        btnGenerate.textContent = localDict['en']?.['btn-generate-pdf'] || 'Generate PDF';
         btnGenerate.disabled = false;
     });
 

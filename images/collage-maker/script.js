@@ -47,7 +47,7 @@
 
     function updateDropzoneText() {
         const title = dropzone.querySelector('.dropzone-title');
-        title.textContent = images.length >= 9 ? 'Đã đủ 9 ảnh!' : 
+        title.textContent = images.length >= 9 ? 'Max 9 images reached!' : 
             `Selected ${images.length}/9 images. Add more or click "Create Collage"`;
     }
 
@@ -106,7 +106,7 @@
             </div>
             <button class="btn btn-primary" id="btn-download-collage" style="margin-top:1rem;width:100%;justify-content:center;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Tải Collage Về
+                Download Collage
             </button>
         `;
         const cCanvas = document.getElementById('collage-canvas');

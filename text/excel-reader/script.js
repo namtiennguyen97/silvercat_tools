@@ -56,10 +56,10 @@ const localDict = {
     }
 };
 
-function getCurrentLang() { return localStorage.getItem('preferred-lang') || 'vi'; }
+function getCurrentLang() { return 'en'; }
 
 function applyLocalTranslation(lang) {
-    const dict = localDict[lang] || localDict['vi'];
+    const dict = localDict['en'];
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         const translation = dict[key];
@@ -187,7 +187,7 @@ function applyLocalTranslation(lang) {
             validUtf8 = false; break;
         }
         if (!validUtf8) return 'Windows-1252 / ISO-8859-1';
-        if (hasVietnamese) return 'UTF-8 (có dấu VI)';
+        if (hasVietnamese) return 'UTF-8 (with VI accents)';
         if (hasChinese) return 'UTF-8 (CJK)';
         return 'UTF-8';
     }

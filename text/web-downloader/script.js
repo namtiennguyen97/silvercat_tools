@@ -58,10 +58,10 @@ const localDict = {
     }
 };
 
-function getCurrentLang() { return localStorage.getItem('preferred-lang') || 'vi'; }
+function getCurrentLang() { return 'en'; }
 
 function applyLocalTranslation(lang) {
-    const dict = localDict[lang] || localDict['vi'];
+    const dict = localDict['en'];
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         const translation = dict[key];
@@ -383,7 +383,7 @@ function applyLocalTranslation(lang) {
         }
 
         const lines = codeContent.textContent.split('\n').length;
-        lineCount.textContent = lines + ' dòng';
+        lineCount.textContent = lines + ' lines';
 
         codeTabs.forEach(tab => {
             tab.classList.toggle('active', tab.dataset.type === type);

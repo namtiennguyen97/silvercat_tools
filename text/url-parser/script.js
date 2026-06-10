@@ -32,7 +32,7 @@ function renderParams(sp){
   queryList.innerHTML='';
   var has=false;
   sp.forEach(function(val,key){has=true;addParamRow(key,val);});
-  if(!has)queryList.innerHTML='<div class="query-empty" data-i18n="url-no-params">Không có query params</div>';
+  if(!has)queryList.innerHTML='<div class="query-empty" data-i18n="url-no-params">No query params</div>';
 }
 
 function addParamRow(key,val){
@@ -40,7 +40,7 @@ function addParamRow(key,val){
   var inpKey=document.createElement('input');inpKey.placeholder='Key';inpKey.value=key;
   var inpVal=document.createElement('input');inpVal.placeholder='Value';inpVal.value=val;
   var btn=document.createElement('button');btn.className='query-remove';btn.textContent='×';btn.title='Remove';
-  btn.addEventListener('click',function(){row.remove();buildCurrentURL();if(!queryList.querySelector('.query-row'))queryList.innerHTML='<div class="query-empty" data-i18n="url-no-params">Không có query params</div>';});
+  btn.addEventListener('click',function(){row.remove();buildCurrentURL();if(!queryList.querySelector('.query-row'))queryList.innerHTML='<div class="query-empty" data-i18n="url-no-params">No query params</div>';});
   [inpKey,inpVal].forEach(function(el){el.addEventListener('input',buildCurrentURL);});
   row.appendChild(inpKey);row.appendChild(inpVal);row.appendChild(btn);
   if(queryList.querySelector('.query-empty'))queryList.innerHTML='';

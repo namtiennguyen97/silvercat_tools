@@ -45,7 +45,7 @@
     };
 
     function applyLocalTranslation(lang) {
-        const dict = localDict[lang] || localDict['vi'];
+        const dict = localDict['en'];
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (dict[key]) el.textContent = dict[key];
@@ -174,7 +174,7 @@
     document.getElementById('btn-flip-v').addEventListener('click', () => { if(cropper) { scaleY = -scaleY; cropper.scaleY(scaleY); }});
 
     btnCrop.addEventListener('click', () => {
-        if (!cropper) return alert('Vui lòng tải ảnh lên trước.');
+        if (!cropper) return alert('Please upload an image first.');
         const opts = {
             imageSmoothingEnabled: true,
             imageSmoothingQuality: 'high'
@@ -198,7 +198,7 @@
     });
 
     window.addEventListener('languageChanged', (e) => applyLocalTranslation(e.detail.lang));
-    const savedLang = localStorage.getItem('sct_lang') || 'vi';
+    const savedLang = 'en';
     applyLocalTranslation(savedLang);
 
 })();

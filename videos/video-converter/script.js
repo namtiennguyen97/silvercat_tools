@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleFileSelection(file) {
         if (!file.type.startsWith('video/')) {
-            alert(localStorage.getItem('preferred-lang') === 'en' ? 'Please select a valid video file.' : 'Vui lòng chọn một tệp video hợp lệ.');
+            alert('Please select a valid video file.');
             return;
         }
 
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Estimate realistic output size if size hasn't changed
             let finalSize = selectedFile.size;
             if (selectedCategory === 'audio') {
-                finalSize = Math.floor(selectedFile.size * 0.12); // Tách nhạc chỉ chiếm tầm 10-15% size gốc
+                finalSize = Math.floor(selectedFile.size * 0.12); // Audio extraction only takes about 10-15% of the original size
             } else if (selectedFormat === 'GIF') {
                 finalSize = Math.floor(selectedFile.size * 0.35);
             }

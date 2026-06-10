@@ -50,11 +50,11 @@ const localDict = {
 };
 
 function getCurrentLang() {
-    return localStorage.getItem('preferred-lang') || 'vi';
+    return 'en';
 }
 
 function applyLocalTranslation(lang) {
-    const dict = localDict[lang] || localDict['vi'];
+    const dict = localDict['en'];
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         const translation = dict[key];
@@ -74,7 +74,7 @@ function applyLocalTranslation(lang) {
 
 function getFilterLabel(f, lang) {
     if (f.labelKey) {
-        return (localDict[lang] && localDict[lang][f.labelKey]) || localDict['vi'][f.labelKey];
+        return (localDict[lang] && localDict[lang][f.labelKey]) || localDict['en'][f.labelKey];
     }
     return f.label;
 }

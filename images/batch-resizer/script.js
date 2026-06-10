@@ -58,7 +58,7 @@
 
             const status = document.createElement('span');
             status.className = 'queue-item-status status-pending';
-            status.textContent = 'Sẵn sàng';
+            status.textContent = 'Ready';
 
             item.appendChild(thumb);
             item.appendChild(info);
@@ -92,7 +92,7 @@
         if (!w || !h || w <= 0 || h <= 0) return;
 
         btnResize.disabled = true;
-        btnResize.innerHTML = '<span>Đang xử lý...</span>';
+        btnResize.innerHTML = '<span>Processing...</span>';
         const format = outputFormat.value;
         const ext = format.split('/')[1];
 
@@ -101,7 +101,7 @@
             if (!statusEl) continue;
             
             statusEl.className = 'queue-item-status status-processing';
-            statusEl.textContent = 'Đang xử lý...';
+            statusEl.textContent = 'Processing...';
 
             try {
                 const file = files[idx];
@@ -135,12 +135,12 @@
             } catch (err) {
                 console.error(err);
                 statusEl.className = 'queue-item-status status-error';
-                statusEl.textContent = '❌ Lỗi';
+                statusEl.textContent = '❌ Error';
             }
         }
 
         btnResize.disabled = false;
-        btnResize.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16"><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Resize Tất Cả';
+        btnResize.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16"><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Resize All';
     });
 
     function loadImage(file) {
