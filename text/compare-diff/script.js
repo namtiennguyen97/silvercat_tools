@@ -63,29 +63,15 @@
     };
 
     const MAX_LINES_PER_SIDE = 2500;
-    let currentLang = localStorage.getItem('preferred-lang') || 'vi';
+    let currentLang = 'en';
 
     function t(key) {
-        const d = localDict[currentLang] || localDict.vi;
+        const d = localDict[currentLang] || localDict.en;
         return d[key] !== undefined ? d[key] : key;
     }
 
     function applyLocalTranslation(lang) {
-        currentLang = lang;
-        const dict = localDict[lang] || localDict.vi;
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key] !== undefined) el.textContent = dict[key];
-        });
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
-            if (dict[key] !== undefined) el.setAttribute('placeholder', dict[key]);
-        });
-        const h1 = document.getElementById('local-title');
-        if (h1) h1.innerHTML = dict['compare-h1-prefix'] + ' <span class="text-gradient-amber">' + dict['compare-h1-suffix'] + '</span>';
-        const subtitle = document.getElementById('local-subtitle');
-        if (subtitle) subtitle.textContent = dict['compare-subtitle'] || subtitle.textContent;
-        refreshMeta();
+        // Static English HTML is the source of truth for SEO and UI text.
     }
 
     // ---------- DOM refs ----------
@@ -127,7 +113,7 @@
         return s.split('\n').length;
     }
     function refreshMeta() {
-        const tpl = (localDict[currentLang] || localDict.vi)['meta-lines-single'] || '{n} lines';
+        const tpl = (localDict[currentLang] || localDict.en)['meta-lines-single'] || '{n} lines';
         metaA.querySelector('span').textContent = tpl.replace('{n}', countLines(inputA.value));
         metaB.querySelector('span').textContent = tpl.replace('{n}', countLines(inputB.value));
     }

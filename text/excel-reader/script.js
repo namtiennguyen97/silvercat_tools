@@ -59,23 +59,8 @@ const localDict = {
 function getCurrentLang() { return 'en'; }
 
 function applyLocalTranslation(lang) {
-    const dict = localDict['en'];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        const translation = dict[key];
-        if (translation !== undefined) {
-            if (translation.includes('<') && translation.includes('>')) {
-                el.innerHTML = translation;
-            } else {
-                el.textContent = translation;
-            }
-        }
-    });
-    const titleEl = document.querySelector('title[data-i18n]');
-    if (titleEl && dict[titleEl.getAttribute('data-i18n')]) {
-        document.title = dict[titleEl.getAttribute('data-i18n')];
+        // Static English HTML is the source of truth for SEO and UI text.
     }
-}
 
 // ==========================================================================
 // MAIN APP
@@ -294,7 +279,7 @@ function applyLocalTranslation(lang) {
 
         // Check file size (50MB max)
         if (file.size > 50 * 1024 * 1024) {
-            const dict = localDict[getCurrentLang()] || localDict['vi'];
+            const dict = localDict[getCurrentLang()] || localDict['en'];
             alert(dict['excel-error-large']);
             return;
         }
@@ -332,7 +317,7 @@ function applyLocalTranslation(lang) {
                         currentSheet = 'Sheet1';
                         renderTable(headers, rows, '');
                     } catch (err) {
-                        const dict = localDict[getCurrentLang()] || localDict['vi'];
+                        const dict = localDict[getCurrentLang()] || localDict['en'];
                         alert(dict['excel-error-parse']);
                         emptyState.style.display = 'block';
                         emptyState.innerHTML = `<p>${dict['excel-error-parse']}</p>`;
@@ -346,7 +331,7 @@ function applyLocalTranslation(lang) {
 
                 const sheetNames = workbook.SheetNames;
                 if (!sheetNames || sheetNames.length === 0) {
-                    const dict = localDict[getCurrentLang()] || localDict['vi'];
+                    const dict = localDict[getCurrentLang()] || localDict['en'];
                     alert(dict['excel-no-sheets']);
                     return;
                 }

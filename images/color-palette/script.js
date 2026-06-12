@@ -25,19 +25,7 @@
     };
 
     function applyLocalTranslation(lang) {
-        const dict = localDict['en'];
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key]) el.textContent = dict[key];
-        });
-        const titleEl = document.querySelector('title[data-i18n]');
-        if (titleEl && dict[titleEl.getAttribute('data-i18n')]) {
-            document.title = dict[titleEl.getAttribute('data-i18n')];
-        }
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc && dict['meta-desc']) metaDesc.setAttribute('content', dict['meta-desc']);
-        const metaKeywords = document.querySelector('meta[name="keywords"]');
-        if (metaKeywords && dict['meta-keywords']) metaKeywords.setAttribute('content', dict['meta-keywords']);
+        // Static English HTML is the source of truth for SEO and UI text.
     }
 
     // ─── DOM Refs ──────────────────────────────────────────────────────────
@@ -269,7 +257,7 @@
     });
 
     // ─── Init i18n ────────────────────────────────────────────────────────
-    const initLang = localStorage.getItem('preferred-lang') || 'vi';
+    const initLang = 'en';
     applyLocalTranslation(initLang);
-    window.addEventListener('languageChanged', e => applyLocalTranslation(e.detail?.lang || localStorage.getItem('preferred-lang') || 'vi'));
+    window.addEventListener('languageChanged', e => applyLocalTranslation(e.detail?.lang || 'en'));
 })();

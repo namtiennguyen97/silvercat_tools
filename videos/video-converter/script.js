@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // A. Audio offline decoder and packager
     function runAudioExtraction() {
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
+        const lang = localStorage.getItem('preferred-lang') || 'en';
         const phases = localDictionary[lang];
         
         statPhase.textContent = phases['phase-init'];
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulated progress when codec extraction needs a standard layout
     function runAudioSimulation() {
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
+        const lang = localStorage.getItem('preferred-lang') || 'en';
         const phases = localDictionary[lang];
         let pct = 10;
         
@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // B. GIF canvas-rendering pipeline
     function runGifGeneration() {
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
+        const lang = localStorage.getItem('preferred-lang') || 'en';
         const phases = localDictionary[lang];
         statPhase.textContent = phases['phase-render'];
         
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // C. Video Repackaging simulation
     function runVideoRepackaging() {
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
+        const lang = localStorage.getItem('preferred-lang') || 'en';
         const phases = localDictionary[lang];
         statPhase.textContent = phases['phase-init'];
         updateProgressBar(15);
@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function finishConversion(fileName) {
         clearInterval(conversionInterval);
         
-        const lang = localStorage.getItem('preferred-lang') || 'vi';
+        const lang = localStorage.getItem('preferred-lang') || 'en';
         const phases = localDictionary[lang];
         statPhase.textContent = phases['phase-done'];
         updateProgressBar(100);

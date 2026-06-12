@@ -176,6 +176,14 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- NEW: Batch File Renamer & Metadata Cleaner -->
+  <url>
+    <loc>https://silvercat-utils.com/text/file-renamer/</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- NEW: Artistic QR Code Generator -->
   <url>
     <loc>https://silvercat-utils.com/text/qr-generator/</loc>

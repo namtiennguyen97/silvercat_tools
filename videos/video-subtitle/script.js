@@ -83,23 +83,8 @@ const localDict = {
 function getCurrentLang() { return 'en'; }
 
 function applyLocalTranslation(lang) {
-    const dict = localDict['en'];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        const translation = dict[key];
-        if (translation !== undefined) {
-            if (translation.includes('<') && translation.includes('>')) {
-                el.innerHTML = translation;
-            } else {
-                el.textContent = translation;
-            }
-        }
-    });
-    const titleEl = document.querySelector('title[data-i18n]');
-    if (titleEl && dict[titleEl.getAttribute('data-i18n')]) {
-        document.title = dict[titleEl.getAttribute('data-i18n')];
+        // Static English HTML is the source of truth for SEO and UI text.
     }
-}
 
 // ==========================================================================
 // MAIN APP
@@ -405,7 +390,7 @@ function applyLocalTranslation(lang) {
             canvas.height = videoElement.videoHeight;
             seekSlider.max = Math.floor(videoElement.duration * 1000);
 
-            const dict = localDict[getCurrentLang()] || localDict['vi'];
+            const dict = localDict[getCurrentLang()] || localDict['en'];
             // Show tip about preview tab (especially helpful on mobile)
             statusVideo.textContent = '✅ ' + file.name + ' — ' + (dict['subtitle-mob-preview-hint'] || '🎬 View video in Preview tab');
             previewVideoName.textContent = file.name;
@@ -555,7 +540,7 @@ function applyLocalTranslation(lang) {
     // ======================================================================
     btnExportVideo.addEventListener('click', async () => {
         if (!videoElement || !subtitles.length) {
-            const dict = localDict[getCurrentLang()] || localDict['vi'];
+            const dict = localDict[getCurrentLang()] || localDict['en'];
             alert(!videoElement ? dict['subtitle-no-video'] : dict['subtitle-no-subs']);
             return;
         }

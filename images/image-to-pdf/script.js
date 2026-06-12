@@ -49,19 +49,7 @@
     };
 
     function applyLocalTranslation(lang) {
-        const dict = localDict['en'];
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key]) el.textContent = dict[key];
-        });
-        const titleKey = document.querySelector('title[data-i18n]');
-        if (titleKey && dict[titleKey.getAttribute('data-i18n')]) {
-            document.title = dict[titleKey.getAttribute('data-i18n')];
-        }
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc && dict['meta-desc']) metaDesc.setAttribute('content', dict['meta-desc']);
-        const metaKeywords = document.querySelector('meta[name="keywords"]');
-        if (metaKeywords && dict['meta-keywords']) metaKeywords.setAttribute('content', dict['meta-keywords']);
+        // Static English HTML is the source of truth for SEO and UI text.
     }
 
     // Tab Logic

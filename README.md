@@ -77,13 +77,15 @@
     *   Visually build cron expressions, humanize cron strings into plain English, and browse the cron syntax cheat sheet.
 23. **Web Source Downloader** (`/text/web-downloader/`)
     *   Download HTML, CSS, JavaScript source code from any website. View online and download as ZIP.
+24. **Batch File Renamer & Metadata Cleaner** (`/text/file-renamer/`)
+    *   Rename messy file batches, detect duplicates, strip image EXIF/GPS metadata, and export clean files with a CSV report.
 
 #### 🎬 Video & Utilities
-24. **Video Downloader** (`/videos/video-downloader/`)
+25. **Video Downloader** (`/videos/video-downloader/`)
     *   Download videos from TikTok, Facebook, and Instagram without watermarks. High speed, no software installation required.
-25. **Video Format Converter** (`/videos/video-converter/`)
+26. **Video Format Converter** (`/videos/video-converter/`)
     *   Convert video files to MP4, WebM, AVI, MOV, FLV, MKV, extract audio to MP3/WAV/AAC, or create animated GIFs — all offline.
-26. **Video Subtitle Editor** (`/videos/video-subtitle/`)
+27. **Video Subtitle Editor** (`/videos/video-subtitle/`)
     *   Upload video and SRT/VTT subtitle files, edit visually with real-time sync preview. Download video with burned-in subtitles or subtitle file only.
 
 ---

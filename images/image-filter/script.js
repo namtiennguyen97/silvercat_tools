@@ -54,23 +54,8 @@ function getCurrentLang() {
 }
 
 function applyLocalTranslation(lang) {
-    const dict = localDict['en'];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        const translation = dict[key];
-        if (translation !== undefined) {
-            if (translation.includes('<') && translation.includes('>')) {
-                el.innerHTML = translation;
-            } else {
-                el.textContent = translation;
-            }
-        }
-    });
-    const titleEl = document.querySelector('title[data-i18n]');
-    if (titleEl && dict[titleEl.getAttribute('data-i18n')]) {
-        document.title = dict[titleEl.getAttribute('data-i18n')];
+        // Static English HTML is the source of truth for SEO and UI text.
     }
-}
 
 function getFilterLabel(f, lang) {
     if (f.labelKey) {

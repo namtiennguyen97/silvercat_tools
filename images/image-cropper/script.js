@@ -45,27 +45,7 @@
     };
 
     function applyLocalTranslation(lang) {
-        const dict = localDict['en'];
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key]) el.textContent = dict[key];
-        });
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
-            if (dict[key]) el.setAttribute('placeholder', dict[key]);
-        });
-        document.querySelectorAll('[data-i18n-title]').forEach(el => {
-            const key = el.getAttribute('data-i18n-title');
-            if (dict[key]) el.setAttribute('title', dict[key]);
-        });
-        const titleEl = document.querySelector('title[data-i18n]');
-        if (titleEl && dict[titleEl.getAttribute('data-i18n')]) {
-            document.title = dict[titleEl.getAttribute('data-i18n')];
-        }
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc && dict['meta-desc']) metaDesc.setAttribute('content', dict['meta-desc']);
-        const metaKeywords = document.querySelector('meta[name="keywords"]');
-        if (metaKeywords && dict['meta-keywords']) metaKeywords.setAttribute('content', dict['meta-keywords']);
+        // Static English HTML is the source of truth for SEO and UI text.
     }
 
     const dropzone = document.getElementById('dropzone');
