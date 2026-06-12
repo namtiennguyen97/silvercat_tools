@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5LN7FVKY5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L5LN7FVKY5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="d-vTUmEh1z84tkAvITe569i1jamKSFmsX4MVeJkKMys" />
+    <title>Free Batch File Renamer and Metadata Cleaner | Silver Cat Tools</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Rename files in bulk, detect duplicates, strip image metadata, and export clean files with a CSV report. Private browser-side processing.">
+    <meta name="keywords" content="batch file renamer, metadata cleaner, remove exif data, duplicate file finder, rename photos by date, privacy file cleaner, exif remover online">
+    <meta name="author" content="Silver Cat Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://silvercat-utils.com/text/file-renamer/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silvercat-utils.com/text/file-renamer/">
+    <meta property="og:site_name" content="Silver Cat Tools">
+    <meta property="og:title" content="Free Batch File Renamer and Metadata Cleaner | Silver Cat Tools">
+    <meta property="og:description" content="Rename files in bulk, detect duplicates, strip image metadata, and export clean files with a CSV report. Private browser-side processing.">
+    <meta property="og:image" content="https://silvercat-utils.com/logo.jpg">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Batch File Renamer and Metadata Cleaner | Silver Cat Tools">
+    <meta name="twitter:description" content="Rename files in bulk, detect duplicates, strip image metadata, and export clean files with a CSV report. Private browser-side processing.">
+    <meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=1.0.4">
+    <link rel="stylesheet" href="style.css?v=1.0.0">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Free Batch File Renamer and Metadata Cleaner",
+      "url": "https://silvercat-utils.com/text/file-renamer/",
+      "description": "Rename files in bulk, detect duplicates, strip image metadata, and export clean files with a CSV report. Private browser-side processing.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@type": "Organization",
+        "name": "Silver Cat Tools",
+        "url": "https://silvercat-utils.com/"
+      }
+    }
+    </script>
+</head>
+<body>
+    <nav class="navbar glass scrolled" id="main-navbar">
+        <a href="../../index.html" class="nav-brand">
+            <div class="brand-icon"><img src="../../logo.jpg" alt="Silver Cat Tools Logo" class="brand-logo-img"></div>
+            <span class="brand-name">Silver Cat <span class="text-gradient">Tools</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../../index.html" class="nav-link">Home</a></li>
+            <li><a href="../../index.html#tools-section" class="nav-link">Tools</a></li>
+        </ul>
+        <a href="../../index.html" class="nav-cta">Go to Home</a>
+    </nav>
+
+    <main class="tool-container">
+        <header class="tool-page-header">
+            <a href="../../index.html#tools-section" class="back-link">
+                <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                <span>Back to tools collection</span>
+            </a>
+            <div class="hero-badge">
+                <span>Privacy Workflow</span>
+            </div>
+            <h1>Batch File <span class="text-gradient-teal">Renamer and Cleaner</span></h1>
+            <p>Rename messy file batches, find duplicates, strip image metadata, and export a clean ZIP with a CSV report. Every file stays in your browser.</p>
+        </header>
+
+        <section class="stats-strip" aria-label="Batch summary">
+            <div class="stat-pill"><span id="stat-files">0</span><small>Files</small></div>
+            <div class="stat-pill"><span id="stat-duplicates">0</span><small>Duplicates</small></div>
+            <div class="stat-pill"><span id="stat-cleanable">0</span><small>Images Cleanable</small></div>
+            <div class="stat-pill"><span id="stat-size">0 B</span><small>Total Size</small></div>
+        </section>
+
+        <div class="mobile-tabs-container">
+            <button class="mobile-tab-btn active" data-target="panel-settings">Files and Rules</button>
+            <button class="mobile-tab-btn" data-target="panel-preview">Preview</button>
+        </div>
+
+        <div class="tool-grid-layout">
+            <section class="tool-panel active-panel" id="panel-settings">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span>Files</span>
+                    </h2>
+                    <button class="action-btn-sm" id="btn-clear-files">Clear</button>
+                </div>
+
+                <label class="dropzone" id="dropzone">
+                    <input type="file" id="file-input" multiple>
+                    <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M20 16.5V19a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2.5"/></svg>
+                    <span class="dropzone-title">Drop files here or click to select</span>
+                    <span class="dropzone-desc">Images, PDFs, documents, archives, and any local files are supported.</span>
+                </label>
+
+                <div class="settings-group">
+                    <div class="settings-title">Rename Template</div>
+                    <input id="template-input" class="form-control mono" value="{date}-{seq}-{name}" aria-label="Rename template">
+                    <p class="field-hint">Available tokens: {name}, {seq}, {date}, {ext}</p>
+                </div>
+
+                <div class="split-fields">
+                    <div class="settings-group">
+                        <label class="form-label" for="prefix-input">Prefix</label>
+                        <input id="prefix-input" class="form-control" placeholder="client-a-">
+                    </div>
+                    <div class="settings-group">
+                        <label class="form-label" for="suffix-input">Suffix</label>
+                        <input id="suffix-input" class="form-control" placeholder="-clean">
+                    </div>
+                </div>
+
+                <div class="split-fields">
+                    <div class="settings-group">
+                        <label class="form-label" for="sequence-start">Sequence Start</label>
+                        <input id="sequence-start" class="form-control" type="number" min="0" value="1">
+                    </div>
+                    <div class="settings-group">
+                        <label class="form-label" for="sequence-pad">Sequence Padding</label>
+                        <input id="sequence-pad" class="form-control" type="number" min="1" max="8" value="3">
+                    </div>
+                </div>
+
+                <div class="split-fields">
+                    <div class="settings-group">
+                        <label class="form-label" for="date-format">Date Format</label>
+                        <select id="date-format" class="form-select">
+                            <option value="yyyy-mm-dd">2026-03-09</option>
+                            <option value="yyyymmdd">20260309</option>
+                            <option value="dd-mm-yyyy">09-03-2026</option>
+                        </select>
+                    </div>
+                    <div class="settings-group">
+                        <label class="form-label" for="metadata-mode">Metadata</label>
+                        <select id="metadata-mode" class="form-select">
+                            <option value="strip-images">Strip image metadata</option>
+                            <option value="keep">Keep original files</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="split-fields">
+                    <div class="settings-group">
+                        <label class="form-label" for="find-input">Find Text</label>
+                        <input id="find-input" class="form-control" placeholder="draft">
+                    </div>
+                    <div class="settings-group">
+                        <label class="form-label" for="replace-input">Replace With</label>
+                        <input id="replace-input" class="form-control" placeholder="final">
+                    </div>
+                </div>
+
+                <div class="toggle-grid">
+                    <label class="check-row"><input type="checkbox" id="lowercase-toggle" checked> Lowercase names</label>
+                    <label class="check-row"><input type="checkbox" id="slugify-toggle" checked> Web-safe slugs</label>
+                    <label class="check-row"><input type="checkbox" id="accent-toggle" checked> Remove accents</label>
+                    <label class="check-row"><input type="checkbox" id="skip-duplicates-toggle" checked> Skip duplicates in ZIP</label>
+                </div>
+
+                <div class="action-row">
+                    <button class="btn btn-primary" id="btn-build-zip" disabled>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7 7-7z"/></svg>
+                        Download Clean ZIP
+                    </button>
+                    <button class="action-btn-sm" id="btn-report" disabled>Download CSV Report</button>
+                </div>
+                <div id="status-line" class="status-line">Select files to build a private batch plan.</div>
+            </section>
+
+            <section class="tool-panel active-panel" id="panel-preview">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                        <span>Rename Preview</span>
+                    </h2>
+                    <button class="action-btn-sm" id="btn-copy-report" disabled>Copy Report</button>
+                </div>
+
+                <div class="preview-empty" id="preview-empty">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h16v16H4z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+                    <p>Your rename plan will appear here.</p>
+                </div>
+
+                <div class="table-wrap" id="preview-table-wrap" hidden>
+                    <table class="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Original</th>
+                                <th>New Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="preview-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <section class="howto-section">
+            <h2 class="howto-title">Why this tool is useful</h2>
+            <div class="howto-grid">
+                <div class="howto-step">
+                    <div class="step-number">1</div>
+                    <h4>Fix messy batches</h4>
+                    <p>Turn screenshots, exports, invoices, and camera files into clean names with dates and sequence numbers.</p>
+                </div>
+                <div class="howto-step">
+                    <div class="step-number">2</div>
+                    <h4>Protect private metadata</h4>
+                    <p>JPEG, PNG, and WebP files can be re-encoded in-browser to remove EXIF and location metadata before sharing.</p>
+                </div>
+                <div class="howto-step">
+                    <div class="step-number">3</div>
+                    <h4>Catch duplicates</h4>
+                    <p>Hash matching highlights duplicate files before export, so you can skip repeated copies automatically.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <a href="../../index.html" class="footer-logo"><span class="footer-brand-icon"><img src="../../logo.jpg" alt="Silver Cat Tools Logo" class="brand-logo-img"></span> Silver Cat Tools</a>
+            <p class="footer-copyright">&copy; 2026 Silver Cat Tools. Built for optimal performance and premium experience.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="../../i18n.js?v=1.0.0"></script>
+    <script src="core.js?v=1.0.0"></script>
+    <script src="script.js?v=1.0.0"></script>
+</body>
+</html>
