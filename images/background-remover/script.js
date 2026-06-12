@@ -29,15 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const cropTransparent = document.getElementById('crop-transparent');
     const showOriginal = document.getElementById('show-original');
     const backgroundOptions = document.getElementById('background-options');
+    const BACKGROUND_REMOVAL_PUBLIC_PATH = 'https://unpkg.com/@imgly/background-removal-data@1.4.1/dist/';
 
     let items = [];
     let activeIndex = -1;
     let currentPreviewUrl = '';
     let currentOriginalUrl = '';
     let isProcessing = false;
+    let isLibraryReady = false;
 
     setupMobileTabs();
     setupDropzone();
+    setupBackgroundRemovalLoader();
     setupActions();
 
     function setupMobileTabs() {
@@ -126,10 +129,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function processQueue() {
         if (!items.length || isProcessing) return;
-        const remover = getRemoveBackgroundFunction();
+        let remover = null;
+        try {
+            remover = await getRemoveBackgroundFunction();
+        } catch (error) {
+            statModel.textContent = 'Missing';
+            statusLine.textContent = userFriendlyError(error);
+            updateProcessButton();
+            return;
+        }
+
         if (!remover) {
             statModel.textContent = 'Missing';
             statusLine.textContent = 'Background removal library is not loaded. Check your connection and reload this page.';
+            updateProcessButton();
             return;
         }
 
@@ -149,12 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusLine.textContent = `Processing ${item.name}`;
                 const preparedFile = await prepareInputFile(item.file);
                 const rawBlob = await remover(preparedFile, {
+                    publicPath: BACKGROUND_REMOVAL_PUBLIC_PATH,
+                    model: 'small',
+                    proxyToWorker: false,
                     progress: (key, current, total) => {
                         const percent = total ? (current / total) * 100 : current;
                         progressBar.style.width = `${Math.max(0, Math.min(100, Math.round(percent || 0)))}%`;
                         processingDetail.textContent = core.progressMessage(key, percent);
                     },
-                    model: 'isnet_quint8',
                     output: {
                         format: `image/${outputFormat.value}`,
                         quality: outputFormat.value === 'webp' ? 0.95 : 1
@@ -240,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             queueList.appendChild(row);
         });
-        btnProcess.disabled = !items.length || isProcessing;
+        updateProcessButton();
         btnDownloadAll.disabled = completedCount() === 0;
     }
 
@@ -285,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
         processingDetail.textContent = active ? 'Preparing image...' : 'Preparing image...';
         processingState.hidden = !active;
         placeholderState.hidden = active || Boolean(items[activeIndex]?.resultBlob);
-        btnProcess.disabled = active || !items.length;
+        updateProcessButton();
     }
 
     function setPreviewBackground(name) {
@@ -379,7 +394,70 @@ document.addEventListener('DOMContentLoaded', () => {
         addFiles([new File([blob], 'sample-portrait.png', { type: 'image/png' })]);
     }
 
-    function getRemoveBackgroundFunction() {
+    function setupBackgroundRemovalLoader() {
+        window.addEventListener('background-removal-ready', () => {
+            isLibraryReady = Boolean(getRemoveBackgroundFunctionSync());
+            statModel.textContent = isLibraryReady ? 'Ready' : 'Missing';
+            if (isLibraryReady && !items.length) statusLine.textContent = 'Select images to begin.';
+            updateProcessButton();
+        });
+
+        window.addEventListener('background-removal-error', event => {
+            isLibraryReady = false;
+            statModel.textContent = 'Missing';
+            statusLine.textContent = userFriendlyError(event.detail);
+            updateProcessButton();
+        });
+
+        const existing = getRemoveBackgroundFunctionSync();
+        if (existing) {
+            isLibraryReady = true;
+            statModel.textContent = 'Ready';
+            updateProcessButton();
+            return;
+        }
+
+        const loader = window.backgroundRemovalModule;
+        if (!loader || typeof loader.then !== 'function') {
+            isLibraryReady = false;
+            statModel.textContent = 'Missing';
+            statusLine.textContent = 'Background removal library is not loaded. Reload this page or check the CDN connection.';
+            updateProcessButton();
+            return;
+        }
+
+        isLibraryReady = false;
+        statModel.textContent = 'Loading';
+        updateProcessButton();
+        loader
+            .then(() => {
+                isLibraryReady = Boolean(getRemoveBackgroundFunctionSync());
+                statModel.textContent = isLibraryReady ? 'Ready' : 'Missing';
+                if (isLibraryReady && !items.length) statusLine.textContent = 'Select images to begin.';
+                if (!isLibraryReady) statusLine.textContent = 'Background removal module loaded without the expected function.';
+                updateProcessButton();
+            })
+            .catch(error => {
+                isLibraryReady = false;
+                statModel.textContent = 'Missing';
+                statusLine.textContent = userFriendlyError(error);
+                updateProcessButton();
+            });
+    }
+
+    async function getRemoveBackgroundFunction() {
+        const existing = getRemoveBackgroundFunctionSync();
+        if (existing) return existing;
+
+        if (window.backgroundRemovalModule && typeof window.backgroundRemovalModule.then === 'function') {
+            await window.backgroundRemovalModule;
+            return getRemoveBackgroundFunctionSync();
+        }
+
+        return null;
+    }
+
+    function getRemoveBackgroundFunctionSync() {
         if (typeof window.removeBackground === 'function') return window.removeBackground;
         if (window.backgroundRemoval && typeof window.backgroundRemoval.removeBackground === 'function') {
             return window.backgroundRemoval.removeBackground;
@@ -388,6 +466,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return window.imglyRemoveBackground.removeBackground;
         }
         return null;
+    }
+
+    function updateProcessButton() {
+        btnProcess.disabled = isProcessing || !items.length || !isLibraryReady;
     }
 
     function updateStats() {
