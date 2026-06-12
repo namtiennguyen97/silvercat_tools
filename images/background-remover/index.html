@@ -18,7 +18,7 @@
     <meta name="description" content="Remove image backgrounds with AI in your browser. Upload JPG, PNG, or WebP files, preview transparent results, and download PNG or WebP.">
     <meta name="keywords" content="background remover, remove image background, ai background remover, remove bg online, transparent background maker, free background eraser, image background remover, no upload">
     <meta name="author" content="Silver Cat Tools">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://silvercat-utils.com/images/background-remover/">
 
     <meta property="og:type" content="website">
@@ -82,6 +82,11 @@
             <h1>AI <span class="text-gradient-purple">Background Remover</span></h1>
             <p>Remove backgrounds from JPG, PNG, and WebP images in your browser. The AI model may load on first use, but your image files are processed locally and are not uploaded by this tool.</p>
         </header>
+
+        <section class="settings-card" role="status" aria-live="polite">
+            <div class="settings-title">Temporarily unavailable</div>
+            <p class="status-line">This tool is temporarily unavailable while we replace the browser AI model loader with a more reliable implementation.</p>
+        </section>
 
         <section class="status-strip" aria-label="Processing summary">
             <div class="status-pill"><span id="stat-total">0</span><small>Images</small></div>
@@ -237,26 +242,15 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script type="module">
-        window.backgroundRemovalModule = import('https://esm.sh/@imgly/background-removal@1.4.1?bundle')
-            .then(module => {
-                const removeBackground = module.removeBackground || module.default?.removeBackground || module.default;
-                if (typeof removeBackground !== 'function') {
-                    throw new Error('Background removal module did not export removeBackground.');
-                }
-                window.backgroundRemoval = { removeBackground };
-                window.dispatchEvent(new Event('background-removal-ready'));
-                return window.backgroundRemoval;
-            })
-            .catch(error => {
-                window.backgroundRemovalLoadError = error;
-                window.dispatchEvent(new CustomEvent('background-removal-error', { detail: error }));
-                throw error;
-            });
-    </script>
     <script src="../../i18n.js?v=1.0.0"></script>
-    <script src="core.js?v=1.0.0"></script>
-    <script src="script.js?v=1.1.0"></script>
+    <script>
+        document.querySelectorAll('#panel-input input, #panel-input button, #panel-input select, #panel-result button').forEach(control => {
+            control.disabled = true;
+        });
+        const statusLine = document.getElementById('status-line');
+        const modelState = document.getElementById('stat-model');
+        if (statusLine) statusLine.textContent = 'This tool is temporarily unavailable.';
+        if (modelState) modelState.textContent = 'Paused';
+    </script>
 </body>
 </html>
