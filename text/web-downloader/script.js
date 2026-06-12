@@ -1,529 +1,642 @@
 // ==========================================================================
-// WEB DOWNLOADER - Fetch & download HTML/CSS/JS from any URL
+// WEB SOURCE DOWNLOADER - HTML/CSS/JS/static asset collector
 // ==========================================================================
 
-// ─── i18n ─────────────────────────────────────────────────────────────────
-const localDict = {
-    vi: {
-        'webdl-title-tag': 'Tải Mã Nguồn Web - Silver Cat Tools',
-        'webdl-head': 'Tải Mã Nguồn',
-        'webdl-head-sub': 'Website',
-        'webdl-desc': 'Enter a URL to download the HTML, CSS, JavaScript, and images of a web page. Preserves directory structure, opens locally.',
-        'webdl-input-title': 'Enter URL',
-        'webdl-url-placeholder': 'https://example.com',
-        'webdl-btn-fetch': 'Tải Về',
-        'webdl-loading': 'Đang tải...',
-        'webdl-error': 'Không thể tải trang. Vui lòng kiểm tra URL hoặc thử lại sau.',
-        'webdl-error-cors': 'Trang web này không cho phép lấy mã nguồn (CORS). Thử với trang khác.',
-        'webdl-page-title': 'Tiêu đề:',
-        'webdl-page-url': 'URL:',
-        'webdl-page-size': 'File size:',
-        'webdl-resources-title': 'Tài nguyên tìm thấy',
-        'webdl-resource-html': 'HTML chính',
-        'webdl-resource-inline': 'inline',
-        'webdl-download-all': 'Tải Tất Cả (ZIP)',
-        'webdl-preview-title': 'Mã Nguồn',
-        'webdl-empty': 'Enter a URL and press "Download" to view source code',
-        'webdl-no-css': 'Không tìm thấy CSS',
-        'webdl-no-js': 'Không tìm thấy JS',
-        'webdl-exporting': 'Đang tạo ZIP...',
-        'webdl-files': 'tệp',
-        'webdl-updating-html': 'Đang cập nhật đường dẫn...',
-    },
-    en: {
-        'webdl-title-tag': 'Web Source Downloader - Silver Cat Tools',
-        'webdl-head': 'Download',
-        'webdl-head-sub': 'Source Code',
-        'webdl-desc': 'Enter a URL to download HTML, CSS, JavaScript, images from any website. Preserves folder structure, open HTML locally with all assets.',
-        'webdl-input-title': 'Enter URL',
-        'webdl-url-placeholder': 'https://example.com',
-        'webdl-btn-fetch': 'Fetch',
-        'webdl-loading': 'Loading...',
-        'webdl-error': 'Cannot load page. Please check the URL or try again later.',
-        'webdl-error-cors': 'This website does not allow fetching source code (CORS). Try another site.',
-        'webdl-page-title': 'Title:',
-        'webdl-page-url': 'URL:',
-        'webdl-page-size': 'Size:',
-        'webdl-resources-title': 'Resources found',
-        'webdl-resource-html': 'Main HTML',
-        'webdl-resource-inline': 'inline',
-        'webdl-download-all': 'Download All (ZIP)',
-        'webdl-preview-title': 'Source Code',
-        'webdl-empty': 'Enter a URL and click "Fetch" to view source code',
-        'webdl-no-css': 'No CSS found',
-        'webdl-no-js': 'No JS found',
-        'webdl-exporting': 'Creating ZIP...',
-        'webdl-files': 'files',
-        'webdl-updating-html': 'Updating paths...',
+(function (root, factory) {
+    const helpers = factory();
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = helpers;
     }
-};
-
-function getCurrentLang() { return 'en'; }
-
-function applyLocalTranslation(lang) {
-        // Static English HTML is the source of truth for SEO and UI text.
+    if (typeof window !== 'undefined') {
+        window.WebDownloaderHelpers = helpers;
+        window.addEventListener('DOMContentLoaded', () => helpers.initWebDownloader());
     }
-
-// ==========================================================================
-// MAIN APP
-// ==========================================================================
-(function () {
+})(typeof self !== 'undefined' ? self : this, function () {
     'use strict';
 
-    const btnFetch = document.getElementById('btn-fetch');
-    const urlInput = document.getElementById('url-input');
-    const statusArea = document.getElementById('status-area');
-    const statusText = document.getElementById('status-text');
-    const emptyState = document.getElementById('empty-state');
-    const codeWrapper = document.getElementById('code-wrapper');
-    const codeContent = document.getElementById('code-content');
-    const lineCount = document.getElementById('line-count');
-    const fileInfo = document.getElementById('file-info');
-    const pageTitle = document.getElementById('page-title');
-    const pageUrl = document.getElementById('page-url');
-    const pageSize = document.getElementById('page-size');
-    const resourceGroup = document.getElementById('resource-group');
-    const resourceList = document.getElementById('resource-list');
-    const actionBtns = document.getElementById('action-buttons');
-    const btnDownloadAll = document.getElementById('btn-download-all');
-    const codeTabs = document.querySelectorAll('.code-tab');
-    const cssCount = document.getElementById('css-count');
-    const jsCount = document.getElementById('js-count');
+    const SKIP_URL_RE = /^(data:|blob:|javascript:|mailto:|tel:|#)/i;
+    const TEXT_TYPES = new Set(['html', 'css', 'js', 'svg', 'json', 'otherText']);
+    const MAX_ASSETS = 150;
+    const BATCH_SIZE = 8;
 
-    // State
-    let pageData = { html: '', css: [], js: [], img: [], font: [], other: [], title: '', url: '', resources: [] };
-    let currentTab = 'html';
+    function normalizePageUrl(value) {
+        const raw = String(value || '').trim();
+        if (!raw || raw === 'https://' || raw === 'http://') return '';
+        return /^https?:\/\//i.test(raw) ? raw : 'https://' + raw;
+    }
 
-    // ======================================================================
-    // UTILITY
-    // ======================================================================
+    function shouldSkipUrl(value) {
+        return !value || SKIP_URL_RE.test(String(value).trim());
+    }
+
+    function stripWrappingQuotes(value) {
+        return String(value || '').trim().replace(/^['"]|['"]$/g, '');
+    }
+
+    function resolveAssetUrl(value, baseUrl) {
+        const raw = stripWrappingQuotes(value);
+        if (shouldSkipUrl(raw)) return null;
+        try {
+            return new URL(raw, baseUrl).href;
+        } catch {
+            return null;
+        }
+    }
+
+    function getExtension(url) {
+        try {
+            const pathname = new URL(url).pathname.toLowerCase();
+            const match = pathname.match(/\.([a-z0-9]+)$/i);
+            return match ? match[1] : '';
+        } catch {
+            return '';
+        }
+    }
+
+    function inferType(url, hint) {
+        const ext = getExtension(url);
+        if (hint === 'css' || ext === 'css') return 'css';
+        if (hint === 'js' || ext === 'js' || ext === 'mjs') return 'js';
+        if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'bmp', 'ico', 'svg'].includes(ext)) {
+            return ext === 'svg' ? 'svg' : 'img';
+        }
+        if (['woff', 'woff2', 'ttf', 'otf', 'eot'].includes(ext)) return 'font';
+        if (['json', 'webmanifest'].includes(ext)) return 'json';
+        if (hint) return hint;
+        return 'other';
+    }
+
+    function sanitizePathSegment(segment) {
+        return decodeURIComponent(segment || '')
+            .replace(/[<>:"\\|?*\x00-\x1F]/g, '_')
+            .replace(/^\.+$/, '_')
+            .trim() || 'file';
+    }
+
+    function buildLocalPath(assetUrl, pageUrl) {
+        const asset = new URL(assetUrl);
+        const page = new URL(pageUrl);
+        const prefix = asset.origin === page.origin ? '' : '_external/' + asset.hostname.replace(/^www\./, '') + '/';
+        let pathname = asset.pathname.replace(/^\/+/, '');
+
+        if (!pathname || pathname.endsWith('/')) {
+            pathname += 'index.html';
+        }
+
+        const parts = pathname.split('/').filter(Boolean).map(sanitizePathSegment);
+        return prefix + parts.join('/');
+    }
+
+    function uniquifyPath(path, usedPaths) {
+        if (!usedPaths.has(path)) {
+            usedPaths.add(path);
+            return path;
+        }
+
+        const slash = path.lastIndexOf('/');
+        const dir = slash >= 0 ? path.slice(0, slash + 1) : '';
+        const file = slash >= 0 ? path.slice(slash + 1) : path;
+        const dot = file.lastIndexOf('.');
+        const stem = dot > 0 ? file.slice(0, dot) : file;
+        const ext = dot > 0 ? file.slice(dot) : '';
+
+        let i = 2;
+        let candidate = dir + stem + '-' + i + ext;
+        while (usedPaths.has(candidate)) {
+            i++;
+            candidate = dir + stem + '-' + i + ext;
+        }
+        usedPaths.add(candidate);
+        return candidate;
+    }
+
+    function parseSrcset(value, baseUrl, hint) {
+        return String(value || '')
+            .split(',')
+            .map(part => part.trim())
+            .filter(Boolean)
+            .map(part => {
+                const pieces = part.split(/\s+/);
+                const url = resolveAssetUrl(pieces[0], baseUrl);
+                return url ? { url, type: inferType(url, hint || 'img'), source: 'srcset' } : null;
+            })
+            .filter(Boolean);
+    }
+
+    function pushAsset(list, rawUrl, baseUrl, hint, source) {
+        const url = resolveAssetUrl(rawUrl, baseUrl);
+        if (!url) return;
+        list.push({ url, type: inferType(url, hint), source: source || 'html' });
+    }
+
+    function getLinkAssetHint(rel, asType, href) {
+        const relValue = String(rel || '').toLowerCase();
+        const asValue = String(asType || '').toLowerCase();
+        if (relValue.includes('stylesheet')) return 'css';
+        if (relValue.includes('modulepreload')) return 'js';
+        if (relValue.includes('manifest')) return 'json';
+        if (relValue.includes('icon') || relValue.includes('apple-touch-icon')) return 'img';
+        if (relValue.includes('preload') && asValue) return asValue === 'script' ? 'js' : asValue === 'style' ? 'css' : asValue;
+        if (/\.(css|js|mjs|png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|eot|json|webmanifest)(?:[?#].*)?$/i.test(href)) {
+            return undefined;
+        }
+        return null;
+    }
+
+    function collectHtmlAssets(html, baseUrl) {
+        const assets = [];
+        let match;
+
+        const tagRe = /<([a-z0-9:-]+)\b[^>]*>/gi;
+        while ((match = tagRe.exec(html)) !== null) {
+            const tag = match[0];
+            const tagName = match[1].toLowerCase();
+
+            const attrRe = /\s([a-z0-9:-]+)\s*=\s*(["'])(.*?)\2/gi;
+            let attr;
+            while ((attr = attrRe.exec(tag)) !== null) {
+                const name = attr[1].toLowerCase();
+                const value = attr[3];
+                if (name === 'srcset' || name === 'imagesrcset') {
+                    assets.push(...parseSrcset(value, baseUrl));
+                    continue;
+                }
+                if (name === 'href' && tagName === 'link') {
+                    const rel = (tag.match(/\srel\s*=\s*(["'])(.*?)\1/i) || [])[2] || '';
+                    const asType = (tag.match(/\sas\s*=\s*(["'])(.*?)\1/i) || [])[2] || '';
+                    const hint = getLinkAssetHint(rel, asType, value);
+                    if (hint === null) continue;
+                    pushAsset(assets, value, baseUrl, hint, 'link');
+                    continue;
+                }
+                if (name === 'src') {
+                    const hint = tagName === 'script' ? 'js' : tagName === 'iframe' ? 'html' : undefined;
+                    pushAsset(assets, value, baseUrl, hint, tagName);
+                    continue;
+                }
+                if (name === 'poster') {
+                    pushAsset(assets, value, baseUrl, 'img', 'poster');
+                    continue;
+                }
+                if (name === 'content' && tagName === 'meta' && /(?:og:image|twitter:image|image_src|msapplication-tileimage)/i.test(tag)) {
+                    pushAsset(assets, value, baseUrl, 'img', 'meta');
+                }
+            }
+        }
+
+        return dedupeAssets(assets);
+    }
+
+    function collectCssAssets(cssText, cssUrl) {
+        const assets = [];
+        let match;
+
+        const importRe = /@import\s+(?:url\(\s*)?(['"]?)([^'")\s;]+)\1\s*\)?/gi;
+        while ((match = importRe.exec(cssText)) !== null) {
+            pushAsset(assets, match[2], cssUrl, 'css', 'css-import');
+        }
+
+        const urlRe = /url\(\s*(['"]?)([^'")]+)\1\s*\)/gi;
+        while ((match = urlRe.exec(cssText)) !== null) {
+            pushAsset(assets, match[2], cssUrl, undefined, 'css-url');
+        }
+
+        return dedupeAssets(assets);
+    }
+
+    function dedupeAssets(assets) {
+        const seen = new Set();
+        const result = [];
+        for (const asset of assets) {
+            if (!asset.url || seen.has(asset.url)) continue;
+            seen.add(asset.url);
+            result.push(asset);
+        }
+        return result;
+    }
+
+    function dirname(path) {
+        const slash = path.lastIndexOf('/');
+        return slash >= 0 ? path.slice(0, slash) : '';
+    }
+
+    function relativePath(fromFile, toFile) {
+        const fromParts = dirname(fromFile).split('/').filter(Boolean);
+        const toParts = toFile.split('/').filter(Boolean);
+        while (fromParts.length && toParts.length && fromParts[0] === toParts[0]) {
+            fromParts.shift();
+            toParts.shift();
+        }
+        return fromParts.map(() => '..').concat(toParts).join('/') || './';
+    }
+
+    function rewriteSrcset(value, baseUrl, assetMap) {
+        return String(value || '').split(',').map(part => {
+            const trimmed = part.trim();
+            if (!trimmed) return trimmed;
+            const pieces = trimmed.split(/\s+/);
+            const url = resolveAssetUrl(pieces[0], baseUrl);
+            const local = url ? assetMap.get(url) : null;
+            if (!local) return trimmed;
+            pieces[0] = local;
+            return pieces.join(' ');
+        }).join(', ');
+    }
+
+    function rewriteHtmlAssets(html, baseUrl, assetMap) {
+        let result = String(html || '');
+        result = result.replace(/(\s(?:href|src|poster|content)\s*=\s*)(["'])(.*?)\2/gi, (full, prefix, quote, value) => {
+            const url = resolveAssetUrl(value, baseUrl);
+            const local = url ? assetMap.get(url) : null;
+            return local ? prefix + quote + local + quote : full;
+        });
+        result = result.replace(/(\s(?:srcset|imagesrcset)\s*=\s*)(["'])(.*?)\2/gi, (full, prefix, quote, value) => {
+            const rewritten = rewriteSrcset(value, baseUrl, assetMap);
+            return prefix + quote + rewritten + quote;
+        });
+        return result;
+    }
+
+    function rewriteCssAssets(cssText, cssUrl, cssLocalPath, assetMap) {
+        let result = String(cssText || '');
+        result = result.replace(/@import\s+(url\(\s*)?(['"]?)([^'")\s;]+)\2(\s*\)?)\s*;?/gi, (full, urlPrefix, quote, value, close) => {
+            const url = resolveAssetUrl(value, cssUrl);
+            const local = url ? assetMap.get(url) : null;
+            if (!local) return full;
+            const rel = relativePath(cssLocalPath, local);
+            if (urlPrefix) return '@import url("' + rel + '")';
+            return '@import "' + rel + '"';
+        });
+        result = result.replace(/url\(\s*(['"]?)([^'")]+)\1\s*\)/gi, (full, quote, value) => {
+            const url = resolveAssetUrl(value, cssUrl);
+            const local = url ? assetMap.get(url) : null;
+            if (!local) return full;
+            return "url('" + relativePath(cssLocalPath, local) + "')";
+        });
+        return result;
+    }
+
+    function buildProxyUrl(url) {
+        return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+    }
+
     function formatFileSize(bytes) {
+        if (!Number.isFinite(bytes)) return '-';
         if (bytes < 1024) return bytes + ' B';
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
     }
 
-    function escapeHtml(str) {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
+    function escapeHtml(value) {
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
     }
 
-    // Extract filename from URL path
-    function getFilenameFromUrl(url) {
-        const clean = url.split('?')[0].split('#')[0];
-        const parts = clean.split('/');
-        let name = parts[parts.length - 1];
-        if (!name || name.indexOf('.') === -1) {
-            const extMap = {
-                'css': 'style.css', 'js': 'script.js',
-                'png': 'image.png', 'jpg': 'image.jpg', 'jpeg': 'image.jpeg',
-                'gif': 'image.gif', 'svg': 'image.svg', 'webp': 'image.webp',
-                'woff': 'font.woff', 'woff2': 'font.woff2', 'ttf': 'font.ttf',
-                'eot': 'font.eot'
-            };
-            name = extMap[clean.split('.').pop()] || 'file';
+    function titleFromHtml(html, fallbackUrl) {
+        const match = String(html || '').match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+        return match ? match[1].replace(/\s+/g, ' ').trim() : fallbackUrl;
+    }
+
+    function downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+    }
+
+    async function fetchThroughProxy(url, responseType) {
+        const response = await fetch(buildProxyUrl(url), { cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
         }
-        return name;
+        if (responseType === 'text') return response.text();
+        return response.blob();
     }
 
-    // Extract relative path from absolute URL (preserve directory structure)
-    function getRelativePath(absUrl, baseUrl) {
-        try {
-            const base = new URL(baseUrl);
-            const target = new URL(absUrl);
-            const basePath = base.pathname.replace(/\/[^/]*$/, '/');
-            const targetPath = target.pathname;
+    function addFileToZip(folder, relPath, content) {
+        const parts = relPath.split('/').filter(Boolean);
+        const fileName = parts.pop() || 'file';
+        let current = folder;
+        for (const part of parts) {
+            current = current.folder(part);
+        }
+        current.file(fileName, content);
+    }
 
-            // If same origin, compute relative path
-            if (target.origin === base.origin) {
-                let rel = targetPath;
-                if (rel.startsWith('/')) rel = rel.substring(1);
-                return rel;
+    function initWebDownloader() {
+        const btnFetch = document.getElementById('btn-fetch');
+        const urlInput = document.getElementById('url-input');
+        const statusArea = document.getElementById('status-area');
+        const statusText = document.getElementById('status-text');
+        const emptyState = document.getElementById('empty-state');
+        const codeWrapper = document.getElementById('code-wrapper');
+        const codeContent = document.getElementById('code-content');
+        const lineCount = document.getElementById('line-count');
+        const fileInfo = document.getElementById('file-info');
+        const pageTitle = document.getElementById('page-title');
+        const pageUrl = document.getElementById('page-url');
+        const pageSize = document.getElementById('page-size');
+        const resourceGroup = document.getElementById('resource-group');
+        const resourceList = document.getElementById('resource-list');
+        const actionBtns = document.getElementById('action-buttons');
+        const btnDownloadAll = document.getElementById('btn-download-all');
+        const codeTabs = document.querySelectorAll('.code-tab');
+        const cssCount = document.getElementById('css-count');
+        const jsCount = document.getElementById('js-count');
+
+        if (!btnFetch || !urlInput) return;
+
+        const state = {
+            html: '',
+            rewrittenHtml: '',
+            url: '',
+            title: '',
+            files: [],
+            failed: [],
+            queued: new Map(),
+            localByUrl: new Map(),
+            downloadedMap: new Map(),
+            usedPaths: new Set(),
+            currentTab: 'html'
+        };
+
+        function resetState() {
+            state.html = '';
+            state.rewrittenHtml = '';
+            state.url = '';
+            state.title = '';
+            state.files = [];
+            state.failed = [];
+            state.queued = new Map();
+            state.localByUrl = new Map();
+            state.downloadedMap = new Map();
+            state.usedPaths = new Set();
+            state.currentTab = 'html';
+        }
+
+        function showStatus(message, isError) {
+            statusArea.style.display = 'block';
+            statusText.textContent = message;
+            statusArea.querySelector('.status-bar').classList.toggle('error', Boolean(isError));
+        }
+
+        function hideStatus() {
+            statusArea.style.display = 'none';
+        }
+
+        function addAsset(asset) {
+            if (!asset || !asset.url || state.queued.has(asset.url)) return false;
+            if (state.queued.size >= MAX_ASSETS) return false;
+            const localPath = uniquifyPath(buildLocalPath(asset.url, state.url), state.usedPaths);
+            const enriched = { ...asset, localPath, status: 'queued', size: 0, content: null };
+            state.queued.set(asset.url, enriched);
+            state.localByUrl.set(asset.url, localPath);
+            return true;
+        }
+
+        function addAssets(assets) {
+            let count = 0;
+            for (const asset of assets) {
+                if (addAsset(asset)) count++;
+            }
+            return count;
+        }
+
+        function renderResources() {
+            const htmlSize = new TextEncoder().encode(state.rewrittenHtml || state.html).length;
+            const rows = [];
+            rows.push({
+                path: 'index.html',
+                type: 'HTML',
+                status: 'fetched',
+                size: htmlSize
+            });
+            for (const file of state.files) {
+                rows.push({
+                    path: file.localPath,
+                    type: file.type.toUpperCase(),
+                    status: 'fetched',
+                    size: file.size
+                });
+            }
+            for (const file of state.failed) {
+                rows.push({
+                    path: file.localPath || file.url,
+                    type: file.type.toUpperCase(),
+                    status: 'failed',
+                    size: 0
+                });
             }
 
-            // Different origin: create folder with domain name
-            const domain = target.hostname.replace(/^www\./, '');
-            let path = targetPath;
-            if (path.startsWith('/')) path = path.substring(1);
-            return '_external/' + domain + '/' + path;
-        } catch {
-            return getFilenameFromUrl(absUrl);
-        }
-    }
-
-    function resolveUrl(url, base) {
-        if (!url || url.startsWith('data:') || url.startsWith('blob:') || url.startsWith('javascript:')) return null;
-        if (url.startsWith('http://') || url.startsWith('https://')) return url;
-        try {
-            const baseUrl = new URL(base);
-            return new URL(url, baseUrl.origin + baseUrl.pathname.replace(/\/[^/]*$/, '/')).href;
-        } catch { return null; }
-    }
-
-    // Detect resource type by URL
-    function getResourceType(url) {
-        const ext = url.split('?')[0].split('#')[0].split('.').pop().toLowerCase();
-        if (['css'].includes(ext)) return 'css';
-        if (['js', 'mjs'].includes(ext)) return 'js';
-        if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'ico', 'bmp', 'avif'].includes(ext)) return 'img';
-        if (['woff', 'woff2', 'ttf', 'eot', 'otf'].includes(ext)) return 'font';
-        return 'other';
-    }
-
-    // Extract all external resources from HTML
-    function extractResources(html, baseUrl) {
-        const resources = [];
-
-        // <link href="...">
-        const linkRegex = /<link[^>]+href=["']([^"']+)["'][^>]*>/gi;
-        let m;
-        while ((m = linkRegex.exec(html)) !== null) {
-            const url = m[1];
-            if (url.startsWith('data:') || url.startsWith('#') || url.startsWith('javascript:')) continue;
-            resources.push({ url, type: getResourceType(url) });
+            resourceGroup.style.display = 'block';
+            resourceList.innerHTML = rows.map(row => `
+                <div class="resource-item resource-${row.status}">
+                    <span class="resource-icon-dot ${row.type.toLowerCase()}"></span>
+                    <span class="resource-url" title="${escapeHtml(row.path)}">${escapeHtml(row.path)}</span>
+                    <span class="resource-status">${row.status}</span>
+                    <span class="resource-size">${row.size ? formatFileSize(row.size) : row.type}</span>
+                </div>
+            `).join('');
         }
 
-        // <script src="...">
-        const scriptRegex = /<script[^>]+src=["']([^"']+)["'][^>]*>/gi;
-        while ((m = scriptRegex.exec(html)) !== null) {
-            const url = m[1];
-            if (url.startsWith('data:') || url.startsWith('#') || url.startsWith('javascript:')) continue;
-            resources.push({ url, type: 'js' });
+        function updateCounts() {
+            cssCount.textContent = state.files.filter(file => file.type === 'css').length;
+            jsCount.textContent = state.files.filter(file => file.type === 'js').length;
         }
 
-        // <img src="...">
-        const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
-        while ((m = imgRegex.exec(html)) !== null) {
-            const url = m[1];
-            if (url.startsWith('data:') || url.startsWith('#')) continue;
-            resources.push({ url, type: 'img' });
+        function showCode(type) {
+            emptyState.style.display = 'none';
+            codeWrapper.style.display = 'block';
+            state.currentTab = type;
+
+            if (type === 'html') {
+                codeContent.textContent = state.rewrittenHtml || state.html;
+            } else if (type === 'css') {
+                const cssText = state.files
+                    .filter(file => file.type === 'css')
+                    .map(file => '/* === ' + file.localPath + ' === */\n' + file.text)
+                    .join('\n\n');
+                codeContent.textContent = cssText || 'No CSS files were downloaded.';
+            } else if (type === 'js') {
+                const jsText = state.files
+                    .filter(file => file.type === 'js')
+                    .map(file => '/* === ' + file.localPath + ' === */\n' + file.text)
+                    .join('\n\n');
+                codeContent.textContent = jsText || 'No JavaScript files were downloaded.';
+            }
+
+            lineCount.textContent = codeContent.textContent.split('\n').length + ' lines';
+            codeTabs.forEach(tab => tab.classList.toggle('active', tab.dataset.type === type));
         }
 
-        // <source src="...">
-        const sourceRegex = /<source[^>]+src=["']([^"']+)["'][^>]*>/gi;
-        while ((m = sourceRegex.exec(html)) !== null) {
-            const url = m[1];
-            if (url.startsWith('data:')) continue;
-            resources.push({ url, type: 'img' });
+        async function fetchAsset(asset) {
+            const textType = TEXT_TYPES.has(asset.type);
+            try {
+                const content = await fetchThroughProxy(asset.url, textType ? 'text' : 'blob');
+                const size = textType ? new TextEncoder().encode(content).length : content.size;
+                const file = {
+                    ...asset,
+                    status: 'fetched',
+                    content,
+                    text: textType ? content : '',
+                    size
+                };
+                state.files.push(file);
+                state.downloadedMap.set(asset.url, asset.localPath);
+
+                if (asset.type === 'css') {
+                    const nested = collectCssAssets(content, asset.url);
+                    addAssets(nested);
+                }
+            } catch (error) {
+                state.failed.push({ ...asset, status: 'failed', error: error.message });
+            }
         }
 
-        return resources;
-    }
-
-    // Rewrite HTML to use local relative paths
-    function rewriteHtmlPaths(html, assetMap) {
-        let result = html;
-        for (const [originalUrl, localPath] of Object.entries(assetMap)) {
-            // Escape special regex chars in URL
-            const escaped = originalUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            // Replace in href, src attributes
-            result = result.replace(
-                new RegExp(`(href=["'])${escaped}(["'])`, 'gi'),
-                `$1${localPath}$2`
-            );
-            result = result.replace(
-                new RegExp(`(src=["'])${escaped}(["'])`, 'gi'),
-                `$1${localPath}$2`
-            );
-        }
-        return result;
-    }
-
-    // ======================================================================
-    // FETCH PAGE
-    // ======================================================================
-    async function fetchPage(url) {
-        if (!url || url === 'https://') {
-            showStatus(localDict[getCurrentLang()]['webdl-error'], true);
-            return;
+        async function processQueue() {
+            let cursor = 0;
+            while (cursor < state.queued.size) {
+                const all = Array.from(state.queued.values());
+                const batch = all.slice(cursor, cursor + BATCH_SIZE);
+                cursor += batch.length;
+                showStatus('Fetching assets ' + Math.min(cursor, state.queued.size) + ' / ' + state.queued.size + '...', false);
+                await Promise.all(batch.map(fetchAsset));
+                renderResources();
+                updateCounts();
+            }
         }
 
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            url = 'https://' + url;
+        function finalizeRewrites() {
+            for (const file of state.files) {
+                if (file.type === 'css') {
+                    file.text = rewriteCssAssets(file.text, file.url, file.localPath, state.downloadedMap);
+                    file.content = file.text;
+                    file.size = new TextEncoder().encode(file.text).length;
+                }
+            }
+            state.rewrittenHtml = rewriteHtmlAssets(state.html, state.url, state.downloadedMap);
         }
 
-        showStatus(localDict[getCurrentLang()]['webdl-loading'], false);
-        btnFetch.disabled = true;
-
-        try {
-            const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
-            const response = await fetch(proxyUrl);
-            if (!response.ok) {
-                showStatus(localDict[getCurrentLang()]['webdl-error'], true);
-                btnFetch.disabled = false;
+        async function fetchPage() {
+            const normalizedUrl = normalizePageUrl(urlInput.value);
+            if (!normalizedUrl) {
+                showStatus('Please enter a valid URL.', true);
                 return;
             }
 
-            const html = await response.text();
-            const size = new TextEncoder().encode(html).length;
+            resetState();
+            state.url = normalizedUrl;
+            btnFetch.disabled = true;
+            actionBtns.style.display = 'none';
+            fileInfo.style.display = 'none';
+            resourceGroup.style.display = 'none';
+            emptyState.style.display = 'none';
+            codeWrapper.style.display = 'none';
+            showStatus('Fetching HTML page...', false);
 
-            const titleMatch = html.match(/<title[^>]*>([^<]*)<\/title>/i);
-            const title = titleMatch ? titleMatch[1].trim() : url;
+            try {
+                state.html = await fetchThroughProxy(normalizedUrl, 'text');
+                state.title = titleFromHtml(state.html, normalizedUrl);
+                state.rewrittenHtml = state.html;
 
-            // Extract all resources
-            const resources = extractResources(html, url);
-            const uniqueResources = [];
-            const seen = new Set();
-            for (const r of resources) {
-                const absUrl = resolveUrl(r.url, url);
-                if (absUrl && !seen.has(absUrl)) {
-                    seen.add(absUrl);
-                    uniqueResources.push({ ...r, absUrl });
+                pageTitle.textContent = state.title;
+                pageUrl.textContent = normalizedUrl;
+                pageSize.textContent = formatFileSize(new TextEncoder().encode(state.html).length);
+                fileInfo.style.display = 'flex';
+
+                addAssets(collectHtmlAssets(state.html, normalizedUrl));
+                renderResources();
+                updateCounts();
+
+                if (state.queued.size > 0) {
+                    await processQueue();
                 }
+
+                finalizeRewrites();
+                renderResources();
+                updateCounts();
+                showCode('html');
+                actionBtns.style.display = 'flex';
+                hideStatus();
+            } catch (error) {
+                console.error(error);
+                showStatus('Unable to fetch this page. It may block public proxies, require login, or be unavailable.', true);
+            } finally {
+                btnFetch.disabled = false;
+            }
+        }
+
+        async function downloadAll() {
+            if (typeof JSZip === 'undefined') {
+                alert('JSZip library is not loaded. Please check your connection and reload this page.');
+                return;
+            }
+            if (!state.url || !state.html) return;
+
+            const domain = new URL(state.url).hostname.replace(/^www\./, '');
+            const zip = new JSZip();
+            const rootFolder = zip.folder(domain + '_source');
+
+            rootFolder.file('index.html', state.rewrittenHtml || state.html);
+            for (const file of state.files) {
+                addFileToZip(rootFolder, file.localPath, file.content);
             }
 
-            pageData = {
-                html: html,
-                css: [], js: [], img: [], font: [], other: [],
-                title: title,
-                url: url,
-                resources: uniqueResources
+            const manifest = {
+                sourceUrl: state.url,
+                title: state.title,
+                generatedAt: new Date().toISOString(),
+                files: state.files.map(file => ({ url: file.url, path: file.localPath, type: file.type, size: file.size })),
+                failed: state.failed.map(file => ({ url: file.url, path: file.localPath, type: file.type, error: file.error }))
             };
+            rootFolder.file('download-manifest.json', JSON.stringify(manifest, null, 2));
 
-            // Show info
-            pageTitle.textContent = title;
-            pageUrl.textContent = url;
-            pageSize.textContent = formatFileSize(size);
-            fileInfo.style.display = 'flex';
-
-            // Show resources
-            renderResources(uniqueResources, url);
-
-            // Show HTML preview
-            showCode('html', html);
-
-            // Show counts
-            const cssCountNum = uniqueResources.filter(r => r.type === 'css').length;
-            const jsCountNum = uniqueResources.filter(r => r.type === 'js').length;
-            cssCount.textContent = cssCountNum;
-            jsCount.textContent = jsCountNum;
-
-            // Fetch external resources in parallel
-            showStatus(localDict[getCurrentLang()]['webdl-updating-html'], false);
-
-            const fetchResults = [];
-            const batchSize = 15;
-            for (let i = 0; i < uniqueResources.length; i += batchSize) {
-                const batch = uniqueResources.slice(i, i + batchSize);
-                const promises = batch.map(async (r) => {
-                    try {
-                        const resp = await fetch(proxyUrl.replace(url, r.absUrl));
-                        if (resp.ok) {
-                            const content = await resp.blob();
-                            return { resource: r, content };
-                        }
-                    } catch {}
-                    return null;
-                });
-                const results = await Promise.all(promises);
-                fetchResults.push(...results.filter(r => r !== null));
+            const oldHtml = btnDownloadAll.innerHTML;
+            btnDownloadAll.disabled = true;
+            btnDownloadAll.innerHTML = '<span>Creating ZIP...</span>';
+            try {
+                const blob = await zip.generateAsync({ type: 'blob' });
+                downloadBlob(blob, domain + '_source.zip');
+            } catch (error) {
+                console.error(error);
+                alert('ZIP export failed. Please try a smaller page.');
+            } finally {
+                btnDownloadAll.disabled = false;
+                btnDownloadAll.innerHTML = oldHtml;
             }
-
-            // Categorize fetched content
-            for (const { resource, content } of fetchResults) {
-                const relPath = getRelativePath(resource.absUrl, url);
-                const item = { url: resource.absUrl, relPath, content };
-                if (resource.type === 'css') pageData.css.push(item);
-                else if (resource.type === 'js') pageData.js.push(item);
-                else if (resource.type === 'img') pageData.img.push(item);
-                else if (resource.type === 'font') pageData.font.push(item);
-                else pageData.other.push(item);
-            }
-
-            // Update counts
-            cssCount.textContent = pageData.css.length;
-            jsCount.textContent = pageData.js.length;
-
-            // Show actions
-            actionBtns.style.display = 'flex';
-            btnFetch.disabled = false;
-            statusArea.style.display = 'none';
-
-        } catch (err) {
-            showStatus(localDict[getCurrentLang()]['webdl-error-cors'], true);
-            btnFetch.disabled = false;
-        }
-    }
-
-    // ======================================================================
-    // SHOW CODE
-    // ======================================================================
-    function showCode(type, content) {
-        emptyState.style.display = 'none';
-        codeWrapper.style.display = 'block';
-
-        if (type === 'html') {
-            codeContent.textContent = content || pageData.html;
-        } else if (type === 'css') {
-            const cssText = pageData.css.map((c, i) =>
-                `/* === ${c.relPath} === */\n${c.content}`
-            ).join('\n\n');
-            codeContent.textContent = cssText || localDict[getCurrentLang()]['webdl-no-css'];
-        } else if (type === 'js') {
-            const jsText = pageData.js.map((j, i) =>
-                `/* === ${j.relPath} === */\n${j.content}`
-            ).join('\n\n');
-            codeContent.textContent = jsText || localDict[getCurrentLang()]['webdl-no-js'];
         }
 
-        const lines = codeContent.textContent.split('\n').length;
-        lineCount.textContent = lines + ' lines';
-
+        btnFetch.addEventListener('click', fetchPage);
+        urlInput.addEventListener('keydown', event => {
+            if (event.key === 'Enter') fetchPage();
+        });
+        btnDownloadAll.addEventListener('click', downloadAll);
         codeTabs.forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.type === type);
+            tab.addEventListener('click', () => showCode(tab.dataset.type));
         });
-        currentTab = type;
     }
 
-    // ======================================================================
-    // RENDER RESOURCES
-    // ======================================================================
-    function renderResources(resources, baseUrl) {
-        resourceGroup.style.display = 'block';
-        let html = '';
-
-        html += `<div class="resource-item">
-            <svg class="resource-icon html" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18.178l4.62-1.256.623-6.978H9.026L8.822 7.89h8.36l.212-2.356H6.606l.63 7.066h6.764l-.288 3.056-2.712.816-2.712-.816-.162-1.808H7.172l.352 3.952L12 18.178z"/></svg>
-            <span class="resource-url">${localDict[getCurrentLang()]['webdl-resource-html']}</span>
-            <span class="resource-size">${formatFileSize(new TextEncoder().encode(pageData.html).length)}</span>
-        </div>`;
-
-        resources.forEach(r => {
-            const absUrl = resolveUrl(r.url, baseUrl);
-            const relPath = absUrl ? getRelativePath(absUrl, baseUrl) : r.url;
-            const iconColor = { css: '#264de4', js: '#f7df1e', img: '#22c55e', font: '#a855f7', other: '#94a3b8' };
-            const color = iconColor[r.type] || '#94a3b8';
-            html += `<div class="resource-item">
-                <span class="resource-icon" style="color:${color};font-size:10px;">●</span>
-                <span class="resource-url" title="${escapeHtml(relPath)}">${escapeHtml(relPath)}</span>
-                <span class="resource-size">${r.type.toUpperCase()}</span>
-            </div>`;
-        });
-
-        resourceList.innerHTML = html;
-    }
-
-    // ======================================================================
-    // STATUS
-    // ======================================================================
-    function showStatus(msg, isError) {
-        statusArea.style.display = 'block';
-        statusText.textContent = msg;
-        statusArea.querySelector('.status-bar').classList.toggle('error', isError);
-    }
-
-    // ======================================================================
-    // DOWNLOAD ALL AS ZIP
-    // ======================================================================
-    async function downloadAll() {
-        if (typeof JSZip === 'undefined') {
-            alert('JSZip library not loaded. Please check your internet connection.');
-            return;
-        }
-
-        const zip = new JSZip();
-        const domain = new URL(pageData.url).hostname;
-        const folder = zip.folder(domain);
-
-        // Build asset map for rewriting HTML paths
-        const assetMap = {};
-
-        // Helper: add file to ZIP preserving directory structure
-        function addFileToZip(zipFolder, relPath, content) {
-            const parts = relPath.split('/');
-            if (parts.length === 1) {
-                zipFolder.file(parts[0], content);
-            } else {
-                const fileName = parts.pop();
-                let current = zipFolder;
-                for (const part of parts) {
-                    current = current.folder(part);
-                }
-                current.file(fileName, content);
-            }
-        }
-
-        // Add CSS files
-        for (const css of pageData.css) {
-            assetMap[css.url] = css.relPath;
-            addFileToZip(folder, css.relPath, css.content);
-        }
-
-        // Add JS files
-        for (const js of pageData.js) {
-            assetMap[js.url] = js.relPath;
-            addFileToZip(folder, js.relPath, js.content);
-        }
-
-        // Add images
-        for (const img of pageData.img) {
-            assetMap[img.url] = img.relPath;
-            addFileToZip(folder, img.relPath, img.content);
-        }
-
-        // Add fonts
-        for (const font of pageData.font) {
-            assetMap[font.url] = font.relPath;
-            addFileToZip(folder, font.relPath, font.content);
-        }
-
-        // Add other assets
-        for (const other of pageData.other) {
-            assetMap[other.url] = other.relPath;
-            addFileToZip(folder, other.relPath, other.content);
-        }
-
-        // Rewrite HTML with local paths and add it
-        const rewrittenHtml = rewriteHtmlPaths(pageData.html, assetMap);
-        folder.file('index.html', rewrittenHtml);
-
-        // ZIP
-        const oldText = btnDownloadAll.innerHTML;
-        btnDownloadAll.innerHTML = '<span>' + localDict[getCurrentLang()]['webdl-exporting'] + '</span>';
-        btnDownloadAll.disabled = true;
-
-        try {
-            const blob = await zip.generateAsync({ type: 'blob' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = domain + '_source.zip';
-            a.click();
-            URL.revokeObjectURL(url);
-        } catch (err) {
-            console.error(err);
-        }
-
-        btnDownloadAll.innerHTML = oldText;
-        btnDownloadAll.disabled = false;
-    }
-
-    // ======================================================================
-    // EVENTS
-    // ======================================================================
-    btnFetch.addEventListener('click', () => fetchPage(urlInput.value));
-
-    urlInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') fetchPage(urlInput.value);
-    });
-
-    codeTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const type = tab.dataset.type;
-            if (type === 'html') showCode('html');
-            else if (type === 'css') showCode('css');
-            else if (type === 'js') showCode('js');
-        });
-    });
-
-    btnDownloadAll.addEventListener('click', downloadAll);
-
-    // ======================================================================
-    // INIT
-    // ======================================================================
-    applyLocalTranslation(getCurrentLang());
-    window.addEventListener('languageChanged', e => {
-        applyLocalTranslation(e.detail?.lang || getCurrentLang());
-    });
-})();
+    return {
+        normalizePageUrl,
+        shouldSkipUrl,
+        resolveAssetUrl,
+        inferType,
+        buildLocalPath,
+        parseSrcset,
+        collectHtmlAssets,
+        collectCssAssets,
+        rewriteHtmlAssets,
+        rewriteCssAssets,
+        relativePath,
+        buildProxyUrl,
+        initWebDownloader
+    };
+});

@@ -13,33 +13,33 @@
     <title>Free Web Source Downloader | Silver Cat Tools</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <meta name="description" content="Download HTML, CSS, and JavaScript source code from a URL, inspect the files, and export source assets as a ZIP.">
-    <meta name="keywords" content="download web source code, download html css js, web crawler, web scraper, get website source code">
+    <meta name="description" content="Download a web page with related static assets including HTML, CSS, JavaScript, images, fonts, and source files as a ZIP.">
+    <meta name="keywords" content="download web source code, download html css js images, website source downloader, static asset downloader, web page zip">
     <meta name="author" content="Silver Cat Tools">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://silvercat-utils.com/text/web-downloader/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://silvercat-utils.com/text/web-downloader/">
     <meta property="og:title" content="Free Web Source Downloader | Silver Cat Tools">
-    <meta property="og:description" content="Download HTML, CSS, and JavaScript source code from a URL, inspect the files, and export source assets as a ZIP.">
+    <meta property="og:description" content="Download a web page with related static assets including HTML, CSS, JavaScript, images, fonts, and source files as a ZIP.">
     <meta property="og:image" content="https://silvercat-utils.com/logo.jpg">
     <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Free Web Source Downloader | Silver Cat Tools">
-    <meta name="twitter:description" content="Download HTML, CSS, and JavaScript source code from a URL, inspect the files, and export source assets as a ZIP.">
+    <meta name="twitter:description" content="Download a web page with related static assets including HTML, CSS, JavaScript, images, fonts, and source files as a ZIP.">
     <meta name="twitter:image" content="https://silvercat-utils.com/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../style.css?v=1.0.3">
-    <link rel="stylesheet" href="style.css?v=1.0.0">
+    <link rel="stylesheet" href="style.css?v=1.0.1">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Free Web Source Downloader",
       "url": "https://silvercat-utils.com/text/web-downloader/",
-      "description": "Download HTML, CSS, and JavaScript source code from a URL, inspect the files, and export source assets as a ZIP.",
+      "description": "Download a web page with related static assets including HTML, CSS, JavaScript, images, fonts, and source files as a ZIP.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
       "isAccessibleForFree": true,
@@ -66,7 +66,7 @@
                 <span>Back to Home</span>
             </a>
             <h1><span>Web Source</span> <span class="text-gradient">Downloader</span></h1>
-            <p>Enter a URL to download the HTML, CSS, and JavaScript source code. Extract and download individual files or the entire package.</p>
+            <p>Paste a page URL to collect the HTML plus related static CSS, JavaScript, images, fonts, and source assets into a ZIP.</p>
         </header>
 
         <div class="tool-grid-layout">
@@ -82,7 +82,7 @@
                     <input type="url" id="url-input" class="url-input" placeholder="https://example.com" value="https://">
                     <button class="btn btn-primary" id="btn-fetch">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        <span>Download</span>
+                        <span>Get Files</span>
                     </button>
                 </div>
 
@@ -116,7 +116,7 @@
                 <div class="panel-footer-actions" id="action-buttons" style="display:none;">
                     <button class="btn btn-primary" id="btn-download-all" style="flex:1;justify-content:center;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        <span>Download All (ZIP)</span>
+                        <span>Download Website ZIP</span>
                     </button>
                 </div>
             </section>
@@ -134,7 +134,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" style="margin:0 auto 1rem;display:block;">
                         <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
                     </svg>
-                    <p>Enter URL and click "Download" to view source code</p>
+                    <p>Enter a URL and click "Get Files" to collect source assets.</p>
                 </div>
 
                 <div id="code-wrapper" class="code-wrapper" style="display:none;">
@@ -175,7 +175,7 @@
                         </svg>
                     </div>
                     <h4>Fetch resources</h4>
-                    <p>The tool downloads HTML, CSS, and JS files client-side.</p>
+                    <p>The tool scans HTML and CSS references for scripts, stylesheets, images, fonts, and static files.</p>
                 </div>
                 <div class="howto-step">
                     <div class="step-number">3</div>
@@ -187,7 +187,7 @@
                         </svg>
                     </div>
                     <h4>Download as ZIP</h4>
-                    <p>View source code structures and download files packaged in a ZIP.</p>
+                    <p>Download a ZIP with rewritten local paths, folder structure, and a manifest of failed files.</p>
                 </div>
             </div>
         </section>
@@ -202,6 +202,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="../../i18n.js?v=1.0.0"></script>
-    <script src="script.js?v=1.0.0"></script>
+    <script src="script.js?v=1.0.1"></script>
 </body>
 </html>

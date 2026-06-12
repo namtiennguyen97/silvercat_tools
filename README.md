@@ -76,7 +76,7 @@
 22. **Cron Generator & Humanizer** (`/text/cron-generator/`)
     *   Visually build cron expressions, humanize cron strings into plain English, and browse the cron syntax cheat sheet.
 23. **Web Source Downloader** (`/text/web-downloader/`)
-    *   Download HTML, CSS, JavaScript source code from any website. View online and download as ZIP.
+    *   Download a web page with HTML, CSS, JavaScript, images, fonts, and static assets packaged as a ZIP with local paths.
 24. **Batch File Renamer & Metadata Cleaner** (`/text/file-renamer/`)
     *   Rename messy file batches, detect duplicates, strip image EXIF/GPS metadata, and export clean files with a CSV report.
 

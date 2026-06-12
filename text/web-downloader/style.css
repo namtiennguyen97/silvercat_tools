@@ -162,7 +162,7 @@
 
 .resource-list {
     margin-top: 0.5rem;
-    max-height: 180px;
+    max-height: 260px;
     overflow-y: auto;
 }
 
@@ -184,8 +184,50 @@
 .resource-icon.css { color: #264de4; }
 .resource-icon.js { color: #f7df1e; }
 
+.resource-icon-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    background: var(--text-muted);
+    box-shadow: 0 0 10px rgba(148, 163, 184, 0.25);
+}
+
+.resource-icon-dot.html { background: #f97316; }
+.resource-icon-dot.css { background: #38bdf8; }
+.resource-icon-dot.js { background: #facc15; }
+.resource-icon-dot.img,
+.resource-icon-dot.svg { background: #22c55e; }
+.resource-icon-dot.font { background: #a855f7; }
+.resource-icon-dot.json,
+.resource-icon-dot.other { background: #94a3b8; }
+
 .resource-url { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.resource-size { color: var(--text-muted); font-size: 0.7rem; flex-shrink: 0; }
+.resource-size,
+.resource-status {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.resource-status {
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.resource-fetched .resource-status {
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.18);
+}
+
+.resource-failed .resource-status {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.18);
+}
 
 /* Code preview */
 .code-wrapper { margin-top: 0.5rem; }
