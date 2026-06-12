@@ -1240,6 +1240,48 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 1rem;
 }
 
+.kofi-btn-footer {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.25rem;
+    padding: 0.72rem 0.95rem;
+    border: 1px solid rgba(20, 184, 166, 0.26);
+    border-radius: var(--border-radius-sm);
+    background:
+        linear-gradient(135deg, rgba(20, 184, 166, 0.13), rgba(236, 72, 153, 0.1)),
+        rgba(255, 255, 255, 0.035);
+    color: #e6fffb;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.1);
+    transition: var(--transition-smooth);
+}
+
+.kofi-btn-footer svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+.kofi-btn-footer:hover {
+    transform: translateY(-2px);
+    border-color: rgba(20, 184, 166, 0.5);
+    background:
+        linear-gradient(135deg, rgba(20, 184, 166, 0.22), rgba(236, 72, 153, 0.16)),
+        rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    box-shadow: 0 16px 38px rgba(20, 184, 166, 0.18);
+}
+
 .footer-nav {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
