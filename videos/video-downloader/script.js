@@ -28,12 +28,22 @@
         tiktok: /tiktok\.com|vm\.tiktok\.com/i,
         facebook: /facebook\.com|fb\.watch|fb\.com|fbcdn/i,
         instagram: /instagram\.com|instagr\.am/i,
-        youtube: /youtube\.com|youtu\.be|youtube\.shorts/i,
         twitter: /twitter\.com|x\.com|t\.co/i
+    };
+
+    const unsupportedPlatformPatterns = {
+        youtube: /(?:youtube\.com|youtu\.be|youtube\.shorts)/i
+    };
+
+    const unsupportedPlatformMessages = {
+        youtube: 'YouTube downloads are not supported in this browser tool. YouTube does not provide a stable public download API for static client-side sites, so this tool supports TikTok, Facebook, Instagram, and X links only.'
     };
 
     // Detect platform from URL
     function detectPlatform(url) {
+        for (const [platform, pattern] of Object.entries(unsupportedPlatformPatterns)) {
+            if (pattern.test(url)) return platform;
+        }
         for (const [platform, pattern] of Object.entries(platformPatterns)) {
             if (pattern.test(url)) return platform;
         }
@@ -210,10 +220,9 @@
                 audioFormat: 'mp3',
                 downloadMode: 'auto',
                 filenameStyle: 'classic',
-                youtubeVideoCodec: 'h264',  // Force h264 for max Windows compatibility
                 ...overrides
             }),
-            signal: AbortSignal.timeout(25000) // 25 second timeout — YouTube processing takes time
+            signal: AbortSignal.timeout(25000)
         });
 
         if (!response.ok) {
@@ -271,7 +280,6 @@
             tiktok: 'TikTok',
             facebook: 'Facebook',
             instagram: 'Instagram',
-            youtube: 'YouTube',
             twitter: 'X (Twitter)',
             unknown: 'Video'
         };
@@ -404,7 +412,6 @@
             tiktok: 'TikTok',
             facebook: 'Facebook',
             instagram: 'Instagram',
-            youtube: 'YouTube',
             twitter: 'X (Twitter)',
             unknown: 'Video'
         };
@@ -433,6 +440,11 @@
         showSection(errorSection);
     }
 
+    function showUnsupportedPlatform(platform) {
+        errorMessage.textContent = unsupportedPlatformMessages[platform] || 'This platform is not supported by this downloader.';
+        showSection(errorSection);
+    }
+
     // ======================================================================
     // EVENT LISTENERS
     // ======================================================================
@@ -455,6 +467,12 @@
                 ? 'Please enter a valid URL starting with http:// or https://'
                 : 'Please enter a valid URL starting with http:// or https://';
             showSection(errorSection);
+            return;
+        }
+
+        const platform = detectPlatform(url);
+        if (unsupportedPlatformMessages[platform]) {
+            showUnsupportedPlatform(platform);
             return;
         }
 
