@@ -165,6 +165,43 @@ function applyLocalTranslation(lang) {
         return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
     }
 
+    function safeFilename(name) {
+        return String(name || 'download').replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+    }
+
+    function downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = safeFilename(filename);
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+    }
+
+    function getVideoAudioTracks() {
+        if (!videoElement) return [];
+        const capture = typeof videoElement.captureStream === 'function'
+            ? videoElement.captureStream.bind(videoElement)
+            : typeof videoElement.mozCaptureStream === 'function'
+                ? videoElement.mozCaptureStream.bind(videoElement)
+                : null;
+        if (!capture) return [];
+        try {
+            return capture().getAudioTracks();
+        } catch (error) {
+            console.warn('Audio capture is unavailable:', error.message);
+            return [];
+        }
+    }
+
+    function resetExportVideoButton() {
+        isExporting = false;
+        btnExportVideo.disabled = false;
+        btnExportVideo.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${localDict[getCurrentLang()]['subtitle-export-video']}</span>`;
+    }
+
     function parseSubtitle(text, format) {
         const entries = [];
         let blocks = text.trim().split(/\n\s*\n/);
@@ -544,49 +581,66 @@ function applyLocalTranslation(lang) {
             alert(!videoElement ? dict['subtitle-no-video'] : dict['subtitle-no-subs']);
             return;
         }
+        if (!window.MediaRecorder) {
+            alert('Your browser does not support burned-in video export. You can still download the .srt subtitle file.');
+            return;
+        }
+        if (!canvas.captureStream) {
+            alert('Your browser does not support canvas video export. You can still download the .srt subtitle file.');
+            return;
+        }
         if (isExporting) return;
         isExporting = true;
         btnExportVideo.disabled = true;
         btnExportVideo.innerHTML = '<span>' + (localDict[getCurrentLang()]['subtitle-exporting'] || 'Exporting...') + '</span>';
 
-        videoElement.pause(); isPlaying = false;
-        btnPlay.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
-        if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
-        videoElement.currentTime = 0;
-        await new Promise(r => { videoElement.addEventListener('seeked', r, { once: true }); if (videoElement.currentTime === 0) setTimeout(r, 100); });
-
-        const stream = canvas.captureStream(30);
-        const audio = videoElement.captureStream().getAudioTracks();
-        if (audio.length > 0) stream.addTrack(audio[0]);
-
-        const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
-        recordedChunks = [];
-        mediaRecorder = new MediaRecorder(stream, { mimeType: mime });
-        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = (videoFile ? videoFile.name.replace(/\.[^.]+$/, '') : 'video') + '_with_subtitles.webm';
-            a.click();
-            URL.revokeObjectURL(url);
-            isExporting = false;
-            btnExportVideo.disabled = false;
-            btnExportVideo.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${localDict[getCurrentLang()]['subtitle-export-video']}</span>`;
-        };
-
-        mediaRecorder.start(100);
-        videoElement.play(); isPlaying = true;
-        btnPlay.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
-        (function loop() { drawFrame(); animFrameId = requestAnimationFrame(loop); })();
-        videoElement.addEventListener('ended', () => {
-            mediaRecorder.stop();
-            isPlaying = false;
+        try {
+            videoElement.pause(); isPlaying = false;
             btnPlay.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
             if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
             drawFrame();
-        }, { once: true });
+            videoElement.currentTime = 0;
+            await new Promise(r => { videoElement.addEventListener('seeked', r, { once: true }); if (videoElement.currentTime === 0) setTimeout(r, 100); });
+
+            const stream = canvas.captureStream(30);
+            const audio = getVideoAudioTracks();
+            audio.forEach(track => stream.addTrack(track));
+
+            const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
+            recordedChunks = [];
+            mediaRecorder = new MediaRecorder(stream, { mimeType: mime });
+            mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
+            mediaRecorder.onerror = event => {
+                console.error('MediaRecorder error:', event.error || event);
+                alert('Video export failed. Please try a smaller or shorter video, or download the .srt subtitle file.');
+                resetExportVideoButton();
+            };
+            mediaRecorder.onstop = () => {
+                if (recordedChunks.length > 0) {
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    downloadBlob(blob, (videoFile ? videoFile.name.replace(/\.[^.]+$/, '') : 'video') + '_with_subtitles.webm');
+                } else {
+                    alert('Video export produced no data. Please try a smaller or shorter video.');
+                }
+                resetExportVideoButton();
+            };
+
+            mediaRecorder.start(100);
+            videoElement.play(); isPlaying = true;
+            btnPlay.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+            (function loop() { drawFrame(); animFrameId = requestAnimationFrame(loop); })();
+            videoElement.addEventListener('ended', () => {
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+                isPlaying = false;
+                btnPlay.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+                if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+                drawFrame();
+            }, { once: true });
+        } catch (error) {
+            console.error('Video export failed:', error);
+            alert('Video export failed. Please try a smaller or shorter video, or download the .srt subtitle file.');
+            resetExportVideoButton();
+        }
     });
 
     // ======================================================================
@@ -599,11 +653,7 @@ function applyLocalTranslation(lang) {
             srt += `${i + 1}\n${formatTime(s.startMs)} --> ${formatTime(s.endMs)}\n${s.text}\n\n`;
         });
         const blob = new Blob([srt], { type: 'text/plain;charset=utf-8' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = (videoFile ? videoFile.name.replace(/\.[^.]+$/, '') : 'subtitle') + '.srt';
-        a.click();
-        URL.revokeObjectURL(a.href);
+        downloadBlob(blob, (videoFile ? videoFile.name.replace(/\.[^.]+$/, '') : 'subtitle') + '.srt');
     });
 
     // ======================================================================
